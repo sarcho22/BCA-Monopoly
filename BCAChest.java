@@ -1,19 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Corner here.
+ * Write a description of class BCAChest here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Corner extends Space
+public class BCAChest extends Card
 {
-    
-    public Corner(String name, int spaceNumber, int[] players){
-        super(name, spaceNumber, players);
-    }
     /**
-     * Act - do whatever the Corner wants to do. This method is called whenever
+     * Act - do whatever the BCAChest wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 

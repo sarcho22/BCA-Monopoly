@@ -21,6 +21,10 @@ public class Board extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
         //filling the board with the correct spaces
+        //boardSpaces[0] = (Space) Go();
+        //boardSpaces[10] = (Space) Jail();
+        //boardSpaces[20] = (Space) Free();
+        //boardSpaces[30] = (Space) GoToJail();
         for (int i = 0; i < 40; i++){
             
         }
