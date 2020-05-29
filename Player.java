@@ -14,6 +14,7 @@ public class Player extends Actor
     public boolean inJail;
     public int[] playerProperties; //ints will be their indeces on the board
     public int[] getOutOfJailCards; //1 = card 0 = no card
+    public int[] mortagedProperties;
     public int money = 1500;
     
     public Player(String t, int space, String name){
