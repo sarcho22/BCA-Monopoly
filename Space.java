@@ -6,14 +6,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Space extends Actor
+public abstract class Space extends Actor
 {
-    /**
-     * Act - do whatever the Space wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+    public String name;
+    public int spaceNumber;
+    public int[] players;
+    public boolean occupied;
+    
+    public Space(String name, int spaceNumber, int[] players){
+        this.name = name;
+        this.spaceNumber = spaceNumber;
+        this.players = players;
+    }
+    
+    public void isOccupied(){
+        occupied = players.length > 0;
+    }
 }

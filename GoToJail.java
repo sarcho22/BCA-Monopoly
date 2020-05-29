@@ -1,19 +1,19 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Corner here.
+ * Write a description of class GoToJail here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Corner extends Space
+public class GoToJail extends Corner
 {
-    
-    public Corner(String name, int spaceNumber, int[] players){
-        super(name, spaceNumber, players);
+    public GoToJail(int[] players){
+        super("Go to Detention", 30, players);
+        //needs to add bonus to those that just landed or crossed it
     }
     /**
-     * Act - do whatever the Corner wants to do. This method is called whenever
+     * Act - do whatever the GoToJail wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
