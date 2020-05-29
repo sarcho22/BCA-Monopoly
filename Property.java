@@ -11,18 +11,21 @@ public class Property extends Space
 {
     public int price;
     public int mortgagePrice;
-    public Player owner;
+    public Player owner = null;
     public int rent;
     //public int houseCost; idk if we need these
     //public int hotelCost;
     public int numHouses = 0;
     public int numHotels = 0;
+    public int color;
+    public String[] COLORS = {"brown", "light blue", "purple", "orange", "red",
+        "yellow", "green", "dark blue"};
     /**
      * Act - do whatever the Property wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public Property(String name, int spaceNumber, int[] players, int price,
-        int mortgagePrice, int rent) {
+        int mortgagePrice, int rent, int color) {
         super(name, spaceNumber, players);
         this.price = price;
         this.mortgagePrice = mortgagePrice;
@@ -56,5 +59,11 @@ public class Property extends Space
         numHotels = 0;
     }
     
+    public void buildHouse(){
+        //check the conditions (probably when calling) and build the house
+    }
     
+    public void buildHotel(){
+        //check the conditions (probably when calling) and build the hotel
+    }
 }
