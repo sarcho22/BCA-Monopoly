@@ -1,4 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Write a description of class Property here.
@@ -18,18 +20,23 @@ public class Property extends Space
     public int numHouses = 0;
     public int numHotels = 0;
     public int color;
-    public String[] COLORS = {"brown", "light blue", "purple", "orange", "red",
-        "yellow", "green", "dark blue"};
+    public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "blank", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
+    
     /**
      * Act - do whatever the Property wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    
     public Property(String name, int spaceNumber, int[] players, int price,
-        int mortgagePrice, int rent, int color) {
+        int mortgagePrice, int rent, String belongsTo) {
         super(name, spaceNumber, players);
         this.price = price;
         this.mortgagePrice = mortgagePrice;
         this.rent = rent;
+        GreenfootImage image = new GreenfootImage(COLORS[spaceNumber] + "_property.png");
+        image.scale(image.getWidth()/4, image.getHeight()/4);
+        setImage(image);
+        
     }
     
     public void act() 

@@ -19,18 +19,76 @@ public class Board extends World
      */
     public Board()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(1000, 1000, 1); 
         startGame();
         //filling the board with the correct spaces
         //boardSpaces[0] = (Space) Go();
         //boardSpaces[10] = (Space) Jail();
         //boardSpaces[20] = (Space) Free();
         //boardSpaces[30] = (Space) GoToJail();
-        for (int i = 0; i < 40; i++){
+        int x = 860;
+        int y = 880;
+        
+        Property a = new Property("", 0, new int[1], 0, 0, 0, "");
+        addObject(a, x, y);
+        
+        int interval = 70;
+        
+        for(int i = 1; i < 10; i++) {
+            x -= interval;
+            if(i == 1) {
+                x -= 5;
+            }
+            a = new Property("", i, new int[1], 0, 0, 0, "");
+            addObject(a, x, y);
             
         }
-        play();
+        
+        x -= 73;
+        a = new Property("", 10, new int[1], 0, 0, 0, "");
+        addObject(a, x, y);
+        
+        for(int i = 11; i < 20; i++) {
+            y -= interval;
+            if(i == 11) {
+                y -= 5;
+            }
+            a = new Property("", i, new int[1], 0, 0, 0, "");
+            a.setRotation(90);
+            addObject(a, x, y);
+            
+        }
+        
+        y -= interval;
+        a = new Property("", 20, new int[1], 0, 0, 0, "");
+        addObject(a, x, y);
+        
+        for(int i = 21; i < 30; i++) {
+            if(i == 21) {
+                x += 5;
+            }
+            x += interval;
+            a = new Property("", i, new int[1], 0, 0, 0, "");
+            a.setRotation(180);
+            addObject(a, x, y);
+            
+        }
+        
+        x += interval;
+        a = new Property("", 30, new int[1], 0, 0, 0, "");
+        addObject(a, x, y);
+        
+        for(int i = 31; i < 40; i++) {
+            if(i == 31) {
+                y += 5;
+            }
+            y += interval;
+            a = new Property("", i, new int[1], 0, 0, 0, "");
+            a.setRotation(270);
+            addObject(a, x, y);
+            
+        }
+        
     }
     
     public void startGame(){
