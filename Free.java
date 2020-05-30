@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Free extends Corner
 {
     public Free(int[] players){
-        super("Commons", 20, players);
+        super("Commons", 20, players, "free");
         //needs to add bonus to those that just landed or crossed it
     }
     /**

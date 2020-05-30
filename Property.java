@@ -29,7 +29,7 @@ public class Property extends Space
     
     public Property(String name, int spaceNumber, int[] players, int price,
         int mortgagePrice, int rent, String belongsTo) {
-        super(name, spaceNumber, players);
+        super(name, spaceNumber, players, "property");
         this.price = price;
         this.mortgagePrice = mortgagePrice;
         this.rent = rent;
@@ -42,7 +42,11 @@ public class Property extends Space
     public void act() 
     {
         // Add your action code here.
-    }  
+    } 
+    
+    public Player getOwner(){
+        return owner;
+    }
     
     public boolean hasPlayer() {
         // returns if player isTouching property
@@ -51,7 +55,7 @@ public class Property extends Space
         return true;
     }
     
-    public void collectRent() {
+    public void collectRent(Player paying) {
         //probably subtracts (rent + (hotel * hotelRent)) from someone's money
     }
     

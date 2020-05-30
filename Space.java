@@ -12,14 +12,20 @@ public abstract class Space extends Actor
     public int spaceNumber;
     public int[] players;
     public boolean occupied;
+    public String type;
     
-    public Space(String name, int spaceNumber, int[] players){
+    public Space(String name, int spaceNumber, int[] players, String type){
         this.name = name;
         this.spaceNumber = spaceNumber;
         this.players = players;
+        this.type = type;
     }
     
     public void isOccupied(){
         occupied = players.length > 0;
+    }
+    
+    public String getType(){
+        return type;
     }
 }

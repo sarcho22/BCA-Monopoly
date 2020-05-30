@@ -1,19 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Jail here.
+ * Write a description of class Chance here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Jail extends Corner
+public class ChanceDeck extends Card
 {
-    public Jail(int[] players){
-        super("Detention", 10, players, "jail");
-        //needs to add bonus to those that just landed or crossed it
-    }
     /**
-     * Act - do whatever the Jail wants to do. This method is called whenever
+     * Act - do whatever the Chance wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 

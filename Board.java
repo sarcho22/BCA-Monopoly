@@ -10,7 +10,10 @@ public class Board extends World
 {
     public Space[] boardSpaces = new Space[40];
     public Dice dice = new Dice();
-    public int[] players;
+    public ChanceDeck chanceDeck = new ChanceDeck();
+    public BCAChest chestDeck = new BCAChest();
+    public Player[] players;
+    public int lastRoll;
     //Can we make ArrayLists here?
     //we can use this list to redisplay the board and keep track of 
     //where pieces are moving
@@ -99,34 +102,92 @@ public class Board extends World
     
     public void play(){
         while(players.length > 1){
-            for (int i = 0; i < players.length; i++){
+            for (int player = 0; player < players.length; player++){
                 if (players.length == 1)
                     break;
-                
+		int evens = 0;
+		boolean odd = false;
+		while (!odd && evens < 3){
+		    RollButton rb = new RollButton();
+		    addObject(rb, 900, 900);
+		    showText("Roll!", 900, 900);
+		    if(Greenfoot.mousePressed(rb)) {
+            	    	lastRoll = dice.roll(); 
+        	    }
+		    removeObject(rb);
+
+		    if (lastRoll % 2 == 0)
+			evens++;
+		    else
+			odd = true;
+
+		    if (evens == 3){
+			players[player].goToJail();
+			break;
+		    }
+
+		    for (int space = 0; space < lastRoll; space++){
+			players[player].moveOneSpace();
+			if (players[player].getCurrentSpace() == 0)
+				players[player].addMoney(((Go)boardSpaces[0]).getBonus());
+		    }
+		    //What space did they land on?
+		    Space curSpace = boardSpaces[players[player].getCurrentSpace()];
+		    String spaceType = curSpace.getType();
+		    if (spaceType.equals("property")){
+				if (((Property) curSpace).getOwner().equals(null)){
+					//property then asks if player wants to buy (allows if enough $)
+				}
+				else{
+					((Property) curSpace).collectRent(players[player]);
+				}
+
+				if (((Property) curSpace).getOwner().equals(players[player])){
+					//check if they own all other things of that color
+					//and the houses work out, offer to build house or 
+					//hotel
+				}
+		    }
+		    else if (spaceType.equals("utility")){
+				if (((Utility) curSpace).getOwner().equals(null)){
+					//property then asks if player wants to buy (allows if enough $)
+				}
+				else{
+					((Utility) curSpace).collectRent(players[player], lastRoll);
+				}
+		    }
+		    else if (spaceType.equals("railroad")){
+				if (((Railroad) curSpace).getOwner().equals(null)){
+					//property then asks if player wants to buy (allows if enough $)
+				}
+				else{
+					((Railroad) curSpace).collectRent(players[player]);
+				}
+		    }
+		    else if (spaceType.equals("chance")){
+				chanceDeck.draw();
+		    }
+		    else if (spaceType.equals("chest")){
+				chestDeck.draw();
+		    }
+		    else if (spaceType.equals("tax")){
+			((Taxes) curSpace).collectTax(players[player]);
+			//later make condition for if they don't have any money left
+			//that they need to mortgage
+		    }
+		    else if (spaceType.equals("gotojail")){
+			players[player].goToJail();
+		    }
+		}
             }
         }
-        //create a button "roll" which calls dice.roll()
-        //save the amount and move the player
-        //a conditional statement that checks if:
-            //any type of property that has an owner, you pay rent
-            //else if it has no owner
-            //property then asks if player wants to buy (allows if enough $)
-            //utility/railroad same
-            //chance/chest then draw a new card
-            //taxes or go lose/gain money
-            //if player out of money, asks to mortgage something
-            //if player landed on a color that they own completely ask to 
-                //build house or hotel (depending on what is appropriate)
-            //if go to jail send to jail (there is a method in player)
+
         //we wont due player-player trading for now
-        //if even, update counter, ask to re-roll 
-            //(if even three times then send to jail 
-            //immediately after the third roll without moving)
+        //jail protocol
             //ask if they want to use get out of jail if they have it
             //if they have ask for $50
             //3 next moves let them try to "roll-out" of it (have to roll even)
             //if they fail, force 50 even if they go bankrupt
             //if they got out of jail, move them to "just visiting"
-        //switch player number and go to the top
     }
 }
