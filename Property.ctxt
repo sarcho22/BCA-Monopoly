@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Property
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Property\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n\ HIHIHIHI\ DOES\ GITHUB\ DECIDE\ TO\ WORK\ TODAY\r\n
-comment1.params=name\ spaceNumber\ players\ price\ mortgagePrice\ rent\ color
-comment1.target=Property(java.lang.String,\ int,\ int[],\ int,\ int,\ int,\ int)
+comment1.params=name\ spaceNumber\ players\ price\ mortgagePrice\ rent\ belongsTo
+comment1.target=Property(java.lang.String,\ int,\ int[],\ int,\ int,\ int,\ java.lang.String)
 comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Property\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment2.params=
 comment2.target=void\ act()
