@@ -10,6 +10,7 @@ public class Board extends World
 {
     public Space[] boardSpaces = new Space[40];
     public Dice dice = new Dice();
+    public int[] players;
     //Can we make ArrayLists here?
     //we can use this list to redisplay the board and keep track of 
     //where pieces are moving
@@ -97,8 +98,13 @@ public class Board extends World
     }
     
     public void play(){
-        //make a while loop that keeps track if people won or not
-        //make a var that goes through the players cyclically
+        while(players.length > 1){
+            for (int i = 0; i < players.length; i++){
+                if (players.length == 1)
+                    break;
+                
+            }
+        }
         //create a button "roll" which calls dice.roll()
         //save the amount and move the player
         //a conditional statement that checks if:
