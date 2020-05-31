@@ -23,39 +23,39 @@ public class Board extends World
      */
     public Board()
     {    
-        super(1000, 1000, 1); 
+        super(1100, 700, 1); 
         startGame();
         //filling the board with the correct spaces
         //boardSpaces[0] = (Space) Go();
         //boardSpaces[10] = (Space) Jail();
         //boardSpaces[20] = (Space) Free();
         //boardSpaces[30] = (Space) GoToJail();
-        int x = 860;
-        int y = 880;
+        int x = 605;
+        int y = 640;
         
         Property a = new Property("", 0, new int[1], 0, 0, 0, "");
         addObject(a, x, y);
         
-        int interval = 70;
+        int interval = 56;
         
         for(int i = 1; i < 10; i++) {
             x -= interval;
             if(i == 1) {
-                x -= 5;
+                x -= 4;
             }
             a = new Property("", i, new int[1], 0, 0, 0, "");
             addObject(a, x, y);
             
         }
         
-        x -= 73;
+        x -= interval+4;
         a = new Property("", 10, new int[1], 0, 0, 0, "");
         addObject(a, x, y);
         
         for(int i = 11; i < 20; i++) {
             y -= interval;
             if(i == 11) {
-                y -= 5;
+                y -= 4;
             }
             a = new Property("", i, new int[1], 0, 0, 0, "");
             a.setRotation(90);
@@ -63,13 +63,13 @@ public class Board extends World
             
         }
         
-        y -= interval;
+        y -= interval+4;
         a = new Property("", 20, new int[1], 0, 0, 0, "");
         addObject(a, x, y);
         
         for(int i = 21; i < 30; i++) {
             if(i == 21) {
-                x += 5;
+                x += 4;
             }
             x += interval;
             a = new Property("", i, new int[1], 0, 0, 0, "");
@@ -78,13 +78,13 @@ public class Board extends World
             
         }
         
-        x += interval;
+        x += interval+4;
         a = new Property("", 30, new int[1], 0, 0, 0, "");
         addObject(a, x, y);
         
         for(int i = 31; i < 40; i++) {
             if(i == 31) {
-                y += 5;
+                y += 3;
             }
             y += interval;
             a = new Property("", i, new int[1], 0, 0, 0, "");

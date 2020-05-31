@@ -16,8 +16,11 @@ public class GoToJail extends Corner
      * Act - do whatever the GoToJail wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act() 
+    public void inJail() 
     {
         // Add your action code here.
+        for(int p : players) {
+        
+        }
     }    
 }
