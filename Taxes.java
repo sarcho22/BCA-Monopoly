@@ -11,14 +11,14 @@ public class Taxes extends Space
     public int amount;
     
     public Taxes(String name, int spaceNumber, int[] players, int amount){
-        super(name, spaceNumber, players);
+        super(name, spaceNumber, players, "tax");
         this.amount = amount;
     }
     /**
      * Act - do whatever the Taxes wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void takeTax() 
+    public void collectTax(Player paying) 
     {
         // takes the tax amount from the player
     }    

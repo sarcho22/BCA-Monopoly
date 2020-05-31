@@ -10,7 +10,7 @@ public class Chest extends Space
 {
     
     public Chest(String name, int spaceNumber, int[] players){
-        super(name, spaceNumber, players);
+        super(name, spaceNumber, players, "chest");
     }
     /**
      * Act - do whatever the Chest wants to do. This method is called whenever

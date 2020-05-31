@@ -14,7 +14,7 @@ public class Railroad extends Space
     public int rent;
     
     public Railroad(String name, int spaceNumber, int[] players, Player owner){
-        super(name, spaceNumber, players);
+        super(name, spaceNumber, players, "railroad");
         this.owner = owner;
         //rent = 25 * railOwned;
         //need to determine how many railroads its owner owns 
@@ -24,6 +24,14 @@ public class Railroad extends Space
      * Act - do whatever the Railroad wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    public Player getOwner(){
+        return owner;
+    }
+    
+    public void collectRent(Player paying){
+        
+    }
+    
     public void act() 
     {
         // Add your action code here.

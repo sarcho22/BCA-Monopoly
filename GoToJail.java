@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class GoToJail extends Corner
 {
     public GoToJail(int[] players){
-        super("Go to Detention", 30, players);
+        super("Go to Detention", 30, players, "gotojail");
         //needs to add bonus to those that just landed or crossed it
     }
     /**

@@ -31,5 +31,16 @@ public class Player extends Actor
     {
         inJail = true;
         //put them physically into the jail
-    }    
+    }
+    
+    public void addMoney(int amount){
+        
+    }
+    
+    public void moveOneSpace(){
+    }
+    
+    public int getCurrentSpace(){
+        return currentSpace;
+    }
 }

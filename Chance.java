@@ -10,7 +10,7 @@ public class Chance extends Space
 {
     
     public Chance(String name, int spaceNumber, int[] players){
-        super(name, spaceNumber, players);
+        super(name, spaceNumber, players, "chance");
     }
     /**
      * Act - do whatever the Chance wants to do. This method is called whenever
