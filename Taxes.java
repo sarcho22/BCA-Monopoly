@@ -20,6 +20,6 @@ public class Taxes extends Space
      */
     public void collectTax(Player paying) 
     {
-        // takes the tax amount from the player
+        paying.subMoney(amount);
     }    
 }

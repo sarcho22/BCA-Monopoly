@@ -56,7 +56,8 @@ public class Property extends Space
     }
     
     public void collectRent(Player paying) {
-        //probably subtracts (rent + (hotel * hotelRent)) from someone's money
+        owner.addMoney(rent);
+        paying.subMoney(rent);
     }
     
     public void purchase() {

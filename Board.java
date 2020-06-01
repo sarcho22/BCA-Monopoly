@@ -14,7 +14,6 @@ public class Board extends World
     public BCAChest chestDeck = new BCAChest();
     public Player[] players;
     public int lastRoll;
-    //Can we make ArrayLists here?
     //we can use this list to redisplay the board and keep track of 
     //where pieces are moving
     /**
@@ -105,80 +104,100 @@ public class Board extends World
             for (int player = 0; player < players.length; player++){
                 if (players.length == 1)
                     break;
-		int evens = 0;
-		boolean odd = false;
-		while (!odd && evens < 3){
-		    RollButton rb = new RollButton();
-		    addObject(rb, 900, 900);
-		    showText("Roll!", 900, 900);
-		    if(Greenfoot.mousePressed(rb)) {
-            	    	lastRoll = dice.roll(); 
-        	    }
-		    removeObject(rb);
+        int evens = 0;
+        boolean odd = false;
+        while (!odd && evens < 3){
+            RollButton rb = new RollButton();
+            addObject(rb, 900, 900);
+            showText("Roll!", 900, 900);
+            if(Greenfoot.mousePressed(rb)) {
+                        lastRoll = dice.roll(); 
+                }
+            removeObject(rb);
 
-		    if (lastRoll % 2 == 0)
-			evens++;
-		    else
-			odd = true;
+            if (lastRoll % 2 == 0)
+            evens++;
+            else
+            odd = true;
 
-		    if (evens == 3){
-			players[player].goToJail();
-			break;
-		    }
+            if (evens == 3){
+            players[player].goToJail();
+            break;
+            }
 
-		    for (int space = 0; space < lastRoll; space++){
-			players[player].moveOneSpace();
-			if (players[player].getCurrentSpace() == 0)
-				players[player].addMoney(((Go)boardSpaces[0]).getBonus());
-		    }
-		    //What space did they land on?
-		    Space curSpace = boardSpaces[players[player].getCurrentSpace()];
-		    String spaceType = curSpace.getType();
-		    if (spaceType.equals("property")){
-				if (((Property) curSpace).getOwner().equals(null)){
-					//property then asks if player wants to buy (allows if enough $)
-				}
-				else{
-					((Property) curSpace).collectRent(players[player]);
-				}
+            for (int space = 0; space < lastRoll; space++){
+            players[player].moveOneSpace();
+            if (players[player].getCurrentSpace() == 0)
+                players[player].addMoney(((Go)boardSpaces[0]).getBonus());
+            }
+            //What space did they land on?
+            Space curSpace = boardSpaces[players[player].getCurrentSpace()];
+            String spaceType = curSpace.getType();
+            if (spaceType.equals("property")){
+                if (((Property) curSpace).getOwner().equals(null)){
+                    //property then asks if player wants to buy (allows if enough $)
+                }
+                else{
+                    ((Property) curSpace).collectRent(players[player]);
+                }
 
-				if (((Property) curSpace).getOwner().equals(players[player])){
-					//check if they own all other things of that color
-					//and the houses work out, offer to build house or 
-					//hotel
-				}
-		    }
-		    else if (spaceType.equals("utility")){
-				if (((Utility) curSpace).getOwner().equals(null)){
-					//property then asks if player wants to buy (allows if enough $)
-				}
-				else{
-					((Utility) curSpace).collectRent(players[player], lastRoll);
-				}
-		    }
-		    else if (spaceType.equals("railroad")){
-				if (((Railroad) curSpace).getOwner().equals(null)){
-					//property then asks if player wants to buy (allows if enough $)
-				}
-				else{
-					((Railroad) curSpace).collectRent(players[player]);
-				}
-		    }
-		    else if (spaceType.equals("chance")){
-				chanceDeck.draw();
-		    }
-		    else if (spaceType.equals("chest")){
-				chestDeck.draw();
-		    }
-		    else if (spaceType.equals("tax")){
-			((Taxes) curSpace).collectTax(players[player]);
-			//later make condition for if they don't have any money left
-			//that they need to mortgage
-		    }
-		    else if (spaceType.equals("gotojail")){
-			players[player].goToJail();
-		    }
-		}
+                if (((Property) curSpace).getOwner().equals(players[player])){
+                    //check if they own all other things of that color
+                    //and the houses work out, offer to build house or 
+                    //hotel
+                }
+            }
+            else if (spaceType.equals("utility")){
+                if (((Utility) curSpace).getOwner().equals(null)){
+                    //property then asks if player wants to buy (allows if enough $)
+                }
+                else{
+                    int numUtils = 0;
+                    int[] propList = ((Utility) curSpace).getOwner().playerProperties;
+                    for (int i = 0; i < propList.length; i++){
+                        if (boardSpaces[propList[i]].getType().equals("utility")){
+                            numUtils++;
+                        }
+                    }
+                    if (numUtils == 1){
+                        ((Utility) curSpace).setBoth(false);
+                    }
+                    else{
+                        ((Utility) curSpace).setBoth(true);
+                    }
+                    ((Utility) curSpace).collectRent(players[player], lastRoll);
+                }
+            }
+            else if (spaceType.equals("railroad")){
+                if (((Railroad) curSpace).getOwner().equals(null)){
+                    //property then asks if player wants to buy (allows if enough $)
+                }
+                else{
+                    int numRoads = 0;
+                    int[] propList = ((Railroad) curSpace).getOwner().playerProperties;
+                    for (int i = 0; i < propList.length; i++){
+                        if (boardSpaces[propList[i]].getType().equals("railroad")){
+                            numRoads++;
+                        }
+                    }
+                    ((Railroad) curSpace).collectRent(players[player], numRoads);
+                }
+            }
+            else if (spaceType.equals("chance")){
+                chanceDeck.draw();
+            }
+            else if (spaceType.equals("chest")){
+                chestDeck.draw();
+            }
+            else if (spaceType.equals("tax")){
+            ((Taxes) curSpace).collectTax(players[player]);
+            //later make condition for if they don't have any money left
+            //that they need to mortgage
+            }
+            else if (spaceType.equals("gotojail")){
+            players[player].goToJail();
+            }
+        }
             }
         }
 
