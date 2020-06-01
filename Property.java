@@ -20,7 +20,7 @@ public class Property extends Space
     public int numHouses = 0;
     public int numHotels = 0;
     public int color;
-    public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "blank", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
+    public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "corner", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
     
     /**
      * Act - do whatever the Property wants to do. This method is called whenever
@@ -34,7 +34,7 @@ public class Property extends Space
         this.mortgagePrice = mortgagePrice;
         this.rent = rent;
         GreenfootImage image = new GreenfootImage(COLORS[spaceNumber] + "_property.png");
-        image.scale(image.getWidth()/4, image.getHeight()/4);
+        image.scale(image.getWidth()/5, image.getHeight()/5);
         setImage(image);
         
     }
@@ -56,7 +56,8 @@ public class Property extends Space
     }
     
     public void collectRent(Player paying) {
-        //probably subtracts (rent + (hotel * hotelRent)) from someone's money
+        owner.addMoney(rent);
+        paying.subMoney(rent);
     }
     
     public void purchase() {

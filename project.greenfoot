@@ -41,11 +41,19 @@ dependency8.type=UsesDependency
 dependency9.from=Board
 dependency9.to=Railroad
 dependency9.type=UsesDependency
+<<<<<<< HEAD
 editor.fx.0.height=0
 editor.fx.0.width=0
 editor.fx.0.x=0
 editor.fx.0.y=0
 height=1185
+=======
+editor.fx.0.height=737
+editor.fx.0.width=814
+editor.fx.0.x=360
+editor.fx.0.y=28
+height=838
+>>>>>>> bbda0eb946dde1b033ecaa4c80b77c377358f51c
 package.numDependencies=14
 package.numTargets=22
 project.charset=UTF-8
@@ -112,14 +120,22 @@ target15.width=80
 target15.x=0
 target15.y=0
 target16.height=50
+<<<<<<< HEAD
 target16.name=Taxes
+=======
+target16.name=ChanceDeck
+>>>>>>> bbda0eb946dde1b033ecaa4c80b77c377358f51c
 target16.showInterface=false
 target16.type=ClassTarget
-target16.width=80
+target16.width=90
 target16.x=0
 target16.y=0
 target17.height=50
+<<<<<<< HEAD
 target17.name=RollButton
+=======
+target17.name=Jail
+>>>>>>> bbda0eb946dde1b033ecaa4c80b77c377358f51c
 target17.showInterface=false
 target17.type=ClassTarget
 target17.width=80

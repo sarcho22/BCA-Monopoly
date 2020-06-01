@@ -37,6 +37,10 @@ public class Player extends Actor
         
     }
     
+    public void subMoney(int amount){
+        
+    }
+    
     public void moveOneSpace(){
     }
     

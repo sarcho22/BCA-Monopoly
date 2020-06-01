@@ -11,13 +11,10 @@ public class Utility extends Space
     public final int price = 150;
     public final int mortgagePrice = 75;
     public Player owner = null;
-    public int rent;
+    public boolean bothUtilities = false;
     
     public Utility(String name, int spaceNumber, int[] players, int dieRoll){
         super(name, spaceNumber, players, "utility");
-        //rent will be determined based on the dieroll and utilities owned
-        //one utility means rent = 4 * dieroll
-        //two means rent = 10 * dieroll
     }
     /**
      * Act - do whatever the Utility wants to do. This method is called whenever
@@ -29,10 +26,16 @@ public class Utility extends Space
     }
     
     public void collectRent(Player paying, int lastRoll){
+        int keyNum = 4;
+        if (bothUtilities){
+            keyNum = 10;
+        }
+        owner.addMoney(lastRoll * keyNum);
+        paying.subMoney(lastRoll * keyNum);
     }
     
-    public void act() 
+    public void setBoth(boolean both) 
     {
-        // Add your action code here.
+        bothUtilities = both;
     }    
 }

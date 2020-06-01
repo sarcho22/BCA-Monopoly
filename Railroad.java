@@ -11,14 +11,11 @@ public class Railroad extends Space
     public final int price = 200;
     public final int mortgagePrice = 100;
     public Player owner;
-    public int rent;
+    public int baseRent = 25;
     
     public Railroad(String name, int spaceNumber, int[] players, Player owner){
         super(name, spaceNumber, players, "railroad");
         this.owner = owner;
-        //rent = 25 * railOwned;
-        //need to determine how many railroads its owner owns 
-        //as a note, if fee = 0 you can buy it
     }
     /**
      * Act - do whatever the Railroad wants to do. This method is called whenever
@@ -28,8 +25,9 @@ public class Railroad extends Space
         return owner;
     }
     
-    public void collectRent(Player paying){
-        
+    public void collectRent(Player paying, int numRoads){
+        owner.addMoney(baseRent * numRoads);
+        paying.subMoney(baseRent * numRoads);
     }
     
     public void act() 
