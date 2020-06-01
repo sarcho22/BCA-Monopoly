@@ -13,6 +13,7 @@ public class Board extends World
     public ChanceDeck chanceDeck = new ChanceDeck();
     public BCAChest chestDeck = new BCAChest();
     public Player[] players;
+    public Player turn; //sorry I added this to keep track of whose turn it is
     public int lastRoll;
     //we can use this list to redisplay the board and keep track of 
     //where pieces are moving
@@ -32,7 +33,7 @@ public class Board extends World
         int x = 605;
         int y = 640;
         
-        Property a = new Property("", 0, new int[1], 0, 0, 0, "");
+        Property a = new Property("", 0, new int[1], 0, 0, 0, "", new int[1], 0);
         addObject(a, x, y);
         
         int interval = 56;
@@ -42,13 +43,13 @@ public class Board extends World
             if(i == 1) {
                 x -= 4;
             }
-            a = new Property("", i, new int[1], 0, 0, 0, "");
+            a = new Property("", i, new int[1], 0, 0, 0, "", new int[1], 0);
             addObject(a, x, y);
             
         }
         
         x -= interval+4;
-        a = new Property("", 10, new int[1], 0, 0, 0, "");
+        a = new Property("", 10, new int[1], 0, 0, 0, "", new int[1], 0);
         addObject(a, x, y);
         
         for(int i = 11; i < 20; i++) {
@@ -56,14 +57,14 @@ public class Board extends World
             if(i == 11) {
                 y -= 4;
             }
-            a = new Property("", i, new int[1], 0, 0, 0, "");
+            a = new Property("", i, new int[1], 0, 0, 0, "", new int[1], 0);
             a.setRotation(90);
             addObject(a, x, y);
             
         }
         
         y -= interval+4;
-        a = new Property("", 20, new int[1], 0, 0, 0, "");
+        a = new Property("", 20, new int[1], 0, 0, 0, "", new int[1], 0);
         addObject(a, x, y);
         
         for(int i = 21; i < 30; i++) {
@@ -71,14 +72,14 @@ public class Board extends World
                 x += 4;
             }
             x += interval;
-            a = new Property("", i, new int[1], 0, 0, 0, "");
+            a = new Property("", i, new int[1], 0, 0, 0, "", new int[1], 0);
             a.setRotation(180);
             addObject(a, x, y);
             
         }
         
         x += interval+4;
-        a = new Property("", 30, new int[1], 0, 0, 0, "");
+        a = new Property("", 30, new int[1], 0, 0, 0, "", new int[1], 0);
         addObject(a, x, y);
         
         for(int i = 31; i < 40; i++) {
@@ -86,7 +87,7 @@ public class Board extends World
                 y += 3;
             }
             y += interval;
-            a = new Property("", i, new int[1], 0, 0, 0, "");
+            a = new Property("", i, new int[1], 0, 0, 0, "", new int[1], 0);
             a.setRotation(270);
             addObject(a, x, y);
             
@@ -102,6 +103,7 @@ public class Board extends World
     public void play(){
         while(players.length > 1){
             for (int player = 0; player < players.length; player++){
+                turn = players[player];
                 if (players.length == 1)
                     break;
         int evens = 0;
@@ -142,9 +144,29 @@ public class Board extends World
                 }
 
                 if (((Property) curSpace).getOwner().equals(players[player])){
-                    //check if they own all other things of that color
-                    //and the houses work out, offer to build house or 
-                    //hotel
+                    String color = (((Property)curSpace).COLORS)[((Property)curSpace).color];
+                    int fullSet;
+                    if (color.equals("brown") || color.equals("dark_blue")) {
+                        fullSet = 2;
+                    }
+                    else {
+                        fullSet = 3;
+                    }
+                    int count = 0;
+                    for (int i : players[player].playerProperties) {
+                        Property p = ((Property)boardSpaces[i]);
+                        if (p.COLORS[p.color].equals(color)) {
+                            count++;
+                        }
+                    }
+                    if (count == fullSet) {
+                        if (((Property)curSpace).numHouses < 4) {
+                            //offer to buildHouse
+                        }
+                        else if (((Property)curSpace).numHotels < 1) {
+                            //offer to buildHotel
+                        }
+                    }
                 }
             }
             else if (spaceType.equals("utility")){

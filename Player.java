@@ -12,7 +12,7 @@ public class Player extends Actor
     public int currentSpace;
     public String name;
     public boolean inJail;
-    public int[] playerProperties; //ints will be their indeces on the board
+    public int[] playerProperties; //wait why isn't this a list of properties
     public int[] getOutOfJailCards; //1 = card 0 = no card
     public int[] mortagedProperties;
     public int money = 1500;
@@ -34,14 +34,16 @@ public class Player extends Actor
     }
     
     public void addMoney(int amount){
-        
+        money += amount;
     }
     
     public void subMoney(int amount){
-        
+        money -= amount;
     }
     
     public void moveOneSpace(){
+        //yeah we still gotta code the actual hopping
+        currentSpace += 1;
     }
     
     public int getCurrentSpace(){
