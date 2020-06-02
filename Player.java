@@ -62,4 +62,22 @@ public class Player extends Actor
     public int getMoney(){
         return money;
     }
+    
+    public boolean hasAMonopoly(String color) {
+        int fullSet; //the number of properties of the color required for a monopoly
+        if (color.equals("brown") || color.equals("dark_blue")) {
+             fullSet = 2;
+        }
+        else {
+             fullSet = 3;
+        }
+        int counter = 0;
+        for (int i : playerProperties) {
+            Property p = (Property)(((Board)getWorld()).boardSpaces[i]);
+            if(p.color.equals(color)) {
+                counter++;
+            }
+        }
+        return (counter==fullSet);
+    }
 }

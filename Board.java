@@ -11,9 +11,11 @@ public class Board extends World
     public Space[] boardSpaces = new Space[40];
     public Dice dice = new Dice();
     public ChanceDeck chanceDeck = new ChanceDeck();
-    public BCAChest chestDeck = new BCAChest();
+    public ChestDeck chestDeck = new ChestDeck();
     public Player[] players;
     public Player turn; //sorry I added this to keep track of whose turn it is
+    public int roll1;
+    public int roll2;
     public int lastRoll;
     //we can use this list to redisplay the board and keep track of 
     //where pieces are moving
@@ -33,7 +35,7 @@ public class Board extends World
         int x = 605;
         int y = 640;
         
-        Property a = new Property("", 0, 0, 0, 0);
+        Space a = new Go();
         addObject(a, x, y);
         
         int interval = 56;
@@ -49,7 +51,7 @@ public class Board extends World
         }
         
         x -= interval+4;
-        a = new Property("", 10, 0, 0, 0);
+        a = new Jail();
         addObject(a, x, y);
         
         for(int i = 11; i < 20; i++) {
@@ -64,7 +66,7 @@ public class Board extends World
         }
         
         y -= interval+4;
-        a = new Property("", 20, 0, 0, 0);
+        a = new Free();
         addObject(a, x, y);
         
         for(int i = 21; i < 30; i++) {
@@ -79,7 +81,7 @@ public class Board extends World
         }
         
         x += interval+4;
-        a = new Property("", 30, 0, 0, 0);
+        a = new GoToJail();
         addObject(a, x, y);
         
         for(int i = 31; i < 40; i++) {
@@ -92,6 +94,8 @@ public class Board extends World
             addObject(a, x, y);
             
         }
+        //2d array for rent of houses
+        //array for house properties (i.e. names) - like Colors
         
     }
     
@@ -108,10 +112,13 @@ public class Board extends World
     public void play() {
         //while more than one player remains (bankrupted people are removed) 
         //continue playing
+        chanceDeck.shuffle();
+        chestDeck.shuffle();
+        
         while(players.length > 1){
             //cycles through the players, allowing them to take turns one by one
             for (int player = 0; player < players.length; player++) {
-                turn = turn; //the player whose turn it is
+                turn = players[player]; //the player whose turn it is
                 //the if makes sure that there are still enough people not 
                 //bankrupt to play (because the amount of players can
                 //change within the for loop)
@@ -119,21 +126,23 @@ public class Board extends World
                     break;
                 }
                 //next we set up some variables to keep track of 
-                //the player rolling odds/evens
-                int evens = 0;
-                boolean odd = false;
-                //while they haven't rolled three evens the player can take their turn
-                while (!odd && evens < 3) {
-                    //this button will allow a player to roll the dice
-                    //it will be in the side bar
+                //the player rolling doubles/nondoubles
+                int doubles = 0;
+                boolean notDoubles = false;
+                // while they haven't rolled three doubles the player can take their turn
+                while (!notDoubles && doubles < 3) {
+                    // this button will allow a player to roll the dice
+                    // it will be in the side bar
                     RollButton rb = new RollButton();
                     addObject(rb, 900, 900); // random coordinates at the moment
                     showText("Roll!", 900, 900);
-                    //this is probably done a little wrong, I want it 
-                    //to continuously check for the player
-                    //clicking on it until they finally do
+                    // this is probably done a little wrong, I want it 
+                    // to continuously check for the player
+                    // clicking on it until they finally do
                     if(Greenfoot.mousePressed(rb)) {
-                        lastRoll = dice.roll(); 
+                        roll1 = dice.roll(); 
+                        roll2 = dice.roll();
+                        lastRoll = roll1 + roll2;
                     }
                     removeObject(rb); // I remove the button, 
                     //but it would probably be easier to gray it out
@@ -142,13 +151,13 @@ public class Board extends World
                     //evens to get in jail
                     //if yes, sends them to jail and breaks from the 
                     //while-loop that is their turn
-                    if (lastRoll % 2 == 0) {
-                        evens++;
+                    if (roll1 == roll2) {
+                        doubles++;
                     }
                     else {
-                        odd = true;
+                        notDoubles = true;
                     }
-                    if (evens == 3){
+                    if (doubles == 3){
                         turn.goToJail();
                         break;
                     }
@@ -175,31 +184,12 @@ public class Board extends World
                             //otherwise the property collects rent
                             ((Property) curSpace).collectRent(turn);
                         }
-                        //if the player owns the property they are on
-                        //MOST OF THIS CAN BE CODED IN PLAYER
-                        //for example, if we made a method that 
-                        //would check for monopolies
+                        
                         if (((Property) curSpace).getOwner().equals(turn)){
                             // checks property color
                             String color = ((Property)curSpace).COLORS[turn.getCurrentSpace()];
-                            int fullSet; //the number of properties of the color required for a monopoly
-                            if (color.equals("brown") || color.equals("dark_blue")) {
-                                fullSet = 2;
-                            }
-                            else {
-                                fullSet = 3;
-                            }
-                            //finds how many properties of the same color the player owns
-                            int count = 0;
-                            for (int i : turn.playerProperties) {
-                                Property p = ((Property)boardSpaces[i]);
-                                if (p.color.equals(color)) {
-                                    count++;
-                                }
-                            }
-                            //if they have a monopoly and the correct conditions
-                            //need to ask if enough money here (maybe)
-                            if (count == fullSet) {
+                            
+                            if (turn.hasAMonopoly(color)) {
                                 if (((Property)curSpace).numHouses < 4) {
                                     //offer to buildHouse
                                 }
@@ -264,6 +254,9 @@ public class Board extends World
                     }
                     else if (spaceType.equals("gotojail")){ 
                         turn.goToJail();
+                    }
+                    else if (spaceType.equals("free")){
+                        ((Free)curSpace).collectMoney();
                     }
                 }
             }

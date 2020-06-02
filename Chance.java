@@ -25,11 +25,5 @@ public class Chance extends Space
         //    drawChanceCard();
         //}
     }
-   
-    
-    public void drawChanceCard() {
-        //let's say we have 4 dif. chance cards
-        int ranDraw = (int)(Math.random() * 4);
-        ChanceCard card = deck.pick(ranDraw);
-    }
+  
 }

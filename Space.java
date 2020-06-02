@@ -11,11 +11,16 @@ public abstract class Space extends Actor
     public String name;
     public int spaceNumber;
     public String type;
+    public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "corner", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
     
     public Space(String name, int spaceNumber, String type){
         this.name = name;
         this.spaceNumber = spaceNumber;
         this.type = type;
+        
+        GreenfootImage image = new GreenfootImage(COLORS[spaceNumber] + "_property.png");
+        image.scale(image.getWidth()/5, image.getHeight()/5);
+        setImage(image);
     }
     
     public String getType(){
