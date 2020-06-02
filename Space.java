@@ -10,7 +10,6 @@ public abstract class Space extends Actor
 {
     public String name;
     public int spaceNumber;
-    public boolean occupied;
     public String type;
     
     public Space(String name, int spaceNumber, String type){

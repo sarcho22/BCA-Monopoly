@@ -12,8 +12,15 @@ public class Player extends Actor
     public int currentSpace;
     public String name;
     public boolean inJail;
-    public int[] playerProperties; //wait why isn't this a list of properties
-    public int[] getOutOfJailCards; //1 = card 0 = no card
+    //playerProperties is not a list of properties
+    //because it can include railroads and utilities
+    //so, we just store the indeces of everything the player
+    //currently owns (indeces of the space on the board)
+    public int[] playerProperties;
+    //there can be a max of 2 get out of jail cards
+    //so the list has length 2
+    //the values it stores: 1 = card 0 = no card
+    public int[] getOutOfJailCards = new int[2];
     public int[] mortagedProperties;
     public int money = 1500;
     
@@ -23,14 +30,12 @@ public class Player extends Actor
         this.name = name;
     }
     
-    /**
-     * Act - do whatever the Player wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void goToJail() 
     {
         inJail = true;
-        //put them physically into the jail
+        moveToSpace(10); 
+        // figure out how to put them in 
+        //physically into the jail
     }
     
     public void addMoney(int amount){
@@ -52,5 +57,9 @@ public class Player extends Actor
     
     public int getCurrentSpace(){
         return currentSpace;
+    }
+    
+    public int getMoney(){
+        return money;
     }
 }
