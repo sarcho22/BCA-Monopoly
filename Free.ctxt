@@ -9,5 +9,5 @@ comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Free\ wants\ to\ do.\ This\ metho
 comment3.params=
 comment3.target=void\ collectMoney()
 comment4.params=money
-comment4.target=void\ addJackpot(int)
+comment4.target=void\ addMoney(int)
 numComments=5

@@ -33,7 +33,7 @@ public class Free extends Corner
         //thats why this is here and not in act
     }
     
-    public void addJackpot(int money) {
+    public void addMoney(int money) {
         jackpot += money;
     }
 }

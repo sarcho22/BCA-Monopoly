@@ -16,11 +16,5 @@ public abstract class Card extends Actor
      * Act - do whatever the Card wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void draw() 
-    {
-        // draws the card from the deck
-        //displays it
-        //plays its properties
-        //returns the card to the bottom of the pile
-    }    
+       
 }

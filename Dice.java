@@ -15,7 +15,6 @@ public class Dice extends Actor
     public int roll() 
     {
         int die1 = (int) (Math.random() * 5) + 1;
-        int die2 = (int) (Math.random() * 5) + 1;
-        return die1 + die2;
+        return die1;
     }    
 }

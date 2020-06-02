@@ -8,7 +8,6 @@ comment2.params=
 comment2.target=Player\ getOwner()
 comment3.params=paying
 comment3.target=void\ collectRent(Player)
-comment3.text=public\ boolean\ hasPlayer()\ {\r\n\ \ \ \ \ \ \ \ //\ returns\ if\ player\ isTouching\ property\r\n\ \ \ \ \ \ \ \ //accesses\ the\ list\ of\ spaces\ in\ board\ and\ uses\ spaceNumber\ to\ \r\n\ \ \ \ \ \ \ \ //find\ the\ correct\ Space\ and\ request\ if\ it\ has\ any\ players\ on\ it\r\n\ \ \ \ \ \ \ \ for\ (Player\ p\ \:\ ((Board)getWorld()).players)\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ //checks\ if\ the\ player\ whose\ turn\ it\ is\ is\ on\ it\r\n\ \ \ \ \ \ \ \ \ \ \ \ if\ (p.getCurrentSpace()\ \=\=\ spaceNumber\ &&\ p.equals(((Board)getWorld()).turn))\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ true;\r\n\ \ \ \ \ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ return\ false;\r\n}
 comment4.params=
 comment4.target=void\ purchase()
 comment5.params=

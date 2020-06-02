@@ -21,5 +21,6 @@ public class Taxes extends Space
     public void collectTax(Player paying) 
     {
         paying.subMoney(amount);
+        ((Free)(((Board)getWorld()).boardSpaces[20])).addMoney(amount); // adds money to jackpot
     }    
 }

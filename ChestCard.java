@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class ChanceCard extends Card
+public class ChestCard extends Card
 {
     /**
      * Act - do whatever the Chance wants to do. This method is called whenever
@@ -15,7 +15,7 @@ public class ChanceCard extends Card
     public String message;
     public String action;
     
-    public ChanceCard (String message, String action) {
+    public ChestCard (String message, String action) {
         this.message = message;
         this.action = action;
     }
