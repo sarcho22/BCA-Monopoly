@@ -10,8 +10,8 @@ public class Free extends Corner
 {
     public int jackpot = 0;
     
-    public Free(int[] players){
-        super("Commons", 20, players, "free");
+    public Free(){
+        super("Commons", 20, "free");
         //needs to add bonus to those that just landed or crossed it
     }
     
@@ -25,10 +25,10 @@ public class Free extends Corner
     }   
     
     public void collectMoney() {
-        if (isOccupied()) {
-            Player p = ((Board)getWorld()).turn;
-            p.addMoney(jackpot);
-        }
+        //if (isOccupied()) { <--- use list of players and check individually instead
+        //    Player p = ((Board)getWorld()).turn;
+        //    p.addMoney(jackpot);
+        //}
         //see the thing I'm hesitant about is idk how isOccupied is gonna work
         //thats why this is here and not in act
     }

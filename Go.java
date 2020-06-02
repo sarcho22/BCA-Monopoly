@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Go extends Corner
 {
     public int bonus = 200;
-    public Go(int[] players){
-        super("Go", 0, players, "go");
+    public Go(){
+        super("Go", 0, "go");
         //needs to add bonus to those that just landed or crossed it
     }
     /**

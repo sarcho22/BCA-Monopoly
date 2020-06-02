@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class Corner extends Space
 {
     
-    public Corner(String name, int spaceNumber, int[] players, String type){
-        super(name, spaceNumber, players, type);
+    public Corner(String name, int spaceNumber, String type){
+        super(name, spaceNumber, type);
     }
     /**
      * Act - do whatever the Corner wants to do. This method is called whenever

@@ -10,8 +10,8 @@ public class Taxes extends Space
 {
     public int amount;
     
-    public Taxes(String name, int spaceNumber, int[] players, int amount){
-        super(name, spaceNumber, players, "tax");
+    public Taxes(String name, int spaceNumber, int amount){
+        super(name, spaceNumber, "tax");
         this.amount = amount;
     }
     /**

@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Chest extends Space
 {
     
-    public Chest(String name, int spaceNumber, int[] players){
-        super(name, spaceNumber, players, "chest");
+    public Chest(String name, int spaceNumber){
+        super(name, spaceNumber, "chest");
     }
     /**
      * Act - do whatever the Chest wants to do. This method is called whenever

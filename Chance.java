@@ -11,8 +11,8 @@ public class Chance extends Space
     
     public ChanceDeck deck = new ChanceDeck();
     
-    public Chance(String name, int spaceNumber, int[] players){
-        super(name, spaceNumber, players, "chance");
+    public Chance(String name, int spaceNumber){
+        super(name, spaceNumber, "chance");
     }
     /**
      * Act - do whatever the Chance wants to do. This method is called whenever
@@ -21,9 +21,9 @@ public class Chance extends Space
     public void act() 
     {
         // Add your action code here.
-        if (isOccupied()) {
-            drawChanceCard();
-        }
+        //if (isOccupied()) {     <-- walk through list of players and check if any of their current spaces are the current property or something
+        //    drawChanceCard();
+        //}
     }
    
     

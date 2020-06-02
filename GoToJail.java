@@ -8,8 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GoToJail extends Corner
 {
-    public GoToJail(int[] players){
-        super("Go to Detention", 30, players, "gotojail");
+    public GoToJail(){
+        super("Go to Detention", 30, "gotojail");
         //needs to add bonus to those that just landed or crossed it
     }
     /**
@@ -19,10 +19,10 @@ public class GoToJail extends Corner
     public void inJail() 
     {
         // Add your action code here.
-        for(int p : players) {
+        //for(int p : ) { <--- use the list of Players from the board or something
             //code to move player image to the jail spot
             //for each player, call moveToSpace(11);
         
-        }
+        //}
     }    
 }

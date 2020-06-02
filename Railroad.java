@@ -13,8 +13,8 @@ public class Railroad extends Space
     public Player owner;
     public int baseRent = 25;
     
-    public Railroad(String name, int spaceNumber, int[] players, Player owner){
-        super(name, spaceNumber, players, "railroad");
+    public Railroad(String name, int spaceNumber, Player owner){
+        super(name, spaceNumber, "railroad");
         this.owner = owner;
     }
     /**

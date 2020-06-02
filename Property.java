@@ -20,7 +20,7 @@ public class Property extends Space
     //public int hotelCost;
     public int numHouses = 0;
     public int numHotels = 0;
-    public int color;
+    public String color;
     public int[] houseRents;
     public int housePrice;
     public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "corner", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
@@ -30,16 +30,16 @@ public class Property extends Space
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    public Property(String name, int spaceNumber, int[] players, int price,
-        int mortgagePrice, int rent, String belongsTo, int[] houseRents, int housePrice) {
-        super(name, spaceNumber, players, "property");
+    public Property(String name, int spaceNumber, int price,
+        int mortgagePrice, int rent, String belongsTo, int[] houseRents) {
+        super(name, spaceNumber, "property");
         this.price = price;
         this.mortgagePrice = mortgagePrice;
         this.rent = rent;
         this.spaceNumber = spaceNumber;
-        this.color = spaceNumber;
+        this.color = COLORS[spaceNumber];
         this.houseRents = houseRents;
-        this.housePrice = housePrice;
+        
         GreenfootImage image = new GreenfootImage(COLORS[spaceNumber] + "_property.png");
         image.scale(image.getWidth()/5, image.getHeight()/5);
         setImage(image);
@@ -71,6 +71,8 @@ public class Property extends Space
     public void collectRent(Player paying) {
         int payment = 0;
         if (numHouses == 0) {
+            // this isn't necessarily true cuz if you have all 2 or 3 properties of a set
+            // the rent is doubled as long as there are no houses <-- im pretty sure???
             payment = rent;
         }
         else {
@@ -97,6 +99,11 @@ public class Property extends Space
     }
     
     public void buildHouse(){
+        // for here, instead of checking conditions, we can just gray out the button to buildHouses
+        // on the menu or something i guess????? hMMmMMm
+        // don't update rent here cuz we probs gonna have a method that does that for us
+        // maybe we can use the numHouses thing??
+        
         //we should probs add an image for a house
         //check the conditions (when calling) and build the house
         numHouses++;
@@ -104,7 +111,12 @@ public class Property extends Space
     }
     
     public void buildHotel(){
-        //check the conditions (probably when calling) and build the hotel
+        // for here, instead of checking conditions, we can just gray out the button to buildHotel
+        // on the menu or something i guess????? hMMmMMm
+        // don't update rent here cuz we probs gonna have a method that does that for us
+        // maybe we can use the numHotels thing??
+        
+        
         numHotels++;
     }
 }

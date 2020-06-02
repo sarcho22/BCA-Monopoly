@@ -13,8 +13,8 @@ public class Utility extends Space
     public Player owner = null;
     public boolean bothUtilities = false;
     
-    public Utility(String name, int spaceNumber, int[] players, int dieRoll){
-        super(name, spaceNumber, players, "utility");
+    public Utility(String name, int spaceNumber, int dieRoll){
+        super(name, spaceNumber, "utility");
     }
     /**
      * Act - do whatever the Utility wants to do. This method is called whenever

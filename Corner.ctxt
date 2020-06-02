@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Corner
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Corner\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=name\ spaceNumber\ players\ type
-comment1.target=Corner(java.lang.String,\ int,\ int[],\ java.lang.String)
+comment1.params=name\ spaceNumber\ type
+comment1.target=Corner(java.lang.String,\ int,\ java.lang.String)
 comment2.params=
 comment2.target=void\ act()
 comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Corner\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
