@@ -20,6 +20,8 @@ public class GoToJail extends Corner
     {
         // Add your action code here.
         for(int p : players) {
+            //code to move player image to the jail spot
+            //for each player, call moveToSpace(11);
         
         }
     }    

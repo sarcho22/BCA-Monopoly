@@ -21,8 +21,8 @@ public abstract class Space extends Actor
         this.type = type;
     }
     
-    public void isOccupied(){
-        occupied = players.length > 0;
+    public boolean isOccupied(){
+        return(players.length > 0);
     }
     
     public String getType(){

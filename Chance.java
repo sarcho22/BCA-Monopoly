@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Chance extends Space
 {
     
+    public ChanceDeck deck = new ChanceDeck();
+    
     public Chance(String name, int spaceNumber, int[] players){
         super(name, spaceNumber, players, "chance");
     }
@@ -19,5 +21,15 @@ public class Chance extends Space
     public void act() 
     {
         // Add your action code here.
-    }    
+        if (isOccupied()) {
+            drawChanceCard();
+        }
+    }
+   
+    
+    public void drawChanceCard() {
+        //let's say we have 4 dif. chance cards
+        int ranDraw = (int)(Math.random() * 4);
+        ChanceCard card = deck.pick(ranDraw);
+    }
 }
