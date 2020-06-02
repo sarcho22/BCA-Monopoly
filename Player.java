@@ -46,6 +46,10 @@ public class Player extends Actor
         currentSpace += 1;
     }
     
+    public void moveToSpace(int spaceNumber) {
+        currentSpace = spaceNumber;
+    }
+    
     public int getCurrentSpace(){
         return currentSpace;
     }

@@ -8,10 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Free extends Corner
 {
+    public int jackpot = 0;
+    
     public Free(int[] players){
         super("Commons", 20, players, "free");
         //needs to add bonus to those that just landed or crossed it
     }
+    
     /**
      * Act - do whatever the Free wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -19,5 +22,18 @@ public class Free extends Corner
     public void act() 
     {
         // Add your action code here.
-    }    
+    }   
+    
+    public void collectMoney() {
+        if (isOccupied()) {
+            Player p = ((Board)getWorld()).turn;
+            p.addMoney(jackpot);
+        }
+        //see the thing I'm hesitant about is idk how isOccupied is gonna work
+        //thats why this is here and not in act
+    }
+    
+    public void addJackpot(int money) {
+        jackpot += money;
+    }
 }
