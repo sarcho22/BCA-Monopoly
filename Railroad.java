@@ -28,10 +28,5 @@ public class Railroad extends Space
     public void collectRent(Player paying, int numRoads){
         owner.addMoney(baseRent * numRoads);
         paying.subMoney(baseRent * numRoads);
-    }
-    
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+    } 
 }

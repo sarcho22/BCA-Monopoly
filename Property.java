@@ -16,13 +16,10 @@ public class Property extends Space
     public int spaceNumber;
     public Player owner = null;
     public int rent;
-    //public int houseCost; idk if we need these
-    //public int hotelCost;
     public int numHouses = 0;
-    public int numHotels = 0;
+    public boolean hotel = false; // there can only be 1 hotel
     public String color;
-    public int[] houseRents;
-    public int housePrice;
+    public int[] houseRents = {rent * 5, rent * 15, rent * 45}; //the rent of the 4th house is strange, can't figure it out
     public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "corner", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
     
     /**
@@ -31,7 +28,7 @@ public class Property extends Space
      */
     
     public Property(String name, int spaceNumber, int price,
-        int mortgagePrice, int rent, String belongsTo, int[] houseRents) {
+        int mortgagePrice, int rent) {
         super(name, spaceNumber, "property");
         this.price = price;
         this.mortgagePrice = mortgagePrice;
@@ -46,16 +43,12 @@ public class Property extends Space
         
     }
     
-    public void act() 
-    {
-        // Add your action code here.
-    } 
-    
     public Player getOwner(){
         return owner;
     }
     
-    public boolean hasPlayer() {
+    //I DO NOT THINK THAT WE NEED THIS
+    /*public boolean hasPlayer() {
         // returns if player isTouching property
         //accesses the list of spaces in board and uses spaceNumber to 
         //find the correct Space and request if it has any players on it
@@ -66,19 +59,21 @@ public class Property extends Space
             }
         }
         return false;
-    }
+    }*/
     
     public void collectRent(Player paying) {
         int payment = 0;
-        if (numHouses == 0) {
-            // this isn't necessarily true cuz if you have all 2 or 3 properties of a set
-            // the rent is doubled as long as there are no houses <-- im pretty sure???
+        if (hotel){
+            
+        }
+        else if(numHouses == 0) {
+            // checks if there is a monopoly
+            //for the color of the property
+            //for the appropriate Player owner
+            //if yes pay: rent * 2 else rent
             payment = rent;
         }
         else {
-            //YOYOYOYO PAY ATTENTION TO THIS
-            //IF YOU GUYS DO HOUSERENTS MAKE SURE THE 0TH VALUE IS THE AMOUNT
-            //YOU WOULD PAY IF YOU HAD 1 HOUSE
             payment = houseRents[numHouses-1];
         }
         owner.addMoney(payment);
@@ -86,37 +81,37 @@ public class Property extends Space
     }
     
     public void purchase() {
-        //subtracts cost from player's money
         //changes String owner to whichever player's turn it is
         owner = ((Board)getWorld()).turn;
         owner.subMoney(price);
+        //we would need to add it to the player's properties
+        //owner.playerProperties
     }
     
     public void mortgage() {
-        owner = null;
+        //we have to remove the capability to collect rent
+        //but it does not break monopolies
         numHouses = 0;
-        numHotels = 0;
+        hotel = false;
+        //add to the player's mortgaged properties list
     }
     
     public void buildHouse(){
-        // for here, instead of checking conditions, we can just gray out the button to buildHouses
-        // on the menu or something i guess????? hMMmMMm
-        // don't update rent here cuz we probs gonna have a method that does that for us
-        // maybe we can use the numHouses thing??
+        //THE SAME FOR THE HOTEL
+        //there will be a build house button that is always 
+        //gray, unless the conditions 
         
         //we should probs add an image for a house
-        //check the conditions (when calling) and build the house
+        //in a new class with just the image probably
+        //conditions are checked before calling 
+        //(need to make sure the money condition is checked)
         numHouses++;
-        owner.subMoney(housePrice);
+        owner.subMoney(50 * ((spaceNumber % 10) + 1));
     }
     
     public void buildHotel(){
-        // for here, instead of checking conditions, we can just gray out the button to buildHotel
-        // on the menu or something i guess????? hMMmMMm
-        // don't update rent here cuz we probs gonna have a method that does that for us
-        // maybe we can use the numHotels thing??
         
-        
-        numHotels++;
+        owner.subMoney(50 * ((spaceNumber % 10) + 1));
+        hotel = true;
     }
 }
