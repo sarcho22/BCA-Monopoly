@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class Card extends Actor
 {
     public String text;
-    public int fixed;
-    public int calculated;
+    public int fixed; //if the card has a fixed fee
+    public int calculated; // if you have to calculate the fee
     
     /**
      * Act - do whatever the Card wants to do. This method is called whenever
