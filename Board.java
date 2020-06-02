@@ -43,13 +43,13 @@ public class Board extends World
             if(i == 1) {
                 x -= 4;
             }
-            a = new Property("", 0, 0, 0, 0, "", new int[1]);
+            a = new Property("", i, 0, 0, 0, "", new int[1]);
             addObject(a, x, y);
             
         }
         
         x -= interval+4;
-        a = new Property("", 0, 0, 0, 0, "", new int[1]);
+        a = new Property("", 10, 0, 0, 0, "", new int[1]);
         addObject(a, x, y);
         
         for(int i = 11; i < 20; i++) {
@@ -57,14 +57,14 @@ public class Board extends World
             if(i == 11) {
                 y -= 4;
             }
-            a = new Property("", 0, 0, 0, 0, "", new int[1]);
+            a = new Property("", i, 0, 0, 0, "", new int[1]);
             a.setRotation(90);
             addObject(a, x, y);
             
         }
         
         y -= interval+4;
-        a = new Property("", 0, 0, 0, 0, "", new int[1]);
+        a = new Property("", 20, 0, 0, 0, "", new int[1]);
         addObject(a, x, y);
         
         for(int i = 21; i < 30; i++) {
@@ -72,14 +72,14 @@ public class Board extends World
                 x += 4;
             }
             x += interval;
-            a = new Property("", 0, 0, 0, 0, "", new int[1]);
+            a = new Property("", i, 0, 0, 0, "", new int[1]);
             a.setRotation(180);
             addObject(a, x, y);
             
         }
         
         x += interval+4;
-        a = new Property("", 0, 0, 0, 0, "", new int[1]);
+        a = new Property("", 30, 0, 0, 0, "", new int[1]);
         addObject(a, x, y);
         
         for(int i = 31; i < 40; i++) {
@@ -87,7 +87,7 @@ public class Board extends World
                 y += 3;
             }
             y += interval;
-            a = new Property("", 0, 0, 0, 0, "", new int[1]);
+            a = new Property("", i, 0, 0, 0, "", new int[1]);
             a.setRotation(270);
             addObject(a, x, y);
             
