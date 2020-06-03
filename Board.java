@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
+import java.util.Arrays;
 /**
  * Write a description of class Board here.
  * 
@@ -23,15 +24,11 @@ public class Board extends World
      * Constructor for objects of class Board.
      * 
      */
-    public Board()
+    public Board(/*ArrayList<String> p*/)
     {    
         super(1100, 700, 1); 
-        startGame();
-        //filling the board with the correct spaces
-        //boardSpaces[0] = (Space) Go();
-        //boardSpaces[10] = (Space) Jail();
-        //boardSpaces[20] = (Space) Free();
-        //boardSpaces[30] = (Space) GoToJail();
+        //startGame(p);
+        
         int x = 605;
         int y = 640;
         
@@ -99,7 +96,7 @@ public class Board extends World
         
     }
     
-    public void startGame(){
+    public void startGame(ArrayList<String> play){
         //starts game asking for how many players, their names and tokens
         //creates players with this information
         
@@ -107,6 +104,10 @@ public class Board extends World
         // for the tokens, later as a step 2 goal, i wanna make it so that instead of just
         // clicking the token they want, we can press arrow buttons on left and right
         // to scroll to the next token cuz i think that would be cool :3
+        
+        for(int i = 0; i < play.size(); i++) {
+            // Player p = new Player();
+        }
     }
     
     public void play() {

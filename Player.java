@@ -26,8 +26,9 @@ public class Player extends Actor
     
     public Player(String t, int space, String name){
         currentSpace = space;
-        token = t;
+        this.token = t;
         this.name = name;
+        setImage(this.token + "_token_smaller.png");
     }
     
     public void goToJail() 
