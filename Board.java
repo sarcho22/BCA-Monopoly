@@ -24,7 +24,7 @@ public class Board extends World
      * Constructor for objects of class Board.
      * 
      */
-    public Board(/*ArrayList<String> p*/)
+    public Board(ArrayList<String> p, ArrayList<String> w)
     {    
         super(1100, 700, 1); 
         //startGame(p);

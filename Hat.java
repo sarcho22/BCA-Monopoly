@@ -13,6 +13,7 @@ public class Hat extends TokenButton
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public String name;
+    public boolean pressedOnce = false;
     
     public Hat(String player) {
         this.name = player;
@@ -21,9 +22,13 @@ public class Hat extends TokenButton
     public void act() 
     {
         // Add your action code here.
-        if(Greenfoot.mousePressed(this)) {
-            super.hat = true;
-            super.updateTaken(name, "hat");
+        if(!pressedOnce){
+            if(Greenfoot.mousePressed(this)) {
+                ((StartingMenu)getWorld()).t.hat = true;
+                ((StartingMenu)getWorld()).t.updateTaken(name, "hat");
+                pressedOnce = true;
+            }
+            
         }
     }    
 }

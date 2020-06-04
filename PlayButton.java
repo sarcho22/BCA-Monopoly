@@ -9,23 +9,11 @@ import java.util.ArrayList;
 public class PlayButton extends Actor
 {
     public ArrayList<String> players = new ArrayList<>();
+    public ArrayList<String> tokens = new ArrayList<>();
     
-    public PlayButton(String p1, String p2, String p3, String p4) {
-        if(p1 != null) {
-            players.add(p1);
-        }
-        
-        if(p2 != null) {
-            players.add(p2);
-        }
-        
-        if(p3 != null) {
-            players.add(p3);
-        }
-        
-        if(p4 != null) {
-            players.add(p4);
-        }
+    public PlayButton(ArrayList<String> p, ArrayList<String> t) {
+        this.players = p;
+        this.tokens = t;
         
     }
     
@@ -45,7 +33,7 @@ public class PlayButton extends Actor
                 ((StartingMenu)getWorld()).showText("don't you think it's a little sad to play by yourself???", 550, 200);
             }
             else {
-                Board play = new Board(/*players*/);
+                Board play = new Board(players, tokens);
                 // Greenfoot.stop(); owo
                 Greenfoot.setWorld(play);
             }
