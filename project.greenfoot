@@ -113,10 +113,17 @@ dependency8.type=UsesDependency
 dependency9.from=Board
 dependency9.to=Free
 dependency9.type=UsesDependency
+<<<<<<< HEAD
 editor.fx.0.height=0
 editor.fx.0.width=0
 editor.fx.0.x=0
 editor.fx.0.y=0
+=======
+editor.fx.0.height=838
+editor.fx.0.width=1550
+editor.fx.0.x=-7
+editor.fx.0.y=-7
+>>>>>>> ef34dfdf3ccb28e80b6a617d96da2895347c4f98
 height=838
 package.numDependencies=36
 package.numTargets=29
@@ -339,6 +346,10 @@ target9.x=0
 target9.y=0
 version=3.0.0
 width=1550
+<<<<<<< HEAD
 world.lastInstantiated=Board
+=======
+world.lastInstantiated=StartingMenu
+>>>>>>> ef34dfdf3ccb28e80b6a617d96da2895347c4f98
 xPosition=0
 yPosition=0
