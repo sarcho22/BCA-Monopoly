@@ -14,10 +14,12 @@ public class ChestCard extends Card
      */
     public String message;
     public String action;
+    public int amount;
     
-    public ChestCard (String message, String action) {
+    public ChestCard (String message, String action, int amount) {
         this.message = message;
         this.action = action;
+        this.amount = amount;
     }
     
     public void act() 
@@ -27,10 +29,23 @@ public class ChestCard extends Card
     
     public void doAction() {
         switch(action) {
-            case "add 20": //THESE ARE PLACEHOLDERS
-                //add money or whatever
+            case "add": 
+                //add money
                 break;
-            case "sub 20": //THESE CAN BE CHANGED
+            case "sub":
+                break;
+            case "free":
+                //add a get out of jail card to the player
+                break;
+            case "jail":
+                break;
+            case "b-day":
+                //collect $10 from each player
+                break;
+            case "go":
+                break;
+            case "repairs":
+                //pay $40 for each house and $115 per hotel (for all buildings)
                 break;
             default:
                 break;
