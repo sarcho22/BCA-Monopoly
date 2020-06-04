@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import javax.swing.JOptionPane;
+
 /**
  * Write a description of class StartingMenu here.
  * 
@@ -19,26 +19,34 @@ public class StartingMenu extends World
     public String p4;
     
     public StartingMenu()
-    {   
+    {
         super(1100, 700, 1);
         TokenButton t = new TokenButton();
         
-        this.p1 = JOptionPane.showInputDialog("Player 1: Enter a name (leave blank if n/a)");
+        // To remind myself: the reason why we're having this error is because
+        // We're in the constructor of the StartingMenu rn, so startingmenu
+        // hasn't been created, and cuz of that, getWorld() isn't working.
+        // we probably need to move this code out of the constructor owoowowowoo
+        // omnomnomnom eat the oms
+        // and to solve that problem, we can probs just put all of this interaction
+        // stuff in the play button, so that once u click it, all of the below
+        // shows up. All i did just now was change the Text field thingies to ask
+        this.p1 = Greenfoot.ask("Player 1: Enter a name (leave blank if n/a)");
         if(p1 != null) {
             t.showButtons(p1);
         }
         
-        this.p2 = JOptionPane.showInputDialog("Player 2: Enter a name (leave blank if n/a)");
+        this.p2 = Greenfoot.ask("Player 2: Enter a name (leave blank if n/a)");
         if(p2 != null) {
             t.showButtons(p2);
         }
         
-        this.p3 = JOptionPane.showInputDialog("Player 3: Enter a name (leave blank if n/a)");
+        this.p3 = Greenfoot.ask("Player 3: Enter a name (leave blank if n/a)");
         if(p3 != null) {
             t.showButtons(p3);
         }
         
-        this.p4 = JOptionPane.showInputDialog("Player 4: Enter a name (leave blank if n/a)");
+        this.p4 = Greenfoot.ask("Player 4: Enter a name (leave blank if n/a)");
         if(p4 != null) {
             t.showButtons(p4);
         }
