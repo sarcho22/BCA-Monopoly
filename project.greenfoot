@@ -23,22 +23,6 @@ dependency13.type=UsesDependency
 dependency14.from=Board
 dependency14.to=Taxes
 dependency14.type=UsesDependency
-<<<<<<< HEAD
-dependency15.from=Railroad
-dependency15.to=Player
-dependency15.type=UsesDependency
-dependency16.from=Chance
-dependency16.to=ChanceDeck
-dependency16.type=UsesDependency
-dependency17.from=Utility
-dependency17.to=Player
-dependency17.type=UsesDependency
-dependency18.from=Taxes
-dependency18.to=Player
-dependency18.type=UsesDependency
-dependency19.from=Taxes
-dependency19.to=Free
-=======
 dependency15.from=StartingMenu
 dependency15.to=TokenButton
 dependency15.type=UsesDependency
@@ -53,34 +37,10 @@ dependency18.to=Board
 dependency18.type=UsesDependency
 dependency19.from=Utility
 dependency19.to=Player
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 dependency19.type=UsesDependency
 dependency2.from=Board
 dependency2.to=Dice
 dependency2.type=UsesDependency
-<<<<<<< HEAD
-dependency20.from=Taxes
-dependency20.to=Board
-dependency20.type=UsesDependency
-dependency21.from=Property
-dependency21.to=Player
-dependency21.type=UsesDependency
-dependency22.from=Property
-dependency22.to=Board
-dependency22.type=UsesDependency
-dependency23.from=Player
-dependency23.to=Property
-dependency23.type=UsesDependency
-dependency24.from=Player
-dependency24.to=Board
-dependency24.type=UsesDependency
-dependency25.from=ChestDeck
-dependency25.to=ChestCard
-dependency25.type=UsesDependency
-dependency26.from=ChanceDeck
-dependency26.to=ChanceCard
-dependency26.type=UsesDependency
-=======
 dependency20.from=Property
 dependency20.to=Player
 dependency20.type=UsesDependency
@@ -111,7 +71,6 @@ dependency28.type=UsesDependency
 dependency29.from=TokenButton
 dependency29.to=Car
 dependency29.type=UsesDependency
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 dependency3.from=Board
 dependency3.to=ChanceDeck
 dependency3.type=UsesDependency
@@ -158,15 +117,9 @@ editor.fx.0.height=0
 editor.fx.0.width=0
 editor.fx.0.x=0
 editor.fx.0.y=0
-<<<<<<< HEAD
 height=838
-package.numDependencies=26
-package.numTargets=23
-=======
-height=744
 package.numDependencies=36
 package.numTargets=29
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 project.charset=UTF-8
 publish.hasSource=false
 publish.locked=true
@@ -189,39 +142,24 @@ target1.width=80
 target1.x=0
 target1.y=0
 target10.height=50
-<<<<<<< HEAD
-target10.name=Free
-=======
 target10.name=Dog
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 target10.showInterface=false
 target10.type=ClassTarget
 target10.width=80
 target10.x=0
 target10.y=0
 target11.height=50
-<<<<<<< HEAD
-target11.name=Card
-=======
 target11.name=Property
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 target11.showInterface=false
-target11.type=AbstractTarget
+target11.type=ClassTarget
 target11.width=80
 target11.x=0
 target11.y=0
 target12.height=50
-<<<<<<< HEAD
-target12.name=Chance
-target12.showInterface=false
-target12.type=ClassTarget
-target12.width=80
-=======
 target12.name=StartingMenu
 target12.showInterface=false
 target12.type=ClassTarget
 target12.width=100
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 target12.x=0
 target12.y=0
 target13.height=50
@@ -239,24 +177,16 @@ target14.width=90
 target14.x=0
 target14.y=0
 target15.height=50
-<<<<<<< HEAD
-target15.name=ChestDeck
-=======
 target15.name=Space
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 target15.showInterface=false
-target15.type=ClassTarget
+target15.type=AbstractTarget
 target15.width=80
 target15.x=0
 target15.y=0
 target16.height=50
-<<<<<<< HEAD
-target16.name=Corner
-=======
 target16.name=Player
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 target16.showInterface=false
-target16.type=AbstractTarget
+target16.type=ClassTarget
 target16.width=80
 target16.x=0
 target16.y=0
@@ -401,18 +331,14 @@ target8.width=80
 target8.x=0
 target8.y=0
 target9.height=50
-<<<<<<< HEAD
-target9.name=ChestCard
-=======
 target9.name=PlayButton
->>>>>>> 2a0fad8e95c8750b180164a35d86e9b07522b3b0
 target9.showInterface=false
 target9.type=ClassTarget
 target9.width=80
 target9.x=0
 target9.y=0
 version=3.0.0
-width=1382
+width=1550
 world.lastInstantiated=Board
 xPosition=0
 yPosition=0
