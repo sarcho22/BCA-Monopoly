@@ -26,13 +26,17 @@ public class Board extends World
      */
     public Board(ArrayList<String> p, ArrayList<String> w)
     {    
+        
         super(1100, 700, 1); 
-        //startGame(p);
+        
+        
+        startGame(p, w);
         
         int x = 605;
         int y = 640;
         
         Space a = new Go();
+        boardSpaces[0] = a;
         addObject(a, x, y);
         
         int interval = 56;
@@ -44,7 +48,6 @@ public class Board extends World
             }
             a = new Property("", i, 0, 0, 0);
             addObject(a, x, y);
-            
         }
         
         x -= interval+4;
@@ -93,26 +96,39 @@ public class Board extends World
         }
         //2d array for rent of houses
         //array for house properties (i.e. names) - like Colors
-        
+        play();
     }
     
-    public void startGame(ArrayList<String> play){
-        //starts game asking for how many players, their names and tokens
-        //creates players with this information
+    public void startGame(ArrayList<String> playerNames, ArrayList<String> tokens){
         
-        // ^^^ i think we can do the above in the StartingMenu world
-        // for the tokens, later as a step 2 goal, i wanna make it so that instead of just
-        // clicking the token they want, we can press arrow buttons on left and right
-        // to scroll to the next token cuz i think that would be cool :3
+        this.players = new Player[playerNames.size()];
         
-        for(int i = 0; i < play.size(); i++) {
-            // Player p = new Player();
+        for(int i = 0; i < playerNames.size(); i++) {
+            Player p = new Player(tokens.get(i), 0, playerNames.get(i));
+            this.players[i] = p;
         }
+        
+        
     }
     
     public void play() {
+        int x = 558;
+        int y = 630;
+        int count = 0;
+        for(int i = 0; i < players.length; i++) {
+            Player p = this.players[i];
+            GreenfootImage image = new GreenfootImage(p.token + "_token_smaller.png");
+            p.setImage(image);
+            if(count == 2) {
+                x = 558;
+                y = 654;
+            }
+            addObject(p, x += 30, y);
+            count++;
+        }
         //while more than one player remains (bankrupted people are removed) 
         //continue playing
+        /*
         chanceDeck.shuffle();
         chestDeck.shuffle();
         
@@ -269,5 +285,6 @@ public class Board extends World
             //3 next moves let them try to "roll-out" of it (have to roll even)
             //if they fail, force 50 even if they go bankrupt
             //if they got out of jail, move them to "just visiting"
+            */
     }
 }

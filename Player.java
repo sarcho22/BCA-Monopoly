@@ -49,6 +49,33 @@ public class Player extends Actor
     
     public void moveOneSpace(){
         //yeah we still gotta code the actual hopping
+        
+        if(currentSpace < 9) {
+            setLocation(getX() - 55, getY());
+        }
+        else if(currentSpace == 9) {
+            setLocation(getX() - 65, getY());
+        }
+        else if(currentSpace < 19) {
+            setLocation(getX(), getY() - 55);
+        }
+        else if(currentSpace == 19) {
+            setLocation(getX(), getY() - 65);
+        }
+        else if(currentSpace < 29) {
+            setLocation(getX() + 55, getY());
+        }
+        else if(currentSpace == 9) {
+            setLocation(getX() + 65, getY());
+        }
+        else if(currentSpace < 39) {
+            setLocation(getX(), getY() + 55);
+        }
+        else if(currentSpace == 39) {
+            currentSpace = -1;
+            setLocation(getX(), getY() + 55);
+        }
+        
         currentSpace += 1;
     }
     
