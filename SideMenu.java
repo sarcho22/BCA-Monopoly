@@ -1,19 +1,19 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class RollButton here.
+ * Write a description of class SideMenu here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class RollButton extends Actor
+public class SideMenu extends Actor
 {
     /**
-     * Act - do whatever the RollButton wants to do. This method is called whenever
+     * Act - do whatever the SideMenu wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
     {
-        
+        // Add your action code here.
     }    
 }

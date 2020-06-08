@@ -13,7 +13,7 @@ public class Utility extends Space
     public Player owner = null;
     public boolean bothUtilities = false;
     
-    public Utility(String name, int spaceNumber, int dieRoll){
+    public Utility(String name, int spaceNumber){
         super(name, spaceNumber, "utility");
     }
     /**

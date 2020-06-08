@@ -10,9 +10,9 @@ public class Taxes extends Space
 {
     public int amount;
     
-    public Taxes(String name, int spaceNumber, int amount){
+    public Taxes(String name, int spaceNumber){
         super(name, spaceNumber, "tax");
-        this.amount = amount;
+        this.amount = 100;
     }
     /**
      * Act - do whatever the Taxes wants to do. This method is called whenever
