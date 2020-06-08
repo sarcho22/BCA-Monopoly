@@ -10,6 +10,8 @@ import java.util.Arrays;
 public class Board extends World
 {
     public Space[] boardSpaces = new Space[40];
+    public String[] TYPE = {"go", "property", "chest", "property", "tax", "railroad", "property", "chance", "property", "property", "jail", "property", "utility", "property", "property", "railroad", "property", "chest", "property", "property", "free", "property", "chance", "property", "property", "railroad", "property", "property", "utility", "property", "gotojail", "property", "property", "chest", "property", "railroad", "chance", "property", "tax", "property"};
+    public String[] NAME = {"", "Fitness", "BCA Chest", "Gym", "ID check", "T hallway", "Visual Lab", "Chance", "Ms. Min", "Culinary", "Detention", "Mr. Hathaway", "Lower Caf", "Ms. Kaba", "Mr. Torres", "[rail]", "Mr. Miller", "BCA Chest", "Ms. Pagano", "Mrs. Kim", "Commons", "Dr. Penev", "Chance", "Dr. Heitzman", "Dr. Abramson", "[railroad]", "Mandarin", "Spanish", "Upper Caf", "French", "Go to Detention", "Biology", "Chemistry", "BCA Chest", "Physics", "[railroad]", "Chance", "Makerspace", "ID Check", "Comp Sci (room 138)"};
     public Dice dice = new Dice();
     public ChanceDeck chanceDeck = new ChanceDeck();
     public ChestDeck chestDeck = new ChestDeck();
@@ -95,7 +97,6 @@ public class Board extends World
             
         }
         //2d array for rent of houses
-        //array for house properties (i.e. names) - like Colors
         play();
     }
     
