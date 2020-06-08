@@ -20,6 +20,7 @@ public class Board extends World
     public int roll1;
     public int roll2;
     public int lastRoll;
+    public boolean playing = false;
     //we can use this list to redisplay the board and keep track of 
     //where pieces are moving
     /**
@@ -27,18 +28,20 @@ public class Board extends World
      * 
      */
     public Board(ArrayList<String> p, ArrayList<String> w)
-    {    
-        
+    {   
         super(1100, 700, 1); 
-        
-        
         startGame(p, w);
+    }
+    
+    public void act() {
+        if(!playing) {
+        int count = 0;
         
         int x = 605;
         int y = 640;
         
         Space a = new Go();
-        boardSpaces[0] = a;
+        boardSpaces[count++] = a;
         addObject(a, x, y);
         
         int interval = 56;
@@ -48,12 +51,31 @@ public class Board extends World
             if(i == 1) {
                 x -= 4;
             }
-            a = new Property("", i, 0, 0, 0);
+            if(TYPE[i].equals("property")) {
+                a = new Property(NAME[i], i, 0, 0, 0);
+            }
+            else if(TYPE[i].equals("chest")) {
+                a = new Chest(NAME[i], i);
+            }
+            else if(TYPE[i].equals("chance")) {
+                a = new Chance(NAME[i], i);
+            }
+            else if(TYPE[i].equals("tax")) {
+                a = new Taxes(NAME[i], i);
+            }
+            else if(TYPE[i].equals("railroad")) {
+                a = new Railroad(NAME[i], i, null);
+            }
+            else if(TYPE[i].equals("utility")) {
+                a = new Utility(NAME[i], i);
+            }
+            boardSpaces[count++] = a;
             addObject(a, x, y);
         }
         
         x -= interval+4;
         a = new Jail();
+        boardSpaces[count++] = a;
         addObject(a, x, y);
         
         for(int i = 11; i < 20; i++) {
@@ -61,7 +83,25 @@ public class Board extends World
             if(i == 11) {
                 y -= 4;
             }
-            a = new Property("", i, 0, 0, 0);
+            if(TYPE[i].equals("property")) {
+                a = new Property(NAME[i], i, 0, 0, 0);
+            }
+            else if(TYPE[i].equals("chest")) {
+                a = new Chest(NAME[i], i);
+            }
+            else if(TYPE[i].equals("chance")) {
+                a = new Chance(NAME[i], i);
+            }
+            else if(TYPE[i].equals("tax")) {
+                a = new Taxes(NAME[i], i);
+            }
+            else if(TYPE[i].equals("railroad")) {
+                a = new Railroad(NAME[i], i, null);
+            }
+            else if(TYPE[i].equals("utility")) {
+                a = new Utility(NAME[i], i);
+            }
+            boardSpaces[count++] = a;
             a.setRotation(90);
             addObject(a, x, y);
             
@@ -69,6 +109,7 @@ public class Board extends World
         
         y -= interval+4;
         a = new Free();
+        boardSpaces[count++] = a;
         addObject(a, x, y);
         
         for(int i = 21; i < 30; i++) {
@@ -76,14 +117,33 @@ public class Board extends World
                 x += 4;
             }
             x += interval;
-            a = new Property("", i, 0, 0, 0);
+            if(TYPE[i].equals("property")) {
+                a = new Property(NAME[i], i, 0, 0, 0);
+            }
+            else if(TYPE[i].equals("chest")) {
+                a = new Chest(NAME[i], i);
+            }
+            else if(TYPE[i].equals("chance")) {
+                a = new Chance(NAME[i], i);
+            }
+            else if(TYPE[i].equals("tax")) {
+                a = new Taxes(NAME[i], i);
+            }
+            else if(TYPE[i].equals("railroad")) {
+                a = new Railroad(NAME[i], i, null);
+            }
+            else if(TYPE[i].equals("utility")) {
+                a = new Utility(NAME[i], i);
+            }
             a.setRotation(180);
+            boardSpaces[count++] = a;
             addObject(a, x, y);
             
         }
         
         x += interval+4;
         a = new GoToJail();
+        boardSpaces[count++] = a;
         addObject(a, x, y);
         
         for(int i = 31; i < 40; i++) {
@@ -91,13 +151,34 @@ public class Board extends World
                 y += 3;
             }
             y += interval;
-            a = new Property("", i, 0, 0, 0);
+            if(TYPE[i].equals("property")) {
+                a = new Property(NAME[i], i, 0, 0, 0);
+            }
+            else if(TYPE[i].equals("chest")) {
+                a = new Chest(NAME[i], i);
+            }
+            else if(TYPE[i].equals("chance")) {
+                a = new Chance(NAME[i], i);
+            }
+            else if(TYPE[i].equals("tax")) {
+                a = new Taxes(NAME[i], i);
+            }
+            else if(TYPE[i].equals("railroad")) {
+                a = new Railroad(NAME[i], i, null);
+            }
+            else if(TYPE[i].equals("utility")) {
+                a = new Utility(NAME[i], i);
+            }
             a.setRotation(270);
+            boardSpaces[count++] = a;
             addObject(a, x, y);
             
         }
         //2d array for rent of houses
-        play();
+        Play g = new Play();
+        addObject(g,1000, 1000);
+        playing = true;
+    }
     }
     
     public void startGame(ArrayList<String> playerNames, ArrayList<String> tokens){
@@ -108,11 +189,12 @@ public class Board extends World
             Player p = new Player(tokens.get(i), 0, playerNames.get(i));
             this.players[i] = p;
         }
-        
-        
     }
     
+    
     public void play() {
+        
+        
         int x = 558;
         int y = 630;
         int count = 0;
@@ -129,11 +211,11 @@ public class Board extends World
         }
         //while more than one player remains (bankrupted people are removed) 
         //continue playing
-        /*
+        
         chanceDeck.shuffle();
         chestDeck.shuffle();
         
-        while(players.length > 1){
+        while(players.length > 1) {
             //cycles through the players, allowing them to take turns one by one
             for (int player = 0; player < players.length; player++) {
                 turn = players[player]; //the player whose turn it is
@@ -152,16 +234,22 @@ public class Board extends World
                     // this button will allow a player to roll the dice
                     // it will be in the side bar
                     RollButton rb = new RollButton();
-                    addObject(rb, 900, 900); // random coordinates at the moment
+                    addObject(rb, 720, 500); // random coordinates at the moment
                     showText("Roll!", 900, 900);
                     // this is probably done a little wrong, I want it 
                     // to continuously check for the player
                     // clicking on it until they finally do
-                    if(Greenfoot.mousePressed(rb)) {
-                        roll1 = dice.roll(); 
-                        roll2 = dice.roll();
-                        lastRoll = roll1 + roll2;
+                    
+                    while(true) {
+                        if(Greenfoot.mousePressed(rb)) {
+                            roll1 = dice.roll(); 
+                            roll2 = dice.roll();
+                            lastRoll = roll1 + roll2;
+                            break;
+                        }
                     }
+                    //showText("" + roll1 + ", " + roll2, 750, 350);
+                    
                     removeObject(rb); // I remove the button, 
                     //but it would probably be easier to gray it out
                     
@@ -276,8 +364,11 @@ public class Board extends World
                     else if (spaceType.equals("free")){
                         ((Free)curSpace).collectMoney();
                     }
+                    
                 }
+                
             }
+            
         }
         //we wont due player-player trading for now
         //jail protocol
@@ -286,6 +377,7 @@ public class Board extends World
             //3 next moves let them try to "roll-out" of it (have to roll even)
             //if they fail, force 50 even if they go bankrupt
             //if they got out of jail, move them to "just visiting"
-            */
+       
+          
     }
 }
