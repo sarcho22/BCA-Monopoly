@@ -240,7 +240,7 @@ public class Board extends World
                     // to continuously check for the player
                     // clicking on it until they finally do
                     
-                    while(true) {
+                    /*while(true) {
                         if(Greenfoot.mousePressed(rb)) {
                             roll1 = dice.roll(); 
                             roll2 = dice.roll();
@@ -248,6 +248,7 @@ public class Board extends World
                             break;
                         }
                     }
+                    */
                     //showText("" + roll1 + ", " + roll2, 750, 350);
                     
                     removeObject(rb); // I remove the button, 
@@ -368,7 +369,9 @@ public class Board extends World
                 }
                 
             }
-            
+            if (lastRoll == 0) {
+                break;
+            }
         }
         //we wont due player-player trading for now
         //jail protocol
