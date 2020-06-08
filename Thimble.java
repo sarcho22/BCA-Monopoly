@@ -13,6 +13,7 @@ public class Thimble extends TokenButton
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public String name;
+    public boolean pressedOnce = false;
     
     public Thimble(String player) {
         this.name = player;
@@ -21,9 +22,13 @@ public class Thimble extends TokenButton
     public void act() 
     {
         // Add your action code here.
-        if(Greenfoot.mousePressed(this)) {
-            super.thimble = true;
-            super.updateTaken(name, "thimble");
+        if(!pressedOnce){
+            if(Greenfoot.mousePressed(this)) {
+                ((StartingMenu)getWorld()).t.thimble = true;
+                ((StartingMenu)getWorld()).t.updateTaken(name, "thimble");
+                pressedOnce = true;
+            }
+            
         }
     }    
 }

@@ -13,6 +13,7 @@ public class Boat extends TokenButton
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public String name;
+    public boolean pressedOnce = false;
     
     public Boat(String player) {
         this.name = player;
@@ -21,9 +22,13 @@ public class Boat extends TokenButton
     public void act() 
     {
         // Add your action code here.
-        if(Greenfoot.mousePressed(this)) {
-            super.boat = true;
-            super.updateTaken(name, "boat");
+        if(!pressedOnce){
+            if(Greenfoot.mousePressed(this)) {
+                ((StartingMenu)getWorld()).t.boat = true;
+                ((StartingMenu)getWorld()).t.updateTaken(name, "boat");
+                pressedOnce = true;
+            }
+            
         }
     }    
 }

@@ -13,6 +13,7 @@ public class Dog extends TokenButton
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public String name;
+    public boolean pressedOnce = false;
     
     public Dog(String player) {
         this.name = player;
@@ -21,9 +22,13 @@ public class Dog extends TokenButton
     public void act() 
     {
         // Add your action code here.
-        if(Greenfoot.mousePressed(this)) {
-            super.dog = true;
-            super.updateTaken(name, "dog");
+        if(!pressedOnce){
+            if(Greenfoot.mousePressed(this)) {
+                ((StartingMenu)getWorld()).t.dog = true;
+                ((StartingMenu)getWorld()).t.updateTaken(name, "dog");
+                pressedOnce = true;
+            }
+            
         }
     }    
 }

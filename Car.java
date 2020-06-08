@@ -13,6 +13,7 @@ public class Car extends TokenButton
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public String name;
+    public boolean pressedOnce = false;
     
     public Car(String player) {
         this.name = player;
@@ -21,9 +22,13 @@ public class Car extends TokenButton
     public void act() 
     {
         // Add your action code here.
-        if(Greenfoot.mousePressed(this)) {
-            super.car = true;
-            super.updateTaken(name, "car");
+        if(!pressedOnce){
+            if(Greenfoot.mousePressed(this)) {
+                ((StartingMenu)getWorld()).t.car = true;
+                ((StartingMenu)getWorld()).t.updateTaken(name, "car");
+                pressedOnce = true;
+            }
+            
         }
     }    
 }
