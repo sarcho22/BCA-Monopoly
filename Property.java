@@ -17,10 +17,9 @@ public class Property extends Space
     public Player owner = null;
     public int rent;
     public int numHouses = 0;
-    public boolean hotel = false; // there can only be 1 hotel
     public String color;
     public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "corner", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
-    public int[] houseRents = {rent * 5, rent * 15, rent * 45}; //the rent of the 4th house is strange, can't figure it out
+    public int[] houseRents = {rent * 5, rent * 15, rent * 45}; //the rent of the 4th house is strange, can't figure it out dw u can do it :3
     
     /**
      * Act - do whatever the Property wants to do. This method is called whenever
@@ -43,7 +42,7 @@ public class Property extends Space
     
     public void collectRent(Player paying) {
         int payment = 0;
-        if (hotel){
+        if (numHouses == 5){
             
         }
         else if(numHouses == 0) {
@@ -71,9 +70,13 @@ public class Property extends Space
     public void mortgage() {
         //we have to remove the capability to collect rent
         //but it does not break monopolies
-        numHouses = 0;
-        hotel = false;
+        
         //add to the player's mortgaged properties list
+    }
+    
+    public void remHouse() {
+        owner.addMoney(50 * ((spaceNumber / 10) + 1));
+        numHouses--;
     }
     
     public void buildHouse(){
@@ -86,13 +89,6 @@ public class Property extends Space
         //conditions are checked before calling 
         //(need to make sure the money condition is checked)
         numHouses++;
-        owner.subMoney(50 * ((spaceNumber % 10) + 1));
+        owner.subMoney(50 * ((spaceNumber / 10) + 1));
     }
-    
-    public void buildHotel(){
-        
-        owner.subMoney(50 * ((spaceNumber % 10) + 1));
-        hotel = true;
-    }
-    
 }

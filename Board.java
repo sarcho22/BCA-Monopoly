@@ -22,7 +22,6 @@ public class Board extends World
     public int roll1;
     public int roll2;
     public int lastRoll;
-    public boolean playing = false;
     /**
      * Constructor for objects of class Board.
      * 
@@ -31,10 +30,7 @@ public class Board extends World
     {   
         super(1100, 700, 1); 
         startGame(p, w);
-    }
-    
-    public void act() {
-        if(!playing) {
+        
         int count = 0;
         
         int x = 605;
@@ -177,8 +173,6 @@ public class Board extends World
         //2d array for rent of houses
         Play g = new Play();
         addObject(g,1000, 1000);
-        playing = true;
-    }
     }
     
     public void startGame(ArrayList<String> playerNames, ArrayList<String> tokens){
@@ -196,7 +190,7 @@ public class Board extends World
         int x = 558;
         int y = 630;
         int count = 0;
-        //put player tokens on the board
+        // put player tokens on the board
         for(int i = 0; i < players.length; i++) {
             Player p = this.players[i];
             GreenfootImage image = new GreenfootImage(p.token + "_token_smaller.png");
@@ -208,26 +202,31 @@ public class Board extends World
             addObject(p, x += 30, y);
             count++;
         }
-        //shuffle the card decks
+        // shuffle the card decks
         chanceDeck.shuffle();
         chestDeck.shuffle();
-        //while more than one player remains (bankrupted people are removed) 
-        //continue playing
-        while(players.length > 1) {
-            //cycles through the players, allowing them to take turns one by one
+        // while more than one player remains (bankrupted people are removed) 
+        // continue playing
+        
+        // we wont due player-player trading for now
+    }
+    
+    public void act() {
+        if(players.length > 1) {
+            // cycles through the players, allowing them to take turns one by one
             for (int player = 0; player < players.length; player++) {
                 turn = players[player]; //the player whose turn it is
-                //the if makes sure that there are still enough people not 
-                //bankrupt to play (because the amount of players can
-                //change within the for loop)
+                // the if makes sure that there are still enough people not 
+                // bankrupt to play (because the amount of players can
+                // change within the for loop)
                 if (players.length == 1) {
-                    break;
+                    Greenfoot.stop();
                 }
-                //bankrupcy algorithm (might want to make this a method)
+                // bankrupcy algorithm (might want to make this a method)
                 if (turn.getMoney() <= 0){
-                    if (turn.playerProperties.length > 0){
-                        //prompts to mortgage properties until the debt is paid off
-                        //the mortgaging prompt should also be a method, probably
+                    if (turn.playerProperties.size() > 0){
+                        // prompts to mortgage properties until the debt is paid off
+                        // the mortgaging prompt should also be a method, probably
                     }
                     else{
                         Player[] temp = new Player[players.length -1];
@@ -240,7 +239,7 @@ public class Board extends World
                         players = temp;
                         turn.clearPlayer();
                         if (players.length == 1) {
-                            break;
+                            Greenfoot.stop();
                         }
                     }
                 }
@@ -257,27 +256,19 @@ public class Board extends World
                 while (!notDoubles && doubles < 3) {
                     // this button will allow a player to roll the dice
                     // it will be in the side bar
-                    RollButton rb = new RollButton();
+                    /*RollButton rb = new RollButton();
                     addObject(rb, 720, 500); // random coordinates at the moment
                     showText("Roll!", 900, 900);
-                    // this is probably done a little wrong, I want it 
-                    // to continuously check for the player
-                    // clicking on it until they finally do
                     
-                    /*while(true) {
-                        if(Greenfoot.mousePressed(rb)) {
-                            roll1 = dice.roll(); 
-                            roll2 = dice.roll();
-                            lastRoll = roll1 + roll2;
+                    while(!rb.rolled) {
+                        if(rb.rolled) {
                             break;
                         }
                     }
+                    removeObject(rb); 
+                    
+                    showText("Die 1: " + roll1 + ", Die 2: " + roll2, 750, 350);
                     */
-                    //showText("" + roll1 + ", " + roll2, 750, 350);
-                    
-                    removeObject(rb); // I remove the button, 
-                    //but it would probably be easier to gray it out
-                    
                     //checks if the player rolled enough
                     //evens to get in jail
                     //if yes, sends them to jail and breaks from the 
@@ -307,9 +298,18 @@ public class Board extends World
                     String spaceType = curSpace.getType();
                     //depending on space type, they can make their turn
                     if (spaceType.equals("property")){
-                        if (((Property) curSpace).getOwner().equals(null)){
+                        if (((Property) curSpace).getOwner().equals(null) && turn.getMoney() >= ((Property)curSpace).price){
                             // the property has no owner
                             //it asks if player wants to buy (allows if enough $)
+                            String response = Greenfoot.ask("Would you like to buy " + ((Property) curSpace).name + "(y/n)?");
+                            if(response.equals("y")) {
+                                ((Property) curSpace).owner = turn;
+                                turn.subMoney(((Property)curSpace).price);
+                                turn.playerProperties.add(((Property)curSpace).spaceNumber);
+                            }
+                            else if(response.equals("n")) {
+                                showText("but why ;((((", 350, 550);
+                            }
                         }
                         else{
                             //otherwise the property collects rent
@@ -324,22 +324,31 @@ public class Board extends World
                                 if (((Property)curSpace).numHouses < 4) {
                                     //offer to buildHouse
                                 }
-                                else if (!((Property)curSpace).hotel) {
+                                else if (((Property)curSpace).numHouses == 4) {
                                     //offer to buildHotel
                                 }
                             }
                         }
                     }
                     else if (spaceType.equals("utility")) {
-                        if (((Utility) curSpace).getOwner().equals(null)){
+                        if (((Utility)curSpace).getOwner().equals(null)&& turn.getMoney() >= ((Utility)curSpace).price){
                             //asks if player wants to buy (allows if enough $)
+                            String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + "(y/n)?");
+                            if(response.equals("y")) {
+                                ((Utility) curSpace).owner = turn;
+                                turn.subMoney(((Utility)curSpace).price);
+                                turn.playerProperties.add(((Utility)curSpace).spaceNumber);
+                            }
+                            else if(response.equals("n")) {
+                                showText("but why ;((((", 350, 550);
+                            }
                         }
                         else {
                             //we want to check if the owner of the property owns both utilities
                             int numUtils = 0;
-                            int[] propList = ((Utility) curSpace).getOwner().playerProperties;
-                            for (int i = 0; i < propList.length; i++){
-                                if (boardSpaces[propList[i]].getType().equals("utility")){
+                            ArrayList<Integer> propList = ((Utility) curSpace).getOwner().playerProperties;
+                            for (int i = 0; i < propList.size(); i++){
+                                if (boardSpaces[propList.get(i)].getType().equals("utility")){
                                     numUtils++;
                                 }
                             }
@@ -363,9 +372,9 @@ public class Board extends World
                             //we need to know how many railroads
                             //the Player owner of this space has
                             int numRoads = 0;
-                            int[] propList = ((Railroad) curSpace).getOwner().playerProperties;
-                            for (int i = 0; i < propList.length; i++){
-                                if (boardSpaces[propList[i]].getType().equals("railroad")){
+                            ArrayList<Integer> propList = ((Railroad) curSpace).getOwner().playerProperties;
+                            for (int i = 0; i < propList.size(); i++){
+                                if (boardSpaces[propList.get(i)].getType().equals("railroad")){
                                     numRoads++;
                                 }
                             }
@@ -411,9 +420,8 @@ public class Board extends World
                 }
             }
             if (lastRoll == 0) {
-                break;
+                Greenfoot.stop();
             }
         }
-        //we wont due player-player trading for now
     }
 }

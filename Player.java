@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Write a description of class Player here.
  * 
@@ -16,7 +16,7 @@ public class Player extends Actor
     //because it can include railroads and utilities
     //so, we just store the indeces of everything the player
     //currently owns (indeces of the space on the board)
-    public int[] playerProperties;
+    public ArrayList<Integer> playerProperties;
     //there can be a max of 2 get out of jail cards
     //so the list has length 2
     //the values it stores: 1 = card 0 = no card
