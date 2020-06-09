@@ -12,17 +12,17 @@ public class Board extends World
     public Space[] boardSpaces = new Space[40];
     public String[] TYPE = {"go", "property", "chest", "property", "tax", "railroad", "property", "chance", "property", "property", "jail", "property", "utility", "property", "property", "railroad", "property", "chest", "property", "property", "free", "property", "chance", "property", "property", "railroad", "property", "property", "utility", "property", "gotojail", "property", "property", "chest", "property", "railroad", "chance", "property", "tax", "property"};
     public String[] NAME = {"", "Fitness", "BCA Chest", "Gym", "ID check", "T hallway", "Visual Lab", "Chance", "Ms. Min", "Culinary", "Detention", "Mr. Hathaway", "Lower Caf", "Ms. Kaba", "Mr. Torres", "[rail]", "Mr. Miller", "BCA Chest", "Ms. Pagano", "Mrs. Kim", "Commons", "Dr. Penev", "Chance", "Dr. Heitzman", "Dr. Abramson", "[railroad]", "Mandarin", "Spanish", "Upper Caf", "French", "Go to Detention", "Biology", "Chemistry", "BCA Chest", "Physics", "[railroad]", "Chance", "Makerspace", "ID Check", "Comp Sci (room 138)"};
+    public int[] PRICE = {0, 60, 0, 60, 0, 0, 100, 0, 100, 120, 0, 140, 0, 140, 160, 0, 180, 0, 180, 200, 0, 220, 0, 220, 240, 0, 260, 260, 0, 280, 0, 300, 300, 0, 320, 0, 0, 350, 0, 400};
+    public int[] RENT = {0, 2, 0, 4, 0, 0, 6, 0, 6, 8, 0, 10, 0, 10, 12, 0, 14, 0, 14, 16, 0, 18, 0, 18, 20, 0, 22, 22, 0, 24, 0, 26, 26, 0, 28, 0, 0, 35, 0, 50};
     public Dice dice = new Dice();
     public ChanceDeck chanceDeck = new ChanceDeck();
     public ChestDeck chestDeck = new ChestDeck();
     public Player[] players;
-    public Player turn; //sorry I added this to keep track of whose turn it is
+    public Player turn; //added this to keep track of whose turn it is
     public int roll1;
     public int roll2;
     public int lastRoll;
     public boolean playing = false;
-    //we can use this list to redisplay the board and keep track of 
-    //where pieces are moving
     /**
      * Constructor for objects of class Board.
      * 
@@ -52,7 +52,7 @@ public class Board extends World
                 x -= 4;
             }
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, 0, 0, 0);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -64,7 +64,7 @@ public class Board extends World
                 a = new Taxes(NAME[i], i);
             }
             else if(TYPE[i].equals("railroad")) {
-                a = new Railroad(NAME[i], i, null);
+                a = new Railroad(NAME[i], i);
             }
             else if(TYPE[i].equals("utility")) {
                 a = new Utility(NAME[i], i);
@@ -84,7 +84,7 @@ public class Board extends World
                 y -= 4;
             }
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, 0, 0, 0);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -96,7 +96,7 @@ public class Board extends World
                 a = new Taxes(NAME[i], i);
             }
             else if(TYPE[i].equals("railroad")) {
-                a = new Railroad(NAME[i], i, null);
+                a = new Railroad(NAME[i], i);
             }
             else if(TYPE[i].equals("utility")) {
                 a = new Utility(NAME[i], i);
@@ -118,7 +118,7 @@ public class Board extends World
             }
             x += interval;
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, 0, 0, 0);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -130,7 +130,7 @@ public class Board extends World
                 a = new Taxes(NAME[i], i);
             }
             else if(TYPE[i].equals("railroad")) {
-                a = new Railroad(NAME[i], i, null);
+                a = new Railroad(NAME[i], i);
             }
             else if(TYPE[i].equals("utility")) {
                 a = new Utility(NAME[i], i);
@@ -152,7 +152,7 @@ public class Board extends World
             }
             y += interval;
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, 0, 0, 0);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -164,7 +164,7 @@ public class Board extends World
                 a = new Taxes(NAME[i], i);
             }
             else if(TYPE[i].equals("railroad")) {
-                a = new Railroad(NAME[i], i, null);
+                a = new Railroad(NAME[i], i);
             }
             else if(TYPE[i].equals("utility")) {
                 a = new Utility(NAME[i], i);
@@ -193,11 +193,10 @@ public class Board extends World
     
     
     public void play() {
-        
-        
         int x = 558;
         int y = 630;
         int count = 0;
+        //put player tokens on the board
         for(int i = 0; i < players.length; i++) {
             Player p = this.players[i];
             GreenfootImage image = new GreenfootImage(p.token + "_token_smaller.png");
@@ -209,12 +208,11 @@ public class Board extends World
             addObject(p, x += 30, y);
             count++;
         }
-        //while more than one player remains (bankrupted people are removed) 
-        //continue playing
-        
+        //shuffle the card decks
         chanceDeck.shuffle();
         chestDeck.shuffle();
-        
+        //while more than one player remains (bankrupted people are removed) 
+        //continue playing
         while(players.length > 1) {
             //cycles through the players, allowing them to take turns one by one
             for (int player = 0; player < players.length; player++) {
@@ -224,6 +222,32 @@ public class Board extends World
                 //change within the for loop)
                 if (players.length == 1) {
                     break;
+                }
+                //bankrupcy algorithm (might want to make this a method)
+                if (turn.getMoney() <= 0){
+                    if (turn.playerProperties.length > 0){
+                        //prompts to mortgage properties until the debt is paid off
+                        //the mortgaging prompt should also be a method, probably
+                    }
+                    else{
+                        Player[] temp = new Player[players.length -1];
+                        for (int i = 0; i < player; i++){
+                            temp[i] = players[i];
+                        }
+                        for (int i = player + 1; i < players.length; i++){
+                            temp[i - 1] = players[i];
+                        }
+                        players = temp;
+                        turn.clearPlayer();
+                        if (players.length == 1) {
+                            break;
+                        }
+                    }
+                }
+                //if the player is currently in jail
+                if (turn.inJail){
+                    //use the same get out of jail algorithm as at the bottom of this
+                    //regardless if they leave or not, pass their turn on
                 }
                 //next we set up some variables to keep track of 
                 //the player rolling doubles/nondoubles
@@ -367,20 +391,29 @@ public class Board extends World
                     }
                     
                 }
-                
+                if (doubles == 3){
+                    turn.goToJail();
+                    //get out of jail protocol, might want to make this as a method
+                    if (turn.getOutOfJailCards[0] == 1 || turn.getOutOfJailCards[1] == 1){
+                        //ask if they want to get out of jail
+                        //if they got out of jail, remove card, call turn.getOutOfJail()
+                        
+                    }
+                    else if (turn.getMoney() >= 50){
+                        //ask if they want to get out of jail
+                        //if they got out of jail, sub money, call turn.getOutOfJail()
+                    }
+                    else{
+                        //allow them to roll, trying to get a double
+                        //this will happen for the next two moved, unless they choose to leave
+                        //then they will be forced to pay 50
+                    }
+                }
             }
             if (lastRoll == 0) {
                 break;
             }
         }
         //we wont due player-player trading for now
-        //jail protocol
-            //ask if they want to use get out of jail if they have it
-            //if they have ask for $50
-            //3 next moves let them try to "roll-out" of it (have to roll even)
-            //if they fail, force 50 even if they go bankrupt
-            //if they got out of jail, move them to "just visiting"
-       
-          
     }
 }

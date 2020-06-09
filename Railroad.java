@@ -10,12 +10,11 @@ public class Railroad extends Space
 {
     public final int price = 200;
     public final int mortgagePrice = 100;
-    public Player owner;
+    public Player owner = null;
     public int baseRent = 25;
     
-    public Railroad(String name, int spaceNumber, Player owner){
+    public Railroad(String name, int spaceNumber){
         super(name, spaceNumber, "railroad");
-        this.owner = owner;
     }
     /**
      * Act - do whatever the Railroad wants to do. This method is called whenever

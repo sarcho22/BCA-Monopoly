@@ -34,9 +34,15 @@ public class Player extends Actor
     public void goToJail() 
     {
         inJail = true;
-        moveToSpace(10); 
+        //moveToSpace(jail); 
         // figure out how to put them in 
         //physically into the jail
+    }
+    
+    public void getOutOfJail() 
+    {
+        inJail = false;
+        moveToSpace(10);
     }
     
     public void addMoney(int amount){
@@ -107,5 +113,9 @@ public class Player extends Actor
             }
         }
         return (counter==fullSet);
+    }
+    
+    public void clearPlayer(){
+        
     }
 }
