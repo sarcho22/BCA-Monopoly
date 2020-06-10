@@ -22,6 +22,7 @@ public class Board extends World
     public int roll1;
     public int roll2;
     public int lastRoll;
+    public Menu menu;
     /**
      * Constructor for objects of class Board.
      * 
@@ -171,8 +172,9 @@ public class Board extends World
             
         }
         //2d array for rent of houses
-        Play g = new Play();
-        addObject(g,1000, 1000);
+        this.menu = new Menu();
+        addObject(this.menu, 864, 350);
+        
     }
     
     public void startGame(ArrayList<String> playerNames, ArrayList<String> tokens){
@@ -330,7 +332,7 @@ public class Board extends World
                         }
                     }
                     else if (spaceType.equals("utility")) {
-                        if (((Utility)curSpace).getOwner().equals(null)&& turn.getMoney() >= ((Utility)curSpace).price){
+                        if (((Utility)curSpace).getOwner().equals(null) && turn.getMoney() >= ((Utility)curSpace).price){
                             //asks if player wants to buy (allows if enough $)
                             String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + "(y/n)?");
                             if(response.equals("y")) {
@@ -364,7 +366,7 @@ public class Board extends World
                         }
                     }
                     else if (spaceType.equals("railroad")){
-                        if (((Railroad) curSpace).getOwner().equals(null)) {
+                        if (((Railroad) curSpace).getOwner().equals(null) && turn.getMoney() >= ((Railroad)curSpace).price) {
                             //asks if player wants to buy (allows if enough $)
                         }
                         else {
@@ -402,10 +404,15 @@ public class Board extends World
                 if (doubles == 3){
                     turn.goToJail();
                     //get out of jail protocol, might want to make this as a method
-                    if (turn.getOutOfJailCards[0] == 1 || turn.getOutOfJailCards[1] == 1){
-                        //ask if they want to get out of jail
-                        //if they got out of jail, remove card, call turn.getOutOfJail()
-                        
+                    if (turn.getOutOfJailCards[0]){
+                        // ya wanna get out of jail???? shh dats illegal
+                        // shhhhhhhhhhhhhhhhhhhhhhh
+                        turn.getOutOfJailCards[0] = false;
+                        turn.getOutOfJail();
+                    }
+                    else if (turn.getOutOfJailCards[1]) {
+                        turn.getOutOfJailCards[1] = false;
+                        turn.getOutOfJail();
                     }
                     else if (turn.getMoney() >= 50){
                         //ask if they want to get out of jail

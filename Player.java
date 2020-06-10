@@ -20,7 +20,7 @@ public class Player extends Actor
     //there can be a max of 2 get out of jail cards
     //so the list has length 2
     //the values it stores: 1 = card 0 = no card
-    public int[] getOutOfJailCards = new int[2];
+    public boolean[] getOutOfJailCards = new boolean[2];
     public int[] mortagedProperties;
     public int money = 1500;
     
