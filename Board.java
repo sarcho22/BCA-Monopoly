@@ -205,13 +205,12 @@ public class Board extends World
         // shuffle the card decks
         chanceDeck.shuffle();
         chestDeck.shuffle();
-        // while more than one player remains (bankrupted people are removed) 
-        // continue playing
-        
-        // we wont due player-player trading for now
+        // Note: no player-player trading for now
     }
     
     public void act() {
+        // while more than one player remains (bankrupted people are removed) 
+        // continue playing
         if(players.length > 1) {
             // cycles through the players, allowing them to take turns one by one
             for (int player = 0; player < players.length; player++) {
@@ -225,8 +224,8 @@ public class Board extends World
                 // bankrupcy algorithm (might want to make this a method)
                 if (turn.getMoney() <= 0){
                     if (turn.playerProperties.size() > 0){
+                        //askToMortgage();
                         // prompts to mortgage properties until the debt is paid off
-                        // the mortgaging prompt should also be a method, probably
                     }
                     else{
                         Player[] temp = new Player[players.length -1];

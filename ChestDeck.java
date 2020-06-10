@@ -52,6 +52,11 @@ public class ChestDeck extends Card
     }
     
     public void shuffle() {
-        // shuffle the cards
+        for (int i = 0; i < cards.length; i++){
+            int j = (int) (Math.random() * (cards.length - i) + i);
+            ChestCard temp = cards[i];
+            cards[i] = cards[j];
+            cards[j] = temp;
+        }
     }
 }
