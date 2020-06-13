@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 /**
  * Write a description of class Player here.
  * 
@@ -53,9 +54,8 @@ public class Player extends Actor
         money -= amount;
     }
     
-    public void moveOneSpace(){
+    public void moveOneSpace() throws InterruptedException {
         //yeah we still gotta code the actual hopping
-        
         if(currentSpace < 9) {
             setLocation(getX() - 55, getY());
         }
@@ -81,8 +81,14 @@ public class Player extends Actor
             currentSpace = -1;
             setLocation(getX(), getY() + 55);
         }
-        
         currentSpace += 1;
+        /*try {
+            TimeUnit.SECONDS.sleep(3);
+        }
+        catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
+        */
     }
     
     public void moveToSpace(int spaceNumber) {

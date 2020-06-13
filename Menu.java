@@ -27,12 +27,13 @@ public class Menu extends Actor
         setImage(i);
         
     }
-    public void act() 
+    public void callPlay() 
     {
         // Add your action code here.
-        if(!once) {
+        
+            ((Board)getWorld()).showText("hello", 500, 400);
             ((Board)getWorld()).play();
             once = true;
-        }
+        
     }    
 }

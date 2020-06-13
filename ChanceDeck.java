@@ -33,12 +33,19 @@ public class ChanceDeck extends Card
         cards[13] = new ChanceCard("Take a trip to the “T” hallway, if a new school year starts, collect $200.", "T", 0);
         cards[14] = new ChanceCard("Advance to the nearest hallway. If it is OWNED, play the owner 2 times the ordinary rent (otherwise you can buy it yourself).", "hall", 0);
         cards[15] = new ChanceCard("Advance to the nearest hallway. If it is OWNED, play the owner 2 times the ordinary rent (otherwise you can buy it yourself).", "hall", 0);
+        
     }
     
     public void act() 
     {
         // Add your action code here.
     }    
+    
+    public void addCards() {
+        for (int i = 0; i <= 15; i++) {
+            ((Board)getWorld()).addObject(cards[i], 1000000, 1000000);
+        }
+    }
     
     public void draw() {
         //I'm guessing we pick a certain chanceCard?
