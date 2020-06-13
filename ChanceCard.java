@@ -35,36 +35,51 @@ public class ChanceCard extends Card
         
         switch(action) {
             case "add":
-                //add money
+                ((Board)getWorld()).turn.addMoney(amount);
                 break;
             case "sub":
+                ((Board)getWorld()).turn.subMoney(amount);
                 break;
             case "free":
+                ((Board)getWorld()).turn.moveToSpace(20);
                 //add a get out of jail card to the player
                 break;
             case "jail":
+                // put into jail ((Board)getWorld()).turn.moveToSpace(Jail);
                 break;
             case "election":
+                for (int a = 0; a < ((Board)getWorld()).players.length; a++){
+                    ((Board)getWorld()).turn.subMoney(50);
+                    if ((((Board)getWorld()).players[a]).equals(((Board)getWorld()).turn)){
+                        ((Board)getWorld()).players[a].addMoney(50);
+                    }
+                }
                 //pay $50 to each player
                 break;
             case "go":
+                ((Board)getWorld()).turn.moveToSpace(0);
                 break;
             case "3":
+                ((Board)getWorld()).turn.moveToSpace(((Board)getWorld()).turn.getCurrentSpace() - 3);
                 //go back 3 spaces
                 break;
             case "hathaway":
+                //((Board)getWorld()).turn.moveToSpace();
                 //go to mr. hathaway 
                 break;
             case "penev":
+                //((Board)getWorld()).turn.moveToSpace();
                 //go to dr. penev
                 break;
             case "T":
+                //((Board)getWorld()).turn.moveToSpace();
                 //go to T hallway
                 break;
             case "repairs":
                 //pay $25 for each house and $100 per hotel (for your own)
                 break;
             case "138":
+                ((Board)getWorld()).turn.moveToSpace(39);
                 // go to CS room
                 break;
             case "hall":

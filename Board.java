@@ -217,236 +217,224 @@ public class Board extends World
     public void act() {
         // while more than one player remains (bankrupted people are removed) 
         // continue playing
-        
         if(players.length > 1) {
-            
             // cycles through the players, allowing them to take turns one by one
             for (int player = 0; player < players.length; player++) {
                 if (turnOver) {
                     turnOver = false;
-                turn = players[player]; //the player whose turn it is
-                // the if makes sure that there are still enough people not 
-                // bankrupt to play (because the amount of players can
-                // change within the for loop)
- 
-                if (players.length == 1) {
-                    Greenfoot.stop();
-                }
-                // bankrupcy algorithm (might want to make this a method)
-                if (turn.getMoney() <= 0){
-                    if (turn.playerProperties.size() > 0){
-                        //askToMortgage();
-                        // prompts to mortgage properties until the debt is paid off
+                    turn = players[player]; //the player whose turn it is
+                    // the if makes sure that there are still enough people not 
+                    // bankrupt to play (because the amount of players can
+                    // change within the for loop)
+     
+                    if (players.length == 1) {
+                        Greenfoot.stop();
                     }
-                    else{
-                        Player[] temp = new Player[players.length -1];
-                        for (int i = 0; i < player; i++){
-                            temp[i] = players[i];
+                    // bankrupcy algorithm (might want to make this a method)
+                    if (turn.getMoney() <= 0){
+                        if (turn.playerProperties.size() > 0){
+                            //askToMortgage();
+                            // prompts to mortgage properties until the debt is paid off
                         }
-                        for (int i = player + 1; i < players.length; i++){
-                            temp[i - 1] = players[i];
-                        }
-                        players = temp;
-                        turn.clearPlayer();
-                        if (players.length == 1) {
-                            Greenfoot.stop();
+                        else{
+                            Player[] temp = new Player[players.length -1];
+                            for (int i = 0; i < player; i++){
+                                temp[i] = players[i];
+                            }
+                            for (int i = player + 1; i < players.length; i++){
+                                temp[i - 1] = players[i];
+                            }
+                            players = temp;
+                            turn.clearPlayer();
+                            if (players.length == 1) {
+                                Greenfoot.stop();
+                            }
                         }
                     }
-                }
-                
-                //if the player is currently in jail
-                if (turn.inJail){
-                    //use the same get out of jail algorithm as at the bottom of this
-                    //regardless if they leave or not, pass their turn on
-                }
-               
-                //next we set up some variables to keep track of 
-                //the player rolling doubles/nondoubles
-                int doubles = 0;
-                boolean notDoubles = false;
-                showText("helo", 500, 550);
-                
-                // while they haven't rolled three doubles the player can take their turn
-                
-                while (!notDoubles && doubles < 3) {
-                    roll1 = dice.roll();
-                    roll2 = dice.roll();
-                    lastRoll = roll1 + roll2;
-                    showText(turn.name + " rolled " + roll1 + " and " + roll2, 750, 350);
-                   
                     
-                   //checks if the player rolled enough
-                    //evens to get in jail
-                    //if yes, sends them to jail and breaks from the 
-                    //while-loop that is their turn
-                    if (roll1 == roll2) {
-                        doubles++;
+                    //if the player is currently in jail
+                    if (turn.inJail){
+                        //use the same get out of jail algorithm as at the bottom of this
+                        //regardless if they leave or not, pass their turn on
                     }
-                    else {
-                        notDoubles = true;
+                   
+                    //next we set up some variables to keep track of 
+                    //the player rolling doubles/nondoubles
+                    int doubles = 0;
+                    boolean notDoubles = false;
+                    showText("helo", 500, 550);
+                    
+                    // while they haven't rolled three doubles the player can take their turn
+                    
+                    while (!notDoubles && doubles < 3) {
+                        roll1 = dice.roll();
+                        roll2 = dice.roll();
+                        lastRoll = roll1 + roll2;
+                        showText(turn.name + " rolled " + roll1 + " and " + roll2, 750, 350);
+                       
+                        //checks if the player rolled enough
+                        //evens to get in jail
+                        //if yes, sends them to jail and breaks from the 
+                        //while-loop that is their turn
+                        if (roll1 == roll2) {
+                            doubles++;
+                        }
+                        else {
+                            notDoubles = true;
+                        }
+                        if (doubles == 3){
+                            turn.goToJail();
+                            break;
+                        }
+                        //moves player forward one space at a time
+                        //checks if you pass go and gives you 200
+                        for (int m = 0; m < lastRoll; m++) {
+                           
+                            try {
+                                turn.moveOneSpace();
+                            }
+                            catch(Exception e) {
+                            }
+                            if (turn.getCurrentSpace() == 0) {
+                                turn.addMoney(((Go)boardSpaces[0]).getBonus());
+                            }
+                        }
+                        // define some variables relating to which space they landed on
+                        Space curSpace = boardSpaces[turn.getCurrentSpace()];
+                        String spaceType = curSpace.getType();
+                        //depending on space type, they can make their turn
+                        if (spaceType.equals("property")){
+                            if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){
+                                // the property has no owner
+                                //it asks if player wants to buy (allows if enough $)
+                                String response = Greenfoot.ask("Would you like to buy " + ((Property) curSpace).name + "(y/n)?");
+                                if(response.equals("y")) {
+                                    ((Property) curSpace).owner = turn;
+                                    turn.subMoney(((Property)curSpace).price);
+                                    turn.playerProperties.add(((Property)curSpace).spaceNumber);
+                                }
+                                else if(response.equals("n")) {
+                                    showText("but why ;((((", 350, 550);
+                                }
+                            }
+                            else{
+                                //otherwise the property collects rent
+                                ((Property) curSpace).collectRent(turn);
+                            }
+                            
+                            if (((Property) curSpace).getOwner().equals(turn)){
+                                // checks property color
+                                String color = ((Property)curSpace).COLORS[turn.getCurrentSpace()];
+                                
+                                if (turn.hasAMonopoly(color)) {
+                                    if (((Property)curSpace).numHouses < 4) {
+                                        //offer to buildHouse
+                                    }
+                                    else if (((Property)curSpace).numHouses == 4) {
+                                        //offer to buildHotel
+                                    }
+                                }
+                            }
+                        }
+                        else if (spaceType.equals("utility")) {
+                            if (((Utility)curSpace).getOwner().equals(null) && turn.getMoney() >= ((Utility)curSpace).price){
+                                //asks if player wants to buy (allows if enough $)
+                                String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + "(y/n)?");
+                                if(response.equals("y")) {
+                                    ((Utility) curSpace).owner = turn;
+                                    turn.subMoney(((Utility)curSpace).price);
+                                    turn.playerProperties.add(((Utility)curSpace).spaceNumber);
+                                }
+                                else if(response.equals("n")) {
+                                    showText("but why ;((((", 350, 550);
+                                }
+                            }
+                            else {
+                                //we want to check if the owner of the property owns both utilities
+                                int numUtils = 0;
+                                ArrayList<Integer> propList = ((Utility) curSpace).getOwner().playerProperties;
+                                for (int i = 0; i < propList.size(); i++){
+                                    if (boardSpaces[propList.get(i)].getType().equals("utility")){
+                                        numUtils++;
+                                    }
+                                }
+                                //we set the variables in the Player owner
+                                //to indicate the amount of utilities owned
+                                //then we pay the rent
+                                if (numUtils == 1){
+                                    ((Utility) curSpace).setBoth(false);
+                                }
+                                else{
+                                    ((Utility) curSpace).setBoth(true);
+                                }
+                                ((Utility) curSpace).collectRent(turn, lastRoll);
+                            }
+                        }
+                        else if (spaceType.equals("railroad")){
+                            if (((Railroad) curSpace).getOwner().equals(null) && turn.getMoney() >= ((Railroad)curSpace).price) {
+                                //asks if player wants to buy (allows if enough $)
+                            }
+                            else {
+                                //we need to know how many railroads
+                                //the Player owner of this space has
+                                int numRoads = 0;
+                                ArrayList<Integer> propList = ((Railroad) curSpace).getOwner().playerProperties;
+                                for (int i = 0; i < propList.size(); i++){
+                                    if (boardSpaces[propList.get(i)].getType().equals("railroad")){
+                                        numRoads++;
+                                    }
+                                }
+                                ((Railroad) curSpace).collectRent(turn, numRoads);
+                            }
+                        }
+                        else if (spaceType.equals("chance")) {
+                            chanceDeck.draw();
+                        }
+                        else if (spaceType.equals("chest")) {
+                            chestDeck.draw();
+                        }
+                        else if (spaceType.equals("tax")) {
+                            ((Taxes) curSpace).collectTax(turn);
+                            //later make condition for if they don't have any money left
+                            //that they need to mortgage
+                        }
+                        else if (spaceType.equals("gotojail")){ 
+                            turn.goToJail();
+                        }
+                        else if (spaceType.equals("free")){
+                            ((Free)curSpace).collectMoney();
+                        }
                     }
                     if (doubles == 3){
                         turn.goToJail();
-                        break;
-                    }
-                    
-                    
-                    //moves player forward one space at a time
-                    //checks if you pass go and gives you 200
-                    for (int m = 0; m < lastRoll; m++) {
-                       
-                        try {
-                            turn.moveOneSpace();
+                        //get out of jail protocol, might want to make this as a method
+                        if (turn.getOutOfJailCards[0]){
+                            // ya wanna get out of jail???? shh dats illegal
+                            // shhhhhhhhhhhhhhhhhhhhhhh
+                            turn.getOutOfJailCards[0] = false;
+                            turn.getOutOfJail();
                         }
-                        catch(Exception e) {
+                        else if (turn.getOutOfJailCards[1]) {
+                            turn.getOutOfJailCards[1] = false;
+                            turn.getOutOfJail();
                         }
-                        if (turn.getCurrentSpace() == 0) {
-                            turn.addMoney(((Go)boardSpaces[0]).getBonus());
-                        }
-                    }
-                    
-                    // define some variables relating to which space they landed on
-                    Space curSpace = boardSpaces[turn.getCurrentSpace()];
-                    String spaceType = curSpace.getType();
-                    //depending on space type, they can make their turn
-                    if (spaceType.equals("property")){
-                        if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){
-                            // the property has no owner
-                            //it asks if player wants to buy (allows if enough $)
-                            String response = Greenfoot.ask("Would you like to buy " + ((Property) curSpace).name + "(y/n)?");
-                            if(response.equals("y")) {
-                                ((Property) curSpace).owner = turn;
-                                turn.subMoney(((Property)curSpace).price);
-                                turn.playerProperties.add(((Property)curSpace).spaceNumber);
-                            }
-                            else if(response.equals("n")) {
-                                showText("but why ;((((", 350, 550);
-                            }
+                        else if (turn.getMoney() >= 50){
+                            //ask if they want to get out of jail
+                            //if they got out of jail, sub money, call turn.getOutOfJail()
                         }
                         else{
-                            //otherwise the property collects rent
-                            ((Property) curSpace).collectRent(turn);
-                        }
-                        
-                        if (((Property) curSpace).getOwner().equals(turn)){
-                            // checks property color
-                            String color = ((Property)curSpace).COLORS[turn.getCurrentSpace()];
-                            
-                            if (turn.hasAMonopoly(color)) {
-                                if (((Property)curSpace).numHouses < 4) {
-                                    //offer to buildHouse
-                                }
-                                else if (((Property)curSpace).numHouses == 4) {
-                                    //offer to buildHotel
-                                }
-                            }
+                            //allow them to roll, trying to get a double
+                            //this will happen for the next two moved, unless they choose to leave
+                            //then they will be forced to pay 50
                         }
                     }
-                    else if (spaceType.equals("utility")) {
-                        if (((Utility)curSpace).getOwner().equals(null) && turn.getMoney() >= ((Utility)curSpace).price){
-                            //asks if player wants to buy (allows if enough $)
-                            String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + "(y/n)?");
-                            if(response.equals("y")) {
-                                ((Utility) curSpace).owner = turn;
-                                turn.subMoney(((Utility)curSpace).price);
-                                turn.playerProperties.add(((Utility)curSpace).spaceNumber);
-                            }
-                            else if(response.equals("n")) {
-                                showText("but why ;((((", 350, 550);
-                            }
-                        }
-                        else {
-                            //we want to check if the owner of the property owns both utilities
-                            int numUtils = 0;
-                            ArrayList<Integer> propList = ((Utility) curSpace).getOwner().playerProperties;
-                            for (int i = 0; i < propList.size(); i++){
-                                if (boardSpaces[propList.get(i)].getType().equals("utility")){
-                                    numUtils++;
-                                }
-                            }
-                            //we set the variables in the Player owner
-                            //to indicate the amount of utilities owned
-                            //then we pay the rent
-                            if (numUtils == 1){
-                                ((Utility) curSpace).setBoth(false);
-                            }
-                            else{
-                                ((Utility) curSpace).setBoth(true);
-                            }
-                            ((Utility) curSpace).collectRent(turn, lastRoll);
-                        }
-                    }
-                    else if (spaceType.equals("railroad")){
-                        if (((Railroad) curSpace).getOwner().equals(null) && turn.getMoney() >= ((Railroad)curSpace).price) {
-                            //asks if player wants to buy (allows if enough $)
-                        }
-                        else {
-                            //we need to know how many railroads
-                            //the Player owner of this space has
-                            int numRoads = 0;
-                            ArrayList<Integer> propList = ((Railroad) curSpace).getOwner().playerProperties;
-                            for (int i = 0; i < propList.size(); i++){
-                                if (boardSpaces[propList.get(i)].getType().equals("railroad")){
-                                    numRoads++;
-                                }
-                            }
-                            ((Railroad) curSpace).collectRent(turn, numRoads);
-                        }
-                    }
-                    else if (spaceType.equals("chance")) {
-                        chanceDeck.draw();
-                    }
-                    else if (spaceType.equals("chest")) {
-                        chestDeck.draw();
-                    }
-                    else if (spaceType.equals("tax")) {
-                        ((Taxes) curSpace).collectTax(turn);
-                        //later make condition for if they don't have any money left
-                        //that they need to mortgage
-                    }
-                    else if (spaceType.equals("gotojail")){ 
-                        turn.goToJail();
-                    }
-                    else if (spaceType.equals("free")){
-                        ((Free)curSpace).collectMoney();
-                    }
-                
-                    
+                    EndButton e = new EndButton();
+                    addObject(e, 500, 400);
                 }
-                if (doubles == 3){
-                    turn.goToJail();
-                    //get out of jail protocol, might want to make this as a method
-                    if (turn.getOutOfJailCards[0]){
-                        // ya wanna get out of jail???? shh dats illegal
-                        // shhhhhhhhhhhhhhhhhhhhhhh
-                        turn.getOutOfJailCards[0] = false;
-                        turn.getOutOfJail();
-                    }
-                    else if (turn.getOutOfJailCards[1]) {
-                        turn.getOutOfJailCards[1] = false;
-                        turn.getOutOfJail();
-                    }
-                    else if (turn.getMoney() >= 50){
-                        //ask if they want to get out of jail
-                        //if they got out of jail, sub money, call turn.getOutOfJail()
-                    }
-                    else{
-                        //allow them to roll, trying to get a double
-                        //this will happen for the next two moved, unless they choose to leave
-                        //then they will be forced to pay 50
-                    }
+                else {
+                    player--;
                 }
-                EndButton e = new EndButton();
-                addObject(e, 500, 400);
-            
             }
-            else {
-                player--;
-            }
-            }
-          
-            
-        
         }
     }
 }
