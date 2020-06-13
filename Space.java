@@ -19,6 +19,8 @@ public abstract class Space extends Actor
         this.type = type;
         
         GreenfootImage image = new GreenfootImage(COLORS[spaceNumber] + "_property.png");
+        image.setFont(image.getFont().deriveFont(56f));
+        image.drawString(name, 10, image.getHeight()/2);
         image.scale(image.getWidth()/5, image.getHeight()/5); // 278 / 5 = 55
         setImage(image);
     }

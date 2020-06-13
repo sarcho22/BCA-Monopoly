@@ -11,7 +11,7 @@ public class Board extends World
 {
     public Space[] boardSpaces = new Space[40];
     public String[] TYPE = {"go", "property", "chest", "property", "tax", "railroad", "property", "chance", "property", "property", "jail", "property", "utility", "property", "property", "railroad", "property", "chest", "property", "property", "free", "property", "chance", "property", "property", "railroad", "property", "property", "utility", "property", "gotojail", "property", "property", "chest", "property", "railroad", "chance", "property", "tax", "property"};
-    public String[] NAME = {"", "Fitness", "BCA Chest", "Gym", "ID check", "T hallway", "Visual Lab", "Chance", "Ms. Min", "Culinary", "Detention", "Mr. Hathaway", "Lower Caf", "Ms. Kaba", "Mr. Torres", "[rail]", "Mr. Miller", "BCA Chest", "Ms. Pagano", "Mrs. Kim", "Commons", "Dr. Penev", "Chance", "Dr. Heitzman", "Dr. Abramson", "[railroad]", "Mandarin", "Spanish", "Upper Caf", "French", "Go to Detention", "Biology", "Chemistry", "BCA Chest", "Physics", "[railroad]", "Chance", "Makerspace", "ID Check", "Comp Sci (room 138)"};
+    public String[] NAME = {"", "Fitness", "BCA\nChest", "Gym", "ID check", "T hallway", "Visual Lab", "Chance", "Ms. Min", "Culinary", "Detention", "Mr.\nHathaway", "Lower Caf", "Ms. Kaba", "Mr. Torres", "[railroad]", "Mr. Miller", "BCA\nChest", "Ms.\nPagano", "Mrs. Kim", "Commons", "Dr. Penev", "Chance", "Dr.\nHeitzman", "Dr.\nAbramson", "[railroad]", "Mandarin", "Spanish", "Upper Caf", "French", "Go to \n Detention", "Biology", "Chemistry", "BCA\nChest", "Physics", "[railroad]", "Chance", "Maker \n space", "ID Check", "Comp Sci\n(room 138)"};
     public int[] PRICE = {0, 60, 0, 60, 0, 0, 100, 0, 100, 120, 0, 140, 0, 140, 160, 0, 180, 0, 180, 200, 0, 220, 0, 220, 240, 0, 260, 260, 0, 280, 0, 300, 300, 0, 320, 0, 0, 350, 0, 400};
     public int[] RENT = {0, 2, 0, 4, 0, 0, 6, 0, 6, 8, 0, 10, 0, 10, 12, 0, 14, 0, 14, 16, 0, 18, 0, 18, 20, 0, 22, 22, 0, 24, 0, 26, 26, 0, 28, 0, 0, 35, 0, 50};
     public Dice dice = new Dice();
@@ -22,6 +22,8 @@ public class Board extends World
     public int roll1;
     public int roll2;
     public int lastRoll;
+    public Menu menu;
+    public boolean rolled = false;
     /**
      * Constructor for objects of class Board.
      * 
@@ -171,8 +173,9 @@ public class Board extends World
             
         }
         //2d array for rent of houses
-        Play g = new Play();
-        addObject(g,1000, 1000);
+        addObject(new RollButton(), 500, 500);
+        this.menu = new Menu();
+        addObject(this.menu, 864, 350);
     }
     
     public void startGame(ArrayList<String> playerNames, ArrayList<String> tokens){
@@ -211,7 +214,9 @@ public class Board extends World
     public void act() {
         // while more than one player remains (bankrupted people are removed) 
         // continue playing
-        if(players.length > 1) {
+        
+        if(players.length > 1 &&  (!rolled)) {
+            rolled = false; 
             // cycles through the players, allowing them to take turns one by one
             for (int player = 0; player < players.length; player++) {
                 turn = players[player]; //the player whose turn it is
@@ -251,24 +256,27 @@ public class Board extends World
                 //the player rolling doubles/nondoubles
                 int doubles = 0;
                 boolean notDoubles = false;
+                showText("helo", 500, 550);
                 // while they haven't rolled three doubles the player can take their turn
                 while (!notDoubles && doubles < 3) {
                     // this button will allow a player to roll the dice
                     // it will be in the side bar
-                    /*RollButton rb = new RollButton();
-                    addObject(rb, 720, 500); // random coordinates at the moment
-                    showText("Roll!", 900, 900);
-                    
-                    while(!rb.rolled) {
-                        if(rb.rolled) {
+                   /*
+                    while(!rolled) {
+                        if(rolled) {
                             break;
                         }
                     }
-                    removeObject(rb); 
+                    rolled = false;
+                    //removeObject(rb); 
                     
-                    showText("Die 1: " + roll1 + ", Die 2: " + roll2, 750, 350);
+                   int abracadabra = 0;
+                   while (!rolled) {
+                       abracadabra++;
+                   }
+                   showText("Die 1: " + roll1 + ", Die 2: " + roll2, 750, 350);
                     */
-                    //checks if the player rolled enough
+                   //checks if the player rolled enough
                     //evens to get in jail
                     //if yes, sends them to jail and breaks from the 
                     //while-loop that is their turn
@@ -330,7 +338,7 @@ public class Board extends World
                         }
                     }
                     else if (spaceType.equals("utility")) {
-                        if (((Utility)curSpace).getOwner().equals(null)&& turn.getMoney() >= ((Utility)curSpace).price){
+                        if (((Utility)curSpace).getOwner().equals(null) && turn.getMoney() >= ((Utility)curSpace).price){
                             //asks if player wants to buy (allows if enough $)
                             String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + "(y/n)?");
                             if(response.equals("y")) {
@@ -364,7 +372,7 @@ public class Board extends World
                         }
                     }
                     else if (spaceType.equals("railroad")){
-                        if (((Railroad) curSpace).getOwner().equals(null)) {
+                        if (((Railroad) curSpace).getOwner().equals(null) && turn.getMoney() >= ((Railroad)curSpace).price) {
                             //asks if player wants to buy (allows if enough $)
                         }
                         else {
@@ -402,10 +410,15 @@ public class Board extends World
                 if (doubles == 3){
                     turn.goToJail();
                     //get out of jail protocol, might want to make this as a method
-                    if (turn.getOutOfJailCards[0] == 1 || turn.getOutOfJailCards[1] == 1){
-                        //ask if they want to get out of jail
-                        //if they got out of jail, remove card, call turn.getOutOfJail()
-                        
+                    if (turn.getOutOfJailCards[0]){
+                        // ya wanna get out of jail???? shh dats illegal
+                        // shhhhhhhhhhhhhhhhhhhhhhh
+                        turn.getOutOfJailCards[0] = false;
+                        turn.getOutOfJail();
+                    }
+                    else if (turn.getOutOfJailCards[1]) {
+                        turn.getOutOfJailCards[1] = false;
+                        turn.getOutOfJail();
                     }
                     else if (turn.getMoney() >= 50){
                         //ask if they want to get out of jail

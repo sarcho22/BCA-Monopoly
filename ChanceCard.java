@@ -28,6 +28,10 @@ public class ChanceCard extends Card
     }    
     
     public void doAction() {
+        GreenfootImage i = ((Board)getWorld()).menu.getImage();
+        i.setFont(i.getFont().deriveFont(27f));
+        i.drawString("Your ChanceCard says:\n" + message, i.getWidth()/2-150, i.getHeight()/2+150);
+        
         switch(action) {
             case "add":
                 //add money
