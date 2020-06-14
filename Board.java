@@ -313,6 +313,7 @@ public class Board extends World
                                     ((Property) curSpace).owner = turn;
                                     turn.subMoney(((Property)curSpace).price);
                                     turn.playerProperties.add(((Property)curSpace).spaceNumber);
+                                    showText("do u work", 500, 500);
                                 }
                                 else if(response.equals("n")) {
                                     showText("but why ;((((", 350, 550);
@@ -374,6 +375,15 @@ public class Board extends World
                         else if (spaceType.equals("railroad")){
                             if (((Railroad) curSpace).getOwner().equals(null) && turn.getMoney() >= ((Railroad)curSpace).price) {
                                 //asks if player wants to buy (allows if enough $)
+                                String response = Greenfoot.ask("Would you like to buy " + ((Railroad)curSpace).name + "(y/n)?");
+                                if(response.equals("y")) {
+                                    ((Railroad) curSpace).owner = turn;
+                                    turn.subMoney(((Railroad)curSpace).price);
+                                    turn.playerProperties.add(((Railroad)curSpace).spaceNumber);
+                                }
+                                else if(response.equals("n")) {
+                                    showText("but why ;((((", 350, 550);
+                                }
                             }
                             else {
                                 //we need to know how many railroads

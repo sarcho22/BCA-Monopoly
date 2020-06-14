@@ -17,7 +17,7 @@ public class Player extends Actor
     //because it can include railroads and utilities
     //so, we just store the indeces of everything the player
     //currently owns (indeces of the space on the board)
-    public ArrayList<Integer> playerProperties;
+    public ArrayList<Integer> playerProperties = new ArrayList<>();
     //there can be a max of 2 get out of jail cards
     //so the list has length 2
     //the values it stores: 1 = card 0 = no card

@@ -17,12 +17,12 @@ public class ChanceDeck extends Card
      */
     public ChanceDeck() {
         // make the deck of chance cards NEED ACTIONS HERE
-        cards[0] = new ChanceCard("Go to detention (no, you do not get to redo this school year, so no collecting $200!)", "jail", 0);
+        cards[5] = new ChanceCard("Go to detention (no, you do not get to redo this school year, so no collecting $200!)", "jail", 0);
         cards[1] = new ChanceCard("Go back three spaces (you forgot your calculator).", "3", 0);
         cards[2] = new ChanceCard("Mr. Hathaway wants to meet with you. Go to his classroom, see if you can collect $200 on the way there.", "hathaway", 0);
         cards[3] = new ChanceCard("Advance to Dr. Penev’s room, if possible, collect $200 on the way.", "penev", 0);
         cards[4] = new ChanceCard("Advance to the CS room 138.", "138", 0);
-        cards[5] = new ChanceCard("You got an A on your math test. Your parents give you $150.", "add", 150);
+        cards[0] = new ChanceCard("You got an A on your math test. Your parents give you $150.", "add", 150);
         cards[6] = new ChanceCard("You got to skip a grade! Advance to the next start of the school year and collect $200.", "go", 0);
         cards[7] = new ChanceCard("Classroom repairs. Pay the PPO $25 for each house and $100 for each hotel you own.", "repairs", 0);
         cards[8] = new ChanceCard("You were elected class president, so time to give back to those who elected you. Pay $50 to each player.", "election", 0);
