@@ -38,7 +38,13 @@ public class ChestDeck extends Card
     public void act() 
     {
         // Add your action code here.
-    }    
+    }   
+    
+    public void addCards() {
+        for (int i = 0; i <= 15; i++) {
+            ((Board)getWorld()).addObject(cards[i], 1000000, 1000000);
+        }
+    }
     
     public void draw() {
         //I'm guessing we pick a certain chanceCard?

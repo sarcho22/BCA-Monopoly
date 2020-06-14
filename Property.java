@@ -40,6 +40,10 @@ public class Property extends Space
         return owner;
     }
     
+    public void setOwner(Player o) {
+        owner = o;
+    }
+    
     public void collectRent(Player paying) {
         int payment = 0;
         if (numHouses == 5){
