@@ -29,8 +29,9 @@ public class ChestCard extends Card
     
     public void doAction() {
         GreenfootImage i = ((Board)getWorld()).menu.getImage();
-        i.setFont(i.getFont().deriveFont(27f));
-        i.drawString("Your ChestCard says:\n" + message, i.getWidth()/2-150, i.getHeight()/2+150);
+        i.drawString("", i.getWidth()/2-200, i.getHeight()/2+200);
+        i.setFont(i.getFont().deriveFont(12f));
+        i.drawString("Your ChestCard says:\n" + message, i.getWidth()/2-200, i.getHeight()/2+200);
         
         switch(action) {
             case "add":
@@ -48,10 +49,10 @@ public class ChestCard extends Card
                 break;
             case "b-day":
                 //collect $10 from each player
-                for (int a = 0; a < ((Board)getWorld()).players.length; a++){
+                for (int a = 0; a < ((Board)getWorld()).players.size(); a++){
                     ((Board)getWorld()).turn.addMoney(10);
-                    if ((((Board)getWorld()).players[a]).equals(((Board)getWorld()).turn)){
-                        ((Board)getWorld()).players[a].subMoney(10);
+                    if ((((Board)getWorld()).players.get(a)).equals(((Board)getWorld()).turn)){
+                        ((Board)getWorld()).players.get(a).subMoney(10);
                     }
                 }
                 break;

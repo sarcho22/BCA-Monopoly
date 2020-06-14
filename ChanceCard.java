@@ -30,8 +30,9 @@ public class ChanceCard extends Card
     public void doAction() {
         //u have to add the chance card in bc there is no world for it rn
         GreenfootImage i = ((Board)getWorld()).menu.getImage();
-        i.setFont(i.getFont().deriveFont(27f));
-        i.drawString("Your ChanceCard says:\n" + message, i.getWidth()/2-150, i.getHeight()/2+150);
+        i.drawString("", i.getWidth()/2-200, i.getHeight()/2+200);
+        i.setFont(i.getFont().deriveFont(12f));
+        i.drawString("Your ChanceCard says:\n" + message, i.getWidth()/2-200, i.getHeight()/2+200);
         
         switch(action) {
             case "add":
@@ -48,10 +49,10 @@ public class ChanceCard extends Card
                 // put into jail ((Board)getWorld()).turn.moveToSpace(Jail);
                 break;
             case "election":
-                for (int a = 0; a < ((Board)getWorld()).players.length; a++){
+                for (int a = 0; a < ((Board)getWorld()).players.size(); a++){
                     ((Board)getWorld()).turn.subMoney(50);
-                    if ((((Board)getWorld()).players[a]).equals(((Board)getWorld()).turn)){
-                        ((Board)getWorld()).players[a].addMoney(50);
+                    if ((((Board)getWorld()).players.get(a)).equals(((Board)getWorld()).turn)){
+                        ((Board)getWorld()).players.get(a).addMoney(50);
                     }
                 }
                 //pay $50 to each player
