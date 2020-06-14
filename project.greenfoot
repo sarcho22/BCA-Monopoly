@@ -154,11 +154,19 @@ dependency8.type=UsesDependency
 dependency9.from=Board
 dependency9.to=Chest
 dependency9.type=UsesDependency
+<<<<<<< HEAD
 editor.fx.0.height=737
 editor.fx.0.width=814
 editor.fx.0.x=360
 editor.fx.0.y=28
 height=744
+=======
+editor.fx.0.height=838
+editor.fx.0.width=1550
+editor.fx.0.x=-7
+editor.fx.0.y=-7
+height=838
+>>>>>>> 120b14bcd2320966594abd6e53acf5d295d2fd6f
 package.numDependencies=49
 package.numTargets=30
 project.charset=UTF-8
@@ -174,7 +182,7 @@ readme.name=@README
 readme.width=47
 readme.x=10
 readme.y=10
-simulation.speed=53
+simulation.speed=49
 target1.height=50
 target1.name=GoToJail
 target1.showInterface=false
