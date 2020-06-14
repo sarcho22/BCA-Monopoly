@@ -18,12 +18,13 @@ public class Board extends World
     public int[] RENT = {0, 2, 0, 4, 0, 0, 6, 0, 6, 8, 0, 10, 0, 10, 12, 0, 14, 0, 14, 16, 0, 18, 0, 18, 20, 0, 22, 22, 0, 24, 0, 26, 26, 0, 28, 0, 0, 35, 0, 50};
     public Dice dice = new Dice();
     public ChanceDeck chanceDeck;
-    public ChestDeck chestDeck = new ChestDeck();
+    public ChestDeck chestDeck;
     public Player[] players;
     public Player turn; //added this to keep track of whose turn it is
     public int roll1;
     public int roll2;
     public int lastRoll;
+    public int player;
     public boolean rolled = false;
     public boolean turnOver = true;
     public Menu menu;
@@ -210,8 +211,11 @@ public class Board extends World
         chanceDeck = new ChanceDeck();
         addObject(chanceDeck, 10000, 10000);
         chanceDeck.addCards();
-        chanceDeck.shuffle();
-        chestDeck.shuffle();
+        //chanceDeck.shuffle();
+        chestDeck = new ChestDeck();
+        addObject(chestDeck, 10000, 10000);
+        chestDeck.addCards();
+        //chestDeck.shuffle();
         // Note: no player-player trading for now
     }
     
@@ -220,10 +224,35 @@ public class Board extends World
         // continue playing
         if(players.length > 1) {
             // cycles through the players, allowing them to take turns one by one
-            for (int player = 0; player < players.length; player++) {
-                if (turnOver) {
+            switch(player) {
+                case 0:
+                    runTurn(0);
+                    break;
+                case 1:
+                    runTurn(1);
+                    break;
+                case 2:
+                    if (player < players.length) {
+                        runTurn(2);
+                    }
+                    break;
+                case 3:
+                    if (player < players.length) {
+                        runTurn(3);
+                    }
+                    break;
+                default:
+                    break;
+                    
+            }
+        }
+      
+    }
+    
+    public void runTurn(int p) {
+        if (turnOver) {
                     turnOver = false;
-                    turn = players[player]; //the player whose turn it is
+                    turn = players[p]; //the player whose turn it is
                     // the if makes sure that there are still enough people not 
                     // bankrupt to play (because the amount of players can
                     // change within the for loop)
@@ -239,10 +268,10 @@ public class Board extends World
                         }
                         else{
                             Player[] temp = new Player[players.length -1];
-                            for (int i = 0; i < player; i++){
+                            for (int i = 0; i < p; i++){
                                 temp[i] = players[i];
                             }
-                            for (int i = player + 1; i < players.length; i++){
+                            for (int i = p + 1; i < players.length; i++){
                                 temp[i - 1] = players[i];
                             }
                             players = temp;
@@ -263,7 +292,7 @@ public class Board extends World
                     //the player rolling doubles/nondoubles
                     int doubles = 0;
                     boolean notDoubles = false;
-                    showText("helo", 500, 550);
+                    
                     
                     // while they haven't rolled three doubles the player can take their turn
                     
@@ -303,17 +332,21 @@ public class Board extends World
                         // define some variables relating to which space they landed on
                         Space curSpace = boardSpaces[turn.getCurrentSpace()];
                         String spaceType = curSpace.getType();
+                        
                         //depending on space type, they can make their turn
                         if (spaceType.equals("property")){
                             if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){
                                 // the property has no owner
                                 //it asks if player wants to buy (allows if enough $)
                                 String response = Greenfoot.ask("Would you like to buy " + ((Property) curSpace).name + "(y/n)?");
+                              
+                                
                                 if(response.equals("y")) {
-                                    ((Property) curSpace).owner = turn;
+                                    
+                                    ((Property) curSpace).setOwner(turn);
                                     turn.subMoney(((Property)curSpace).price);
                                     turn.playerProperties.add(((Property)curSpace).spaceNumber);
-                                    showText("do u work", 500, 500);
+                                    
                                 }
                                 else if(response.equals("n")) {
                                     showText("but why ;((((", 350, 550);
@@ -326,6 +359,7 @@ public class Board extends World
                             
                             if (((Property) curSpace).getOwner().equals(turn)){
                                 // checks property color
+                                
                                 String color = ((Property)curSpace).COLORS[turn.getCurrentSpace()];
                                 
                                 if (turn.hasAMonopoly(color)) {
@@ -336,6 +370,8 @@ public class Board extends World
                                         //offer to buildHotel
                                     }
                                 }
+                                
+                               
                             }
                         }
                         else if (spaceType.equals("utility")) {
@@ -442,10 +478,5 @@ public class Board extends World
                     EndButton e = new EndButton();
                     addObject(e, 500, 400);
                 }
-                else {
-                    player--;
-                }
-            }
-        }
     }
 }
