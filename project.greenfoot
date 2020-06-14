@@ -154,19 +154,11 @@ dependency8.type=UsesDependency
 dependency9.from=Board
 dependency9.to=Chest
 dependency9.type=UsesDependency
-<<<<<<< HEAD
-editor.fx.0.height=737
-editor.fx.0.width=814
-editor.fx.0.x=360
-editor.fx.0.y=28
-height=744
-=======
-editor.fx.0.height=838
-editor.fx.0.width=1550
-editor.fx.0.x=-7
-editor.fx.0.y=-7
+editor.fx.0.height=744
+editor.fx.0.width=1382
+editor.fx.0.x=-8
+editor.fx.0.y=-8
 height=838
->>>>>>> 120b14bcd2320966594abd6e53acf5d295d2fd6f
 package.numDependencies=49
 package.numTargets=30
 project.charset=UTF-8
