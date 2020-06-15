@@ -37,10 +37,16 @@ public class ChanceCard extends Card
                 break;
             case "free":
                 ((Board)getWorld()).turn.moveToSpace(20);
+                if (!((Board)getWorld()).turn.getOutOfJailCards[0]){
+                    ((Board)getWorld()).turn.getOutOfJailCards[0] = true;
+                }
+                else if (!((Board)getWorld()).turn.getOutOfJailCards[1]){
+                    ((Board)getWorld()).turn.getOutOfJailCards[1] = true;
+                }
                 //add a get out of jail card to the player
                 break;
             case "jail":
-                // put into jail ((Board)getWorld()).turn.moveToSpace(Jail);
+                ((Board)getWorld()).goToJail();
                 break;
             case "election":
                 for (int a = 0; a < ((Board)getWorld()).players.size(); a++){

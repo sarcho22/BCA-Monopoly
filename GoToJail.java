@@ -12,16 +12,4 @@ public class GoToJail extends Corner
         super("Go to Detention", 30, "gotojail");
         //needs to add bonus to those that just landed or crossed it
     }
-    /**
-     * Act - do whatever the GoToJail wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void inJail() 
-    {
-        //for(int p : ) { <--- use the list of Players from the board or something
-            //code to move player image to the jail spot
-            //for each player, call moveToSpace(10);
-        
-        //}
-    }    
 }

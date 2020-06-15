@@ -38,9 +38,15 @@ public class ChestCard extends Card
             case "free":
                 ((Board)getWorld()).turn.moveToSpace(20);
                 //add a get out of jail card to the player
+                if (!((Board)getWorld()).turn.getOutOfJailCards[0]){
+                    ((Board)getWorld()).turn.getOutOfJailCards[0] = true;
+                }
+                else if (!((Board)getWorld()).turn.getOutOfJailCards[1]){
+                    ((Board)getWorld()).turn.getOutOfJailCards[1] = true;
+                }
                 break;
             case "jail":
-                // put in to jail ((Board)getWorld()).turn.moveToSpace(Jail);
+                ((Board)getWorld()).goToJail();
                 break;
             case "b-day":
                 //collect $10 from each player
