@@ -12,7 +12,7 @@ public class Board extends World {
     //hahahahahahaha
     public Space[] boardSpaces = new Space[40];
     public String[] TYPE = {"go", "property", "chest", "property", "tax", "railroad", "property", "chance", "property", "property", "jail", "property", "utility", "property", "property", "railroad", "property", "chest", "property", "property", "free", "property", "chance", "property", "property", "railroad", "property", "property", "utility", "property", "gotojail", "property", "property", "chest", "property", "railroad", "chance", "property", "tax", "property"};
-    public String[] NAME = {"", "Fitness", "BCA\nChest", "Gym", "ID check", "T hallway", "Visual Lab", "Chance", "Ms. Min", "Culinary", "Detention", "Mr.\nHathaway", "Lower Caf", "Ms. Kaba", "Mr. Torres", "[railroad]", "Mr. Miller", "BCA\nChest", "Ms.\nPagano", "Mrs. Kim", "Commons", "Dr. Penev", "Chance", "Dr.\nHeitzman", "Dr.\nAbramson", "[railroad]", "Mandarin", "Spanish", "Upper Caf", "French", "Go to \n Detention", "Biology", "Chemistry", "BCA\nChest", "Physics", "[railroad]", "Chance", "Maker \n space", "ID Check", "Comp Sci\n(room 138)"};
+    public String[] NAME = {"", "Fitness", "BCA\nChest", "Gym", "ID check", "T hallway", "Visual Lab", "Chance", "Ms. Min", "Culinary", "Detention", "Mr.\nHathaway", "Lower Caf", "Ms. Kaba", "Mr. Torres", "Math\nhallway", "Mr. Miller", "BCA\nChest", "Ms.\nPagano", "Mrs. Kim", "Commons", "Dr. Penev", "Chance", "Dr.\nHeitzman", "Dr.\nAbramson", "Language\nhallway", "Mandarin", "Spanish", "Upper Caf", "French", "Go to \n Detention", "Biology", "Chemistry", "BCA\nChest", "Physics", "Chem\nhallway", "Chance", "Maker \n space", "ID Check", "Comp Sci\n(room 138)"};
     public int[] PRICE = {0, 60, 0, 60, 0, 0, 100, 0, 100, 120, 0, 140, 0, 140, 160, 0, 180, 0, 180, 200, 0, 220, 0, 220, 240, 0, 260, 260, 0, 280, 0, 300, 300, 0, 320, 0, 0, 350, 0, 400};
     public int[] RENT = {0, 2, 0, 4, 0, 0, 6, 0, 6, 8, 0, 10, 0, 10, 12, 0, 14, 0, 14, 16, 0, 18, 0, 18, 20, 0, 22, 22, 0, 24, 0, 26, 26, 0, 28, 0, 0, 35, 0, 50};
     public Dice dice = new Dice();
@@ -316,7 +316,6 @@ public class Board extends World {
                     notDoubles = true;
                 }
                 if (doubles == 3){
-                    turn.goToJail();
                     break;
                 }
                 //moves player forward one space at a time
@@ -364,7 +363,7 @@ public class Board extends World {
                                 //offer to buildHouse
                                 String s = Greenfoot.ask("eelo u wanna house? (y/n)");
                                 if(s.equals("y")) {
-                                    House h = ((Property) curSpace).buildHouse();
+                                    House h = (House)((Property) curSpace).buildHouse();
                                     addObject(h, ((Property)curSpace).x, ((Property)curSpace).y);
                                 }
                             }
@@ -372,7 +371,7 @@ public class Board extends World {
                                 //offer to buildHotel
                                 String s = Greenfoot.ask("eelo u wanna build a snowwwwwwman (also known as a hotel)? (y/n)");
                                 if(s.equals("y")) {
-                                    Hotel h = ((Property) curSpace).buildHouse();
+                                    Hotel h = (Hotel)((Property) curSpace).buildHouse();
                                     addObject(h, ((Property)curSpace).x, ((Property)curSpace).y);
                                 }
                             }
@@ -451,7 +450,7 @@ public class Board extends World {
                     //that they need to mortgage
                 }
                 else if (spaceType.equals("gotojail")){ 
-                    turn.inJail = true;
+                    goToJail();
                 }
                 else if (spaceType.equals("free")){
                     //((Free)curSpace).collectMoney();
@@ -459,8 +458,6 @@ public class Board extends World {
             }
             if (doubles == 3){
                 goToJail();
-                //get out of jail protocol, might want to make this as a method
-                gettingOutOfJail();
             }
             EndButton e = new EndButton();
             addObject(e, 900, 75);
@@ -468,11 +465,12 @@ public class Board extends World {
     }
     
     public void goToJail() {
+        //physically and virtually in jail
         turn.inJail = true;
         turn.setLocation(jail.getX(), jail.getY()); 
         turn.currentSpace = 10;
-        // figure out how to put them in 
-        //physically into the jail
+        //ask if they want to get out
+        gettingOutOfJail();
     }
     
     public void getOutOfJail() 
@@ -502,16 +500,12 @@ public class Board extends World {
         }
         else {
             //allow them to roll, trying to get a double
-            //this will happen for the next two moved, unless they choose to leave
+            //this will happen for the next two moves, unless they choose to leave
             //then they will be forced to pay 50
             roll1 = dice.roll();
             roll2 = dice.roll();
             showText("You rolled " + roll1 + " and " + roll2, 850, 150);
            
-            //checks if the player rolled enough
-            //evens to get in jail
-            //if yes, sends them to jail and breaks from the 
-            //while-loop that is their turn
             if (roll1 == roll2) {
                 getOutOfJail();
                 turn.turnsInJail = 0;
