@@ -13,6 +13,7 @@ public class Player extends Actor
     public int currentSpace;
     public String name;
     public boolean inJail;
+    public int turnsInJail = 0;
     //playerProperties is not a list of properties
     //because it can include railroads and utilities
     //so, we just store the indeces of everything the player
@@ -32,20 +33,6 @@ public class Player extends Actor
         this.token = t;
         this.name = name;
         setImage(this.token + "_token_smaller.png");
-    }
-    
-    public void goToJail() 
-    {
-        inJail = true;
-        //moveToSpace(jail); 
-        // figure out how to put them in 
-        //physically into the jail
-    }
-    
-    public void getOutOfJail() 
-    {
-        inJail = false;
-        moveToSpace(10);
     }
     
     public void addMoney(int amount){

@@ -3,13 +3,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 /**
- * Write a description of class Board here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Board extends World
-{
+* Write a description of class Board here.
+* 
+* @author (your name) 
+* @version (a version number or a date)
+*/
+public class Board extends World {
     //hahahahahahaha
     public Space[] boardSpaces = new Space[40];
     public String[] TYPE = {"go", "property", "chest", "property", "tax", "railroad", "property", "chance", "property", "property", "jail", "property", "utility", "property", "property", "railroad", "property", "chest", "property", "property", "free", "property", "chance", "property", "property", "railroad", "property", "property", "utility", "property", "gotojail", "property", "property", "chest", "property", "railroad", "chance", "property", "tax", "property"};
@@ -28,6 +27,7 @@ public class Board extends World
     public boolean rolled = false;
     public boolean turnOver = true;
     public Menu menu;
+    public Jail jail;
     /**
      * Constructor for objects of class Board.
      * 
@@ -42,6 +42,9 @@ public class Board extends World
         int x = 605;
         int y = 640;
         
+        jail = new Jail();
+        addObject(jail, 550, 350);
+        
         Space a = new Go();
         boardSpaces[count++] = a;
         addObject(a, x, y);
@@ -54,7 +57,7 @@ public class Board extends World
                 x -= 4;
             }
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i], x, y);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -86,7 +89,7 @@ public class Board extends World
                 y -= 4;
             }
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i], x, y);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -120,7 +123,7 @@ public class Board extends World
             }
             x += interval;
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i], x, y);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -154,7 +157,7 @@ public class Board extends World
             }
             y += interval;
             if(TYPE[i].equals("property")) {
-                a = new Property(NAME[i], i, PRICE[i], RENT[i]);
+                a = new Property(NAME[i], i, PRICE[i], RENT[i], x, y);
             }
             else if(TYPE[i].equals("chest")) {
                 a = new Chest(NAME[i], i);
@@ -263,7 +266,7 @@ public class Board extends World
             // the if makes sure that there are still enough people not 
             // bankrupt to play (because the amount of players can
             // change within the for loop)
-
+    
             if (players.size() == 1) {
                 Greenfoot.stop();
             }
@@ -359,9 +362,19 @@ public class Board extends World
                         if (turn.hasAMonopoly(color)) {
                             if (((Property)curSpace).numHouses < 4) {
                                 //offer to buildHouse
+                                String s = Greenfoot.ask("eelo u wanna house? (y/n)");
+                                if(s.equals("y")) {
+                                    House h = ((Property) curSpace).buildHouse();
+                                    addObject(h, ((Property)curSpace).x, ((Property)curSpace).y);
+                                }
                             }
                             else if (((Property)curSpace).numHouses == 4) {
                                 //offer to buildHotel
+                                String s = Greenfoot.ask("eelo u wanna build a snowwwwwwman (also known as a hotel)? (y/n)");
+                                if(s.equals("y")) {
+                                    Hotel h = ((Property) curSpace).buildHouse();
+                                    addObject(h, ((Property)curSpace).x, ((Property)curSpace).y);
+                                }
                             }
                         }
                     }
@@ -438,36 +451,74 @@ public class Board extends World
                     //that they need to mortgage
                 }
                 else if (spaceType.equals("gotojail")){ 
-                    turn.goToJail();
+                    turn.inJail = true;
                 }
                 else if (spaceType.equals("free")){
                     //((Free)curSpace).collectMoney();
                 }
             }
             if (doubles == 3){
-                turn.goToJail();
+                goToJail();
                 //get out of jail protocol, might want to make this as a method
-                if (turn.getOutOfJailCards[0]){
-                    // ya wanna get out of jail?
-                    turn.getOutOfJailCards[0] = false;
-                    turn.getOutOfJail();
-                }
-                else if (turn.getOutOfJailCards[1]) {
-                    turn.getOutOfJailCards[1] = false;
-                    turn.getOutOfJail();
-                }
-                else if (turn.getMoney() >= 50){
-                    //ask if they want to get out of jail
-                    //if they got out of jail, sub money, call turn.getOutOfJail()
-                }
-                else{
-                    //allow them to roll, trying to get a double
-                    //this will happen for the next two moved, unless they choose to leave
-                    //then they will be forced to pay 50
-                }
+                gettingOutOfJail();
             }
             EndButton e = new EndButton();
             addObject(e, 900, 75);
+        }
+    }
+    
+    public void goToJail() {
+        turn.inJail = true;
+        turn.setLocation(jail.getX(), jail.getY()); 
+        turn.currentSpace = 10;
+        // figure out how to put them in 
+        //physically into the jail
+    }
+    
+    public void getOutOfJail() 
+    {
+        turn.inJail = false;
+        turn.setLocation(43, 640);
+    }
+    
+    public void gettingOutOfJail() {
+        String s = Greenfoot.ask("1: roll for a double; 2: use a getOutOfJailCard; 3: pay the bail (1/2/3)");
+        if(turn.turnsInJail == 3) {
+            turn.subMoney(50);
+            getOutOfJail();
+        }
+        if (s.equals("2") && turn.getOutOfJailCards[0]){
+            // ya wanna get out of jail?
+            turn.getOutOfJailCards[0] = false;
+            getOutOfJail();
+        }
+        else if (s.equals("2") && turn.getOutOfJailCards[1]) {
+            turn.getOutOfJailCards[1] = false;
+            getOutOfJail();
+        }
+        else if (s.equals("3") && turn.getMoney() >= 50){
+            turn.subMoney(50);
+            getOutOfJail();
+        }
+        else {
+            //allow them to roll, trying to get a double
+            //this will happen for the next two moved, unless they choose to leave
+            //then they will be forced to pay 50
+            roll1 = dice.roll();
+            roll2 = dice.roll();
+            showText("You rolled " + roll1 + " and " + roll2, 850, 150);
+           
+            //checks if the player rolled enough
+            //evens to get in jail
+            //if yes, sends them to jail and breaks from the 
+            //while-loop that is their turn
+            if (roll1 == roll2) {
+                getOutOfJail();
+                turn.turnsInJail = 0;
+            }
+            else{
+                turn.turnsInJail++;
+            }
         }
     }
 }
