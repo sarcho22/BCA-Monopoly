@@ -20,17 +20,13 @@ public class ChestCard extends Card
         this.message = message;
         this.action = action;
         this.amount = amount;
-    }
-    
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+    }   
     
     public void doAction() {
         GreenfootImage i = ((Board)getWorld()).menu.getImage();
-        i.setFont(i.getFont().deriveFont(27f));
-        i.drawString("Your ChestCard says:\n" + message, i.getWidth()/2-150, i.getHeight()/2+150);
+        i.drawString("", i.getWidth()/2-200, i.getHeight()/2+200);
+        i.setFont(i.getFont().deriveFont(12f));
+        i.drawString("Your ChestCard says:\n" + message, i.getWidth()/2-200, i.getHeight()/2+200);
         
         switch(action) {
             case "add":
@@ -48,10 +44,10 @@ public class ChestCard extends Card
                 break;
             case "b-day":
                 //collect $10 from each player
-                for (int a = 0; a < ((Board)getWorld()).players.length; a++){
+                for (int a = 0; a < ((Board)getWorld()).players.size(); a++){
                     ((Board)getWorld()).turn.addMoney(10);
-                    if ((((Board)getWorld()).players[a]).equals(((Board)getWorld()).turn)){
-                        ((Board)getWorld()).players[a].subMoney(10);
+                    if ((((Board)getWorld()).players.get(a)).equals(((Board)getWorld()).turn)){
+                        ((Board)getWorld()).players.get(a).subMoney(10);
                     }
                 }
                 break;
@@ -59,11 +55,27 @@ public class ChestCard extends Card
                 ((Board)getWorld()).turn.moveToSpace(0);
                 break;
             case "repairs":
+                int houses = 0;
+                int hotels = 0;
+                for (int a = 0; a < ((Board)getWorld()).players.size(); a++){
+                    for (int b = 0; b < ((Board)getWorld()).players.get(a).playerProperties.size(); b++){
+                        int propNum = ((Board)getWorld()).players.get(a).playerProperties.get(b);
+                        if (((Board)getWorld()).boardSpaces[propNum].getType().equals("property")){
+                            int houseNum = ((Property)((Board)getWorld()).boardSpaces[propNum]).numHouses;
+                            if (houseNum == 5){
+                                hotels++;
+                            }
+                            if (houseNum > 0){
+                                houses += houseNum;
+                            }
+                        }
+                    }
+                }
                 //pay $40 for each house and $115 per hotel (for all buildings)
+                ((Board)getWorld()).turn.subMoney(40 * houses + 115 * hotels);
                 break;
             default:
                 break;
         }
-        // write the description of the card to the menu
     }
 }

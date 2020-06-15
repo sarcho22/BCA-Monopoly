@@ -16,7 +16,7 @@ public class EndButton extends Actor
         if (Greenfoot.mousePressed(this)) {
             ((Board)getWorld()).turnOver = true;
             ((Board)getWorld()).player++;
-            if (((Board)getWorld()).player >= ((Board)getWorld()).players.length) {
+            if (((Board)getWorld()).player >= ((Board)getWorld()).players.size()) {
                 ((Board)getWorld()).player = 0;
             }
             ((Board)getWorld()).removeObject(this);

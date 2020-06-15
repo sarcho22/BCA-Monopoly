@@ -24,26 +24,28 @@ public class TokenButton extends Actor
      */
     public void showButtons(String playerName) 
     {
-        // Add your action code here.
+        ((StartingMenu)getWorld()).addObject(new BCA(), 236, 140);
+        ((StartingMenu)getWorld()).addObject(new Monopoly(), 600, 140);
+        
         if(!thimble) {
             Thimble c = new Thimble(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 236, 210);
+            ((StartingMenu)getWorld()).addObject(c, 236, 350);
         }
         if(!dog) {
             Dog c = new Dog(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 513, 212);
+            ((StartingMenu)getWorld()).addObject(c, 513, 352);
         }
         if(!hat) {
             Hat c = new Hat(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 822, 216);
+            ((StartingMenu)getWorld()).addObject(c, 822, 356);
         }
         if(!car) {
             Car c = new Car(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 325, 433);
+            ((StartingMenu)getWorld()).addObject(c, 325, 573);
         }
         if(!boat) {
             Boat c = new Boat(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 629, 421);
+            ((StartingMenu)getWorld()).addObject(c, 629, 571);
         }
     }    
     

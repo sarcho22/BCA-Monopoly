@@ -8,15 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ChanceDeck extends Card
 {
-    public ChanceCard[] cards = new ChanceCard[16]; // idk the size might change
-    // IDK HOW TO ADD THE CHANCE CARDS TO THE THIS THO (it's not letting me idk why)
+    public ChanceCard[] cards = new ChanceCard[16]; 
     
     /**
      * Act - do whatever the Chance wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public ChanceDeck() {
-        // make the deck of chance cards NEED ACTIONS HERE
         cards[5] = new ChanceCard("Go to detention (no, you do not get to redo this school year, so no collecting $200!)", "jail", 0);
         cards[1] = new ChanceCard("Go back three spaces (you forgot your calculator).", "3", 0);
         cards[2] = new ChanceCard("Mr. Hathaway wants to meet with you. Go to his classroom, see if you can collect $200 on the way there.", "hathaway", 0);
@@ -34,12 +32,7 @@ public class ChanceDeck extends Card
         cards[14] = new ChanceCard("Advance to the nearest hallway. If it is OWNED, play the owner 2 times the ordinary rent (otherwise you can buy it yourself).", "hall", 0);
         cards[15] = new ChanceCard("Advance to the nearest hallway. If it is OWNED, play the owner 2 times the ordinary rent (otherwise you can buy it yourself).", "hall", 0);
         
-    }
-    
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+    } 
     
     public void addCards() {
         for (int i = 0; i <= 15; i++) {

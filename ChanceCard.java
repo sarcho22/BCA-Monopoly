@@ -20,18 +20,13 @@ public class ChanceCard extends Card
         this.message = message;
         this.action = action;
         this.amount = amount;
-    }
-    
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+    } 
     
     public void doAction() {
-        //u have to add the chance card in bc there is no world for it rn
         GreenfootImage i = ((Board)getWorld()).menu.getImage();
-        i.setFont(i.getFont().deriveFont(27f));
-        i.drawString("Your ChanceCard says:\n" + message, i.getWidth()/2-150, i.getHeight()/2+150);
+        i.drawString("", i.getWidth()/2-200, i.getHeight()/2+200);
+        i.setFont(i.getFont().deriveFont(12f));
+        i.drawString("Your ChanceCard says:\n" + message, i.getWidth()/2-200, i.getHeight()/2+200);
         
         switch(action) {
             case "add":
@@ -48,10 +43,10 @@ public class ChanceCard extends Card
                 // put into jail ((Board)getWorld()).turn.moveToSpace(Jail);
                 break;
             case "election":
-                for (int a = 0; a < ((Board)getWorld()).players.length; a++){
+                for (int a = 0; a < ((Board)getWorld()).players.size(); a++){
                     ((Board)getWorld()).turn.subMoney(50);
-                    if ((((Board)getWorld()).players[a]).equals(((Board)getWorld()).turn)){
-                        ((Board)getWorld()).players[a].addMoney(50);
+                    if ((((Board)getWorld()).players.get(a)).equals(((Board)getWorld()).turn)){
+                        ((Board)getWorld()).players.get(a).addMoney(50);
                     }
                 }
                 //pay $50 to each player
@@ -64,19 +59,33 @@ public class ChanceCard extends Card
                 //go back 3 spaces
                 break;
             case "hathaway":
-                //((Board)getWorld()).turn.moveToSpace();
+                ((Board)getWorld()).turn.moveToSpace(11);
                 //go to mr. hathaway 
                 break;
             case "penev":
-                //((Board)getWorld()).turn.moveToSpace();
+                ((Board)getWorld()).turn.moveToSpace(21);
                 //go to dr. penev
                 break;
             case "T":
-                //((Board)getWorld()).turn.moveToSpace();
+                ((Board)getWorld()).turn.moveToSpace(5);
                 //go to T hallway
                 break;
             case "repairs":
-                //pay $25 for each house and $100 per hotel (for your own)
+                int houses = 0;
+                int hotels = 0;
+                for (int a = 0; a < ((Board)getWorld()).turn.playerProperties.size(); a++){
+                        int propNum = ((Board)getWorld()).turn.playerProperties.get(a);
+                        if (((Board)getWorld()).boardSpaces[propNum].getType().equals("property")){
+                            int houseNum = ((Property)((Board)getWorld()).boardSpaces[propNum]).numHouses;
+                            if (houseNum == 5){
+                                hotels++;
+                            }
+                            if (houseNum > 0){
+                                houses += houseNum;
+                            }
+                        }
+                }
+                ((Board)getWorld()).turn.subMoney(25 * houses + 100 * hotels);
                 break;
             case "138":
                 ((Board)getWorld()).turn.moveToSpace(39);
@@ -91,6 +100,5 @@ public class ChanceCard extends Card
             default:
                 break;
         }
-        // write the description of the card to the menu
     }
 }

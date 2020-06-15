@@ -17,7 +17,7 @@ public class Menu extends Actor
         GreenfootImage i = new GreenfootImage("blank_property.png");
         i.scale((int)(i.getWidth() * 1.5), (int)(i.getHeight() * 2));
         i.setFont(i.getFont().deriveFont(15f));
-        i.drawString("Roll!", i.getWidth()/2-120, 100);
+        i.drawString("Dice: ", i.getWidth()/2-120, 100);
         i.drawString("Buy Property!", i.getWidth()/2-120, 160);
         i.drawString("Mortgage Property!", i.getWidth()/2-120, 220);
         i.drawString("Get out of Jail (isn't that illegal hmMmMmM)!", i.getWidth()/2-120, 280);
@@ -29,11 +29,7 @@ public class Menu extends Actor
     }
     public void callPlay() 
     {
-        // Add your action code here.
-        
-            ((Board)getWorld()).showText("hello", 500, 400);
-            ((Board)getWorld()).play();
-            once = true;
-        
+        ((Board)getWorld()).play();
+        once = true;
     }    
 }
