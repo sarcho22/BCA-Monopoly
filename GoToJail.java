@@ -18,10 +18,9 @@ public class GoToJail extends Corner
      */
     public void inJail() 
     {
-        // Add your action code here.
         //for(int p : ) { <--- use the list of Players from the board or something
             //code to move player image to the jail spot
-            //for each player, call moveToSpace(11);
+            //for each player, call moveToSpace(10);
         
         //}
     }    

@@ -20,12 +20,7 @@ public class ChestCard extends Card
         this.message = message;
         this.action = action;
         this.amount = amount;
-    }
-    
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+    }   
     
     public void doAction() {
         GreenfootImage i = ((Board)getWorld()).menu.getImage();
@@ -60,11 +55,27 @@ public class ChestCard extends Card
                 ((Board)getWorld()).turn.moveToSpace(0);
                 break;
             case "repairs":
+                int houses = 0;
+                int hotels = 0;
+                for (int a = 0; a < ((Board)getWorld()).players.size(); a++){
+                    for (int b = 0; b < ((Board)getWorld()).players.get(a).playerProperties.size(); b++){
+                        int propNum = ((Board)getWorld()).players.get(a).playerProperties.get(b);
+                        if (((Board)getWorld()).boardSpaces[propNum].getType().equals("property")){
+                            int houseNum = ((Property)((Board)getWorld()).boardSpaces[propNum]).numHouses;
+                            if (houseNum == 5){
+                                hotels++;
+                            }
+                            if (houseNum > 0){
+                                houses += houseNum;
+                            }
+                        }
+                    }
+                }
                 //pay $40 for each house and $115 per hotel (for all buildings)
+                ((Board)getWorld()).turn.subMoney(40 * houses + 115 * hotels);
                 break;
             default:
                 break;
         }
-        // write the description of the card to the menu
     }
 }

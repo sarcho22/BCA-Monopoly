@@ -319,7 +319,6 @@ public class Board extends World
                 //moves player forward one space at a time
                 //checks if you pass go and gives you 200
                 for (int m = 0; m < lastRoll; m++) {
-                   
                     try {
                         turn.moveOneSpace();
                     }
@@ -338,18 +337,14 @@ public class Board extends World
                     if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){
                         // the property has no owner
                         //it asks if player wants to buy (allows if enough $)
-                        String response = Greenfoot.ask("Would you like to buy " + ((Property) curSpace).name + "(y/n)?");
-                      
-                        
+                        String response = Greenfoot.ask("Would you like to buy " + ((Property) curSpace).name + " for $" + ((Property) curSpace).price + " (y/n)?");
                         if(response.equals("y")) {
-                            
                             ((Property) curSpace).setOwner(turn);
                             turn.subMoney(((Property)curSpace).price);
                             turn.playerProperties.add(((Property)curSpace).spaceNumber);
-                            
                         }
                         else if(response.equals("n")) {
-                            showText("but why ;((((", 350, 550);
+                            showText("but why ;((((", 850, 550);
                         }
                     }
                     else{
@@ -359,7 +354,6 @@ public class Board extends World
                     
                     if (((Property) curSpace).getOwner() != null && ((Property) curSpace).getOwner().equals(turn)){
                         // checks property color
-                        
                         String color = ((Property)curSpace).COLORS[turn.getCurrentSpace()];
                         
                         if (turn.hasAMonopoly(color)) {
@@ -370,14 +364,12 @@ public class Board extends World
                                 //offer to buildHotel
                             }
                         }
-                        
-                       
                     }
                 }
                 else if (spaceType.equals("utility")) {
                     if (((Utility)curSpace).getOwner() == null && turn.getMoney() >= ((Utility)curSpace).price){
                         //asks if player wants to buy (allows if enough $)
-                        String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + "(y/n)?");
+                        String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + " for $" + ((Utility) curSpace).price + " (y/n)?");
                         if(response.equals("y")) {
                             ((Utility) curSpace).owner = turn;
                             turn.subMoney(((Utility)curSpace).price);
@@ -411,7 +403,7 @@ public class Board extends World
                 else if (spaceType.equals("railroad")){
                     if (((Railroad) curSpace).getOwner() == null && turn.getMoney() >= ((Railroad)curSpace).price) {
                         //asks if player wants to buy (allows if enough $)
-                        String response = Greenfoot.ask("Would you like to buy " + ((Railroad)curSpace).name + "(y/n)?");
+                        String response = Greenfoot.ask("Would you like to buy " + ((Railroad)curSpace).name + " for $" + ((Railroad) curSpace).price + " (y/n)?");
                         if(response.equals("y")) {
                             ((Railroad) curSpace).owner = turn;
                             turn.subMoney(((Railroad)curSpace).price);
@@ -449,15 +441,14 @@ public class Board extends World
                     turn.goToJail();
                 }
                 else if (spaceType.equals("free")){
-                    ((Free)curSpace).collectMoney();
+                    //((Free)curSpace).collectMoney();
                 }
             }
             if (doubles == 3){
                 turn.goToJail();
                 //get out of jail protocol, might want to make this as a method
                 if (turn.getOutOfJailCards[0]){
-                    // ya wanna get out of jail???? shh dats illegal
-                    // shhhhhhhhhhhhhhhhhhhhhhh
+                    // ya wanna get out of jail?
                     turn.getOutOfJailCards[0] = false;
                     turn.getOutOfJail();
                 }

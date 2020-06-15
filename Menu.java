@@ -31,6 +31,5 @@ public class Menu extends Actor
     {
         ((Board)getWorld()).play();
         once = true;
-        
     }    
 }

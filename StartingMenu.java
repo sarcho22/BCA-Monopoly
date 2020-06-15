@@ -26,12 +26,7 @@ public class StartingMenu extends World
     {
         super(1100, 700, 1);
         
-        // To remind myself: the reason why we're having this error is because
-        // We're in the constructor of the StartingMenu rn, so startingmenu
-        // hasn't been created, and cuz of that, getWorld() isn't working.
-        // we probably need to move this code out of the constructor owoowowowoo
-        // omnomnomnom eat the oms
-        // and to solve that problem, we can probs just put all of this interaction
+        // to solve that problem, we can probs just put all of this interaction
         // stuff in the play button, so that once u click it, all of the below
         // shows up. All i did just now was change the Text field thingies to ask
         

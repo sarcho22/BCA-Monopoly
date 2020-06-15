@@ -65,10 +65,10 @@ public class Property extends Space
     
     public void purchase() {
         //changes String owner to whichever player's turn it is
+        //they pay and get the rpoperty added to their property arraylist
         owner = ((Board)getWorld()).turn;
         owner.subMoney(price);
-        //we would need to add it to the player's properties
-        //owner.playerProperties
+        owner.playerProperties.add(spaceNumber);
     }
     
     public void mortgage() {

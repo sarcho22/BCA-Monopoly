@@ -56,7 +56,7 @@ public class Player extends Actor
         money -= amount;
     }
     
-    public void moveOneSpace() throws InterruptedException {
+    public void moveOneSpace() /*throws InterruptedException*/ {
         //yeah we still gotta code the actual hopping
         if(currentSpace < 9) {
             setLocation(getX() - 56, getY());
@@ -93,8 +93,17 @@ public class Player extends Actor
         */
     }
     
-    public void moveToSpace(int spaceNumber) {
-        currentSpace = spaceNumber;
+    public void moveToSpace(int spaceNumber) /*throws InterruptedException*/ {
+        int spaces = 0;
+        if (currentSpace > spaceNumber){
+            spaces = spaceNumber + (40 - currentSpace);
+        }
+        else{
+            spaces = spaceNumber - currentSpace;
+        }
+        for (int i = 0; i < spaces; i++){
+            moveOneSpace();
+        }
     }
     
     public int getCurrentSpace(){
