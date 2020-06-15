@@ -13,6 +13,7 @@ public class Player extends Actor
     public int currentSpace;
     public String name;
     public boolean inJail;
+    public int turnsInJail = 0;
     //playerProperties is not a list of properties
     //because it can include railroads and utilities
     //so, we just store the indeces of everything the player
@@ -24,26 +25,14 @@ public class Player extends Actor
     public boolean[] getOutOfJailCards = new boolean[2];
     public int[] mortagedProperties;
     public int money = 1500;
+    public int initialX;
+    public int initialY;
     
     public Player(String t, int space, String name){
         currentSpace = space;
         this.token = t;
         this.name = name;
         setImage(this.token + "_token_smaller.png");
-    }
-    
-    public void goToJail() 
-    {
-        inJail = true;
-        //moveToSpace(jail); 
-        // figure out how to put them in 
-        //physically into the jail
-    }
-    
-    public void getOutOfJail() 
-    {
-        inJail = false;
-        moveToSpace(10);
     }
     
     public void addMoney(int amount){
@@ -54,10 +43,10 @@ public class Player extends Actor
         money -= amount;
     }
     
-    public void moveOneSpace() throws InterruptedException {
+    public void moveOneSpace() /*throws InterruptedException*/ {
         //yeah we still gotta code the actual hopping
         if(currentSpace < 9) {
-            setLocation(getX() - 55, getY());
+            setLocation(getX() - 56, getY());
         }
         else if(currentSpace == 9) {
             setLocation(getX() - 65, getY());
@@ -69,9 +58,9 @@ public class Player extends Actor
             setLocation(getX(), getY() - 65);
         }
         else if(currentSpace < 29) {
-            setLocation(getX() + 55, getY());
+            setLocation(getX() + 57, getY());
         }
-        else if(currentSpace == 9) {
+        else if(currentSpace == 29) {
             setLocation(getX() + 65, getY());
         }
         else if(currentSpace < 39) {
@@ -79,7 +68,7 @@ public class Player extends Actor
         }
         else if(currentSpace == 39) {
             currentSpace = -1;
-            setLocation(getX(), getY() + 55);
+            setLocation(initialX, initialY);
         }
         currentSpace += 1;
         /*try {
@@ -91,8 +80,17 @@ public class Player extends Actor
         */
     }
     
-    public void moveToSpace(int spaceNumber) {
-        currentSpace = spaceNumber;
+    public void moveToSpace(int spaceNumber) /*throws InterruptedException*/ {
+        int spaces = 0;
+        if (currentSpace > spaceNumber){
+            spaces = spaceNumber + (40 - currentSpace);
+        }
+        else{
+            spaces = spaceNumber - currentSpace;
+        }
+        for (int i = 0; i < spaces; i++){
+            moveOneSpace();
+        }
     }
     
     public int getCurrentSpace(){
@@ -113,9 +111,11 @@ public class Player extends Actor
         }
         int counter = 0;
         for (int i : playerProperties) {
-            Property p = (Property)(((Board)getWorld()).boardSpaces[i]);
-            if(p.color.equals(color)) {
-                counter++;
+            if (((Board)getWorld()).boardSpaces[i].getType().equals("property")){
+                Property p = (Property)(((Board)getWorld()).boardSpaces[i]);
+                if(p.color.equals(color)) {
+                    counter++;
+                }
             }
         }
         return (counter==fullSet);

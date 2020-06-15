@@ -8,8 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ChestDeck extends Card
 {
-    public ChestCard[] cards = new ChestCard[16]; // idk the size might change
-    // IDK HOW TO ADD THE CHANCE CARDS TO THE THIS THO (it's not letting me idk why)
+    public ChestCard[] cards = new ChestCard[16]; 
     
     /**
      * Act - do whatever the Chance wants to do. This method is called whenever
@@ -17,11 +16,11 @@ public class ChestDeck extends Card
      */
     public ChestDeck() {
         // make the deck of chance cards
-        cards[4] = new ChestCard("Get out of detention for free card.", "free", 0);
+        cards[0] = new ChestCard("Get out of detention for free card.", "free", 0);
         cards[1] = new ChestCard("Go to detention (no, you do not get to redo this school year, so no collecting $200!)", "jail", 0);
         cards[2] = new ChestCard("Your club bake sale went great. Collect $100.", "add", 100);
         cards[3] = new ChestCard("You found $10 on the way to school, just take it.", "add", 10);
-        cards[0] = new ChestCard("Pay school fees: $50.", "sub", 50);
+        cards[4] = new ChestCard("Pay school fees: $50.", "sub", 50);
         cards[5] = new ChestCard("It is your birthday. Collect $10 from each player.", "b-day", 0);
         cards[6] = new ChestCard("You got to skip a grade! Advance to the next start of the school year and collect $200.", "go", 0);
         cards[7] = new ChestCard("Classroom repairs. Pay the PPO $40 for each house and $115 for each hotel.", "repairs", 0);
@@ -35,11 +34,6 @@ public class ChestDeck extends Card
         cards[15] = new ChestCard("Community service hours complete. Collect $50.", "add", 50);
     }
     
-    public void act() 
-    {
-        // Add your action code here.
-    }   
-    
     public void addCards() {
         for (int i = 0; i <= 15; i++) {
             ((Board)getWorld()).addObject(cards[i], 1000000, 1000000);
@@ -47,8 +41,6 @@ public class ChestDeck extends Card
     }
     
     public void draw() {
-        //I'm guessing we pick a certain chanceCard?
-        //let's say we have 4 dif. chance cards
         cards[0].doAction();
         ChestCard temp = cards[0];
         for (int i = 0; i < cards.length - 1; i++) {

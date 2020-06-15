@@ -22,7 +22,6 @@ public class PlayButton extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    
     public void act() 
     {
         if(Greenfoot.mousePressed(this)) {
