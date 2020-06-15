@@ -23,10 +23,10 @@ public class Player extends Actor
     //so the list has length 2
     //the values it stores: 1 = card 0 = no card
     public boolean[] getOutOfJailCards = new boolean[2];
-    public int[] mortagedProperties;
     public int money = 1500;
     public int initialX;
     public int initialY;
+    public ArrayList<Integer> mortgagedProperties = new ArrayList<>();
     
     public Player(String t, int space, String name){
         currentSpace = space;
@@ -80,10 +80,14 @@ public class Player extends Actor
         */
     }
     
-    public void moveToSpace(int spaceNumber) /*throws InterruptedException*/ {
+    public void moveToSpace(int spaceNumber, boolean passGo) /*throws InterruptedException*/ {
+        
         int spaces = 0;
         if (currentSpace > spaceNumber){
             spaces = spaceNumber + (40 - currentSpace);
+            if(passGo) {
+                addMoney(200);
+            }
         }
         else{
             spaces = spaceNumber - currentSpace;
@@ -122,6 +126,23 @@ public class Player extends Actor
     }
     
     public void clearPlayer(){
-        
+        ((Board)getWorld()).removeObject(this);
+        removeAllProperties();
+        getOutOfJailCards[0] = false;
+        getOutOfJailCards[1] = false;
+    }
+    
+    public void removeAllProperties() {
+        for(int i = 0; i < playerProperties.size(); i++) {
+            if(((Board)getWorld()).boardSpaces[playerProperties.get(i)].getType().equals("property")) {
+                ((Property)((Board)getWorld()).boardSpaces[playerProperties.get(i)]).owner = null;
+            }
+            else if(((Board)getWorld()).boardSpaces[playerProperties.get(i)].getType().equals("utility")) {
+                ((Utility)((Board)getWorld()).boardSpaces[playerProperties.get(i)]).owner = null;
+            }
+            else if(((Board)getWorld()).boardSpaces[playerProperties.get(i)].getType().equals("railroad")) {
+                ((Railroad)((Board)getWorld()).boardSpaces[playerProperties.get(i)]).owner = null;
+            }
+        }
     }
 }

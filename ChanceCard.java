@@ -15,18 +15,28 @@ public class ChanceCard extends Card
     public String message;
     public String action;
     public int amount;
+    public GreenfootImage savedBG = null;
     
     public ChanceCard (String message, String action, int amount) {
         this.message = message;
         this.action = action;
         this.amount = amount;
     } 
-    
+    /*
+    public void clearChance() {
+        // field
+        // draw the string
+        savedBG = new GreenfootImage(getBackground());
+        getBackground().drawString("hi", getWidth() / 2, getHeight() / 2);
+        // remove the string
+        setBackground(savedBG);
+    }
+    */
     public void doAction() {
         GreenfootImage i = ((Board)getWorld()).menu.getImage();
-        i.drawString("", i.getWidth()/2-200, i.getHeight()/2+200);
         i.setFont(i.getFont().deriveFont(12f));
         i.drawString("Your ChanceCard says:\n" + message, i.getWidth()/2-200, i.getHeight()/2+200);
+        
         
         switch(action) {
             case "add":
@@ -36,7 +46,6 @@ public class ChanceCard extends Card
                 ((Board)getWorld()).turn.subMoney(amount);
                 break;
             case "free":
-                ((Board)getWorld()).turn.moveToSpace(20);
                 if (!((Board)getWorld()).turn.getOutOfJailCards[0]){
                     ((Board)getWorld()).turn.getOutOfJailCards[0] = true;
                 }
@@ -51,29 +60,27 @@ public class ChanceCard extends Card
             case "election":
                 for (int a = 0; a < ((Board)getWorld()).players.size(); a++){
                     ((Board)getWorld()).turn.subMoney(50);
-                    if ((((Board)getWorld()).players.get(a)).equals(((Board)getWorld()).turn)){
-                        ((Board)getWorld()).players.get(a).addMoney(50);
-                    }
+                    ((Board)getWorld()).players.get(a).addMoney(50);
                 }
                 //pay $50 to each player
                 break;
             case "go":
-                ((Board)getWorld()).turn.moveToSpace(0);
+                ((Board)getWorld()).turn.moveToSpace(0, true);
                 break;
             case "3":
-                ((Board)getWorld()).turn.moveToSpace(((Board)getWorld()).turn.getCurrentSpace() - 3);
+                ((Board)getWorld()).turn.moveToSpace(((Board)getWorld()).turn.getCurrentSpace() - 3, false);
                 //go back 3 spaces
                 break;
             case "hathaway":
-                ((Board)getWorld()).turn.moveToSpace(11);
+                ((Board)getWorld()).turn.moveToSpace(11, true);
                 //go to mr. hathaway 
                 break;
             case "penev":
-                ((Board)getWorld()).turn.moveToSpace(21);
+                ((Board)getWorld()).turn.moveToSpace(21, true);
                 //go to dr. penev
                 break;
             case "T":
-                ((Board)getWorld()).turn.moveToSpace(5);
+                ((Board)getWorld()).turn.moveToSpace(5, true);
                 //go to T hallway
                 break;
             case "repairs":
@@ -94,17 +101,24 @@ public class ChanceCard extends Card
                 ((Board)getWorld()).turn.subMoney(25 * houses + 100 * hotels);
                 break;
             case "138":
-                ((Board)getWorld()).turn.moveToSpace(39);
+                ((Board)getWorld()).turn.moveToSpace(39, true);
                 // go to CS room
                 break;
             case "hall":
+                while(!(((Board)getWorld()).boardSpaces[((Board)getWorld()).turn.currentSpace].getType().equals("railroad"))) {
+                    ((Board)getWorld()).turn.moveOneSpace();
+                }
                 // go to nearest hall
                 break;
             case "caf":
+                while(!(((Board)getWorld()).boardSpaces[((Board)getWorld()).turn.currentSpace].getType().equals("utility"))) {
+                    ((Board)getWorld()).turn.moveOneSpace();
+                }
                 // go to nearest caf
                 break;
             default:
                 break;
         }
+        
     }
 }

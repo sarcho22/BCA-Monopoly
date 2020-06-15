@@ -196,7 +196,6 @@ public class Board extends World {
         }
     }
     
-    
     public void play() {
         int x = 558;
         int y = 630;
@@ -254,8 +253,99 @@ public class Board extends World {
       
     }
     
+    public void askToUnmortgage() {
+        String listOfProperties = "";
+        for(int i = 0; i < turn.mortgagedProperties.size(); i++) {
+            listOfProperties += turn.mortgagedProperties.get(i) + ": " + boardSpaces[turn.mortgagedProperties.get(i)].name + "\n";
+        }
+        String s = Greenfoot.ask("How dare u try to unmortgage a property >:( Enter the number of the property you would like to unmortgage. List of mortgaged properties: " + listOfProperties);
+        int mortgaging = Integer.parseInt(s);
+        
+        if(boardSpaces[mortgaging].getType().equals("property")) {
+            if(((Property)boardSpaces[mortgaging]).owner.equals(turn)) {
+                ((Property)boardSpaces[mortgaging]).unmortgage();
+            }
+            else {
+                showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+                askToUnmortgage();
+            }
+        }
+        else if(boardSpaces[mortgaging].getType().equals("utility")) {
+            if(((Utility)boardSpaces[mortgaging]).owner.equals(turn)) {
+                ((Utility)boardSpaces[mortgaging]).unmortgage();
+            }
+            else {
+                showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+                askToUnmortgage();
+            }
+        }
+        else if(boardSpaces[mortgaging].getType().equals("railroad")) {
+            if(((Railroad)boardSpaces[mortgaging]).owner.equals(turn)) {
+                ((Railroad)boardSpaces[mortgaging]).unmortgage();
+            }
+            else {
+                showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+                askToUnmortgage();
+            }
+        }
+    }
+    
+    public void askToMortgage() {
+        String listOfProperties = "";
+        for(int i = 0; i < turn.playerProperties.size(); i++) {
+            listOfProperties += turn.playerProperties.get(i) + ": " + boardSpaces[turn.playerProperties.get(i)].name + "\n";
+        }
+        String s = Greenfoot.ask("You need to mortgage a property. This means you will receive reimbursement woohoo but you won't be able to collect rent until you unmortgage this. Enter the number of the property you would like to mortgage. List of properties you own: " + listOfProperties);
+        int mortgaging = Integer.parseInt(s);
+        
+        if(boardSpaces[mortgaging].getType().equals("property")) {
+            if(((Property)boardSpaces[mortgaging]).owner.equals(turn)) {
+                ((Property)boardSpaces[mortgaging]).mortgage();
+            }
+            else {
+                showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+                askToMortgage();
+            }
+        }
+        else if(boardSpaces[mortgaging].getType().equals("utility")) {
+            if(((Utility)boardSpaces[mortgaging]).owner.equals(turn)) {
+                ((Utility)boardSpaces[mortgaging]).mortgage();
+            }
+            else {
+                showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+                askToMortgage();
+            }
+        }
+        else if(boardSpaces[mortgaging].getType().equals("railroad")) {
+            if(((Railroad)boardSpaces[mortgaging]).owner.equals(turn)) {
+                ((Railroad)boardSpaces[mortgaging]).mortgage();
+            }
+            else {
+                showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+                askToMortgage();
+            }
+        }
+        
+    }
+    
+    public void goBankruptRIP() {
+        if(turn.playerProperties.size() > 0) {
+            // prompts to mortgage properties until the debt is paid off
+            while(turn.playerProperties.size() > 0 && turn.getMoney() <= 0) {
+                askToMortgage();
+            }
+        }
+        else {
+            players.remove(turn);
+            turn.clearPlayer();
+            if (players.size() == 1) {
+                Greenfoot.stop();
+            }
+        }
+    }
+    
     public void runTurn(int p) {
-        for (int i = 0; i < players.size(); i++){
+        for (int i = 0; i < players.size(); i++) {
             showText(" ", 850, 600 + i * 20);
             showText(players.get(i).name + " has $" + players.get(i).getMoney(), 850, 600 + i * 20);
         }
@@ -272,17 +362,7 @@ public class Board extends World {
             }
             // bankrupcy algorithm (might want to make this a method)
             if (turn.getMoney() <= 0){
-                if (turn.playerProperties.size() > 0){
-                    //askToMortgage();
-                    // prompts to mortgage properties until the debt is paid off
-                }
-                else{
-                    players.remove(p);
-                    turn.clearPlayer();
-                    if (players.size() == 1) {
-                        Greenfoot.stop();
-                    }
-                }
+                goBankruptRIP();
             }
             
             //if the player is currently in jail

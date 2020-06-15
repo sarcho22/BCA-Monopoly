@@ -36,7 +36,6 @@ public class ChestCard extends Card
                 ((Board)getWorld()).turn.subMoney(amount);
                 break;
             case "free":
-                ((Board)getWorld()).turn.moveToSpace(20);
                 //add a get out of jail card to the player
                 if (!((Board)getWorld()).turn.getOutOfJailCards[0]){
                     ((Board)getWorld()).turn.getOutOfJailCards[0] = true;
@@ -58,7 +57,7 @@ public class ChestCard extends Card
                 }
                 break;
             case "go":
-                ((Board)getWorld()).turn.moveToSpace(0);
+                ((Board)getWorld()).turn.moveToSpace(0, true);
                 break;
             case "repairs":
                 int houses = 0;

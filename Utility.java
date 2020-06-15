@@ -12,6 +12,7 @@ public class Utility extends Space
     public final int mortgagePrice = 75;
     public Player owner = null;
     public boolean bothUtilities = false;
+    public boolean mortgaged = false;
     
     public Utility(String name, int spaceNumber){
         super(name, spaceNumber, "utility");
@@ -23,6 +24,23 @@ public class Utility extends Space
     
     public Player getOwner(){
         return owner;
+    }
+    
+    public void unmortgage() {
+        owner.subMoney(mortgagePrice);
+        mortgaged = false;
+        owner.mortgagedProperties.remove(spaceNumber);
+    }
+    
+    public void mortgage() {
+        // we have to remove the capability to collect rent
+        // but it does not break monopolies
+        
+        // add to the player's mortgaged properties list
+        
+        owner.addMoney(mortgagePrice);
+        mortgaged = true;
+        owner.mortgagedProperties.add(spaceNumber);
     }
     
     public void collectRent(Player paying, int lastRoll){
