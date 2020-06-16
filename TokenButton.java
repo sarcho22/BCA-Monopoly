@@ -29,7 +29,7 @@ public class TokenButton extends Actor
         
         if(!thimble) {
             Thimble c = new Thimble(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 236, 350);
+            ((StartingMenu)getWorld()).addObject(c, 241, 368);
         }
         if(!dog) {
             Dog c = new Dog(playerName);

@@ -27,8 +27,12 @@ public class Board extends World {
     public boolean rolled = false;
     public boolean turnOver = true;
     public Menu menu;
+    public MortgageButton mortgageButton = new MortgageButton();
     public Jail jail;
+    public SellHouseButton sellHouse;
     public PropertyInfo propInfo;
+    public int round;
+   
     /**
      * Constructor for objects of class Board.
      * 
@@ -184,6 +188,9 @@ public class Board extends World {
         
         menu = new Menu();
         addObject(menu, 864, 350);
+        addObject(mortgageButton, 880, 155);
+        sellHouse = new SellHouseButton();
+        addObject(sellHouse, 882, 229);
         menu.callPlay();
     }
     
@@ -216,11 +223,11 @@ public class Board extends World {
         chanceDeck = new ChanceDeck();
         addObject(chanceDeck, 10000, 10000);
         chanceDeck.addCards();
-        //chanceDeck.shuffle();
+        chanceDeck.shuffle();
         chestDeck = new ChestDeck();
         addObject(chestDeck, 10000, 10000);
         chestDeck.addCards();
-        //chestDeck.shuffle();
+        chestDeck.shuffle();
         // Note: no player-player trading for now
     }
     
@@ -326,6 +333,31 @@ public class Board extends World {
         }
     }
     
+    public void askToRemHouse() {
+        String listOfProperties = "";
+        for(int i = 0; i < turn.playerProperties.size(); i++) {
+            listOfProperties += turn.playerProperties.get(i) + ": " + boardSpaces[turn.playerProperties.get(i)].name + "\n";
+        }
+        String s = Greenfoot.ask("You need to remove a house from a property. This means you will receive reimbursement woohoo but you will lose a house. Enter the number of the property you would like to remove houses from. List of properties you own: " + listOfProperties + ". If you don't want to do this, write exit");
+        int propNum = Integer.parseInt(s);
+        
+        if(boardSpaces[propNum].getType().equals("property")) {
+            if(((Property)boardSpaces[propNum]).owner.equals(turn) && ((Property)boardSpaces[propNum]).numHouses > 0) {
+                ((Property)boardSpaces[propNum]).remHouse();
+            }
+            else {
+                showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+                askToRemHouse();
+            }
+        }
+        else if (s.equals("exit")) {
+        }
+        else {
+            showText("That's not a valid option ;((( pls don't break the code ;((((", 650, 700);
+            askToRemHouse();
+        }
+    }
+    
     public void goBankruptRIP() {
         if(turn.playerProperties.size() > 0) {
             // prompts to mortgage properties until the debt is paid off
@@ -349,12 +381,15 @@ public class Board extends World {
         }
         
         if (turnOver) {
+            round++;
             turnOver = false;
             turn = players.get(p); //the player whose turn it is
             // the if makes sure that there are still enough people not 
             // bankrupt to play
             if (players.size() == 1) {
-                Greenfoot.stop();
+                Win win = new Win(players.get(0).name, round);
+                // Greenfoot.stop(); owo
+                Greenfoot.setWorld(win);
             }
             // bankrupcy algorithm 
             if (turn.getMoney() <= 0){
@@ -375,7 +410,7 @@ public class Board extends World {
                     roll1 = dice.roll();
                     roll2 = dice.roll();
                     lastRoll = roll1 + roll2;
-                    showText(turn.name + " rolled " + roll1 + " and " + roll2, 850, 150);
+                    showText(turn.name + " rolled " + roll1 + " and " + roll2, 840, 83);
                    
                     //checks if the player rolled enough
                     //evens to get in jail
@@ -405,7 +440,7 @@ public class Board extends World {
                     Space curSpace = boardSpaces[turn.getCurrentSpace()];
                     String spaceType = curSpace.getType();
                     propInfo = new PropertyInfo();
-                    propInfo.listInfo(curSpace.info);
+                    
                     if (curSpace.getType().equals("property")){
                         propInfo.listOwner(((Property)curSpace).ownedBy);
                     }
@@ -415,6 +450,21 @@ public class Board extends World {
                     else if (curSpace.getType().equals("railroad")){
                         propInfo.listOwner(((Railroad)curSpace).ownedBy);
                     }
+                    else if (curSpace.getType().equals("chance")){
+                        curSpace.setInfo("Your Chance Card says:\n" + chanceDeck.cards[0].message);
+                        propInfo.setImage(new GreenfootImage("chanceCard.jpg"));
+                        GreenfootImage i = new GreenfootImage(propInfo.getImage());
+                        i.scale((int)(i.getWidth() / 3.3), (int)(i.getHeight() / 2.89));
+                        propInfo.setImage(i);
+                    }
+                    else if (curSpace.getType().equals("chest")){
+                        curSpace.setInfo("Your Chest Card says:\n" + chestDeck.cards[0].message);
+                        propInfo.setImage(new GreenfootImage("chestCard.jpg"));
+                        GreenfootImage i = new GreenfootImage(propInfo.getImage());
+                        i.scale((int)(i.getWidth() / 3.3), (int)(i.getHeight() / 2.89));
+                        propInfo.setImage(i);
+                    }
+                    propInfo.listInfo(curSpace.info);
                     addObject(propInfo, 938, 430);
                     //depending on space type, they can make their turn
                     if (spaceType.equals("property")){
@@ -431,7 +481,7 @@ public class Board extends World {
                                 showText("but why ;((((", 850, 550);
                             }
                         }
-                        else{
+                        else if (((Property)curSpace).getOwner() != null) {
                             //otherwise the property collects rent
                             ((Property) curSpace).collectRent(turn);
                         }
@@ -473,7 +523,7 @@ public class Board extends World {
                                 showText("but why ;((((", 350, 550);
                             }
                         }
-                        else {
+                        else if (((Utility)curSpace).getOwner() != null) {
                             //we want to check if the owner of the property owns both utilities
                             int numUtils = 0;
                             ArrayList<Integer> propList = ((Utility) curSpace).getOwner().playerProperties;
@@ -507,7 +557,7 @@ public class Board extends World {
                                 showText("but why ;((((", 350, 550);
                             }
                         }
-                        else {
+                        else if (((Railroad) curSpace).getOwner() != null) {
                             //we need to know how many railroads
                             //the Player owner of this space has
                             int numRoads = 0;
@@ -520,12 +570,14 @@ public class Board extends World {
                             ((Railroad) curSpace).collectRent(turn, numRoads);
                         }
                     }
+                    
                     else if (spaceType.equals("chance")) {
                         chanceDeck.draw();
                     }
                     else if (spaceType.equals("chest")) {
                         chestDeck.draw();
                     }
+                    
                     else if (spaceType.equals("tax")) {
                         //if they don't have any money left
                         //that they need to mortgage
@@ -547,7 +599,7 @@ public class Board extends World {
                 
             }
             EndButton e = new EndButton();
-            addObject(e, 900, 75);
+            addObject(e, 450, 300);
         }
     }
     

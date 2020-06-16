@@ -74,7 +74,7 @@ public class Property extends Space
                 //for the appropriate Player owner
                 //if yes pay: rent * 2 else rent
                 payment = rent;
-                if(owner.hasAMonopoly(COLORS[spaceNumber])) {
+                if(owner != null && owner.hasAMonopoly(COLORS[spaceNumber])) {
                     payment = 2*rent;
                 }
             }
