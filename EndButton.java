@@ -19,6 +19,7 @@ public class EndButton extends Actor
             if (((Board)getWorld()).player >= ((Board)getWorld()).players.size()) {
                 ((Board)getWorld()).player = 0;
             }
+            ((Board)getWorld()).removeObject(((Board)getWorld()).propInfo);
             ((Board)getWorld()).removeObject(this);
         }
     }

@@ -28,6 +28,7 @@ public class Board extends World {
     public boolean turnOver = true;
     public Menu menu;
     public Jail jail;
+    public PropertyInfo propInfo;
     /**
      * Constructor for objects of class Board.
      * 
@@ -403,16 +404,18 @@ public class Board extends World {
                     // define some variables relating to which space they landed on
                     Space curSpace = boardSpaces[turn.getCurrentSpace()];
                     String spaceType = curSpace.getType();
-                    showText(curSpace.info, 850, 420);
+                    propInfo = new PropertyInfo();
+                    propInfo.listInfo(curSpace.info);
                     if (curSpace.getType().equals("property")){
-                        showText("OWNED BY " + ((Property)curSpace).ownedBy, 850, 470);
+                        propInfo.listOwner(((Property)curSpace).ownedBy);
                     }
                     else if (curSpace.getType().equals("utility")){
-                        showText("OWNED BY " + ((Utility)curSpace).ownedBy, 850, 450);
+                        propInfo.listOwner(((Utility)curSpace).ownedBy);
                     }
                     else if (curSpace.getType().equals("railroad")){
-                        showText("OWNED BY " + ((Railroad)curSpace).ownedBy, 850, 450);
+                        propInfo.listOwner(((Railroad)curSpace).ownedBy);
                     }
+                    addObject(propInfo, 938, 430);
                     //depending on space type, they can make their turn
                     if (spaceType.equals("property")){
                         if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){
@@ -541,6 +544,7 @@ public class Board extends World {
                 if (doubles == 3){
                     goToJail();
                 }
+                
             }
             EndButton e = new EndButton();
             addObject(e, 900, 75);

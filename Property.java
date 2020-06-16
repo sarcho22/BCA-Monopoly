@@ -21,7 +21,7 @@ public class Property extends Space
     public int x;
     public int y;
     public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "corner", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
-    public int[] houseRents = {rent * 5, rent * 15, rent * 45, 0, 0}; //the rent of the 4th house is strange, can't figure it out dw u can do it :3
+    public int[] houseRents; //the rent of the 4th house is strange, can't figure it out dw u can do it :3
     public boolean mortgaged = false;
     public String ownedBy = "NO ONE";
     
@@ -31,7 +31,10 @@ public class Property extends Space
         this.rent = rent;
         this.spaceNumber = spaceNumber;
         this.color = COLORS[spaceNumber];
-        this.houseRents = houseRents;
+        this.houseRents = new int[5];
+        houseRents[0] = rent * 5;
+        houseRents[1] = rent * 15;
+        houseRents[2] = rent * 45;
         this.x = x;
         this.y = y;
         String[] priceColor = {"dark_blue", "green", "yellow", "red", "orange", "purple", "light_blue", "brown"};
