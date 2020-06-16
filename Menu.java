@@ -22,7 +22,7 @@ public class Menu extends Actor
         i.drawString("Sell Houses!", i.getWidth()/2-175, 220);
         i.drawString("List of Player Properties:", i.getWidth()/2-175, 280);
         i.drawString("Current Property:", i.getWidth()/2-175, 340);
-        i.drawString("Chance/Chest cards:", i.getWidth()/2-175, 400);
+        i.drawString("Chance/Chest cards:", i.getWidth()/2-175, 460);
         setImage(i);
         
     }

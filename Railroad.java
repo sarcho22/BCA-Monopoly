@@ -13,15 +13,18 @@ public class Railroad extends Space
     public Player owner = null;
     public int baseRent = 25;
     public boolean mortgaged = false;
+    public String ownedBy = "NO ONE";
     
     public Railroad(String name, int spaceNumber){
-        super(name, spaceNumber, "railroad");
+        super(name, spaceNumber, "railroad", name + "\nPrice: $" + 200 + "\nRent:\n1 Hallway: $25\n2 Hallways: $50\n3 Hallways: $100\n4 Hallways: $200");
     }
     
-    /**
-     * Act - do whatever the Railroad wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    public void act(){
+        if (owner != null){
+            ownedBy = owner.name;
+        }
+    }
+    
     public Player getOwner(){
         return owner;
     }
@@ -35,16 +38,32 @@ public class Railroad extends Space
     public void mortgage() {
         // we have to remove the capability to collect rent
         // but it does not break monopolies
-        
-        // add to the player's mortgaged properties list
-        
+        // add to the player's mortgaged properties list       
         owner.addMoney(mortgagePrice);
         mortgaged = true;
         owner.mortgagedProperties.add(spaceNumber);
     }
     
     public void collectRent(Player paying, int numRoads){
-        owner.addMoney(baseRent * numRoads);
-        paying.subMoney(baseRent * numRoads);
+        switch(numRoads){
+            case 1:
+                owner.addMoney(baseRent * numRoads);
+                paying.subMoney(baseRent * numRoads);
+                break;
+            case 2:
+                owner.addMoney(baseRent * numRoads);
+                paying.subMoney(baseRent * numRoads);
+                break;
+            case 3:
+                owner.addMoney(baseRent * 4);
+                paying.subMoney(baseRent * 4);
+                break;
+            case 4:
+                owner.addMoney(baseRent * 8);
+                paying.subMoney(baseRent * 8);
+                break;
+            default:
+                break;
+        }
     } 
 }

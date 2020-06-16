@@ -10,7 +10,7 @@ public class Go extends Corner
 {
     public int bonus = 200;
     public Go(){
-        super("Go", 0, "go");
+        super("Go", 0, "go", "School year starts!\nYou collected $200!");
         //needs to add bonus to those that just landed or crossed it
     }
     /**

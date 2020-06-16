@@ -8,12 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Chance extends Space
 {
-    
-    public ChanceDeck deck = new ChanceDeck();
-    
     public Chance(String name, int spaceNumber){
-        super(name, spaceNumber, "chance");
+        super(name, spaceNumber, "chance", "Chance");
     }
-    
-  
 }

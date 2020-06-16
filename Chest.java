@@ -8,16 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Chest extends Space
 {
-    
     public Chest(String name, int spaceNumber){
-        super(name, spaceNumber, "chest");
+        super(name, spaceNumber, "chest", "BCA Chest");
     }
-    /**
-     * Act - do whatever the Chest wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        // Add your action code here.
-    }    
 }

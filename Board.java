@@ -403,7 +403,16 @@ public class Board extends World {
                     // define some variables relating to which space they landed on
                     Space curSpace = boardSpaces[turn.getCurrentSpace()];
                     String spaceType = curSpace.getType();
-                    
+                    showText(curSpace.info, 850, 420);
+                    if (curSpace.getType().equals("property")){
+                        showText("OWNED BY " + ((Property)curSpace).ownedBy, 850, 470);
+                    }
+                    else if (curSpace.getType().equals("utility")){
+                        showText("OWNED BY " + ((Utility)curSpace).ownedBy, 850, 450);
+                    }
+                    else if (curSpace.getType().equals("railroad")){
+                        showText("OWNED BY " + ((Railroad)curSpace).ownedBy, 850, 450);
+                    }
                     //depending on space type, they can make their turn
                     if (spaceType.equals("property")){
                         if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){

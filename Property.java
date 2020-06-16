@@ -21,13 +21,9 @@ public class Property extends Space
     public int x;
     public int y;
     public String[] COLORS = {"corner", "brown", "blank", "brown", "blank", "blank", "light_blue", "blank", "light_blue", "light_blue", "corner", "purple", "blank", "purple", "purple", "blank", "orange", "blank", "orange", "orange", "corner", "red", "blank", "red", "red", "blank", "yellow", "yellow", "blank", "yellow", "corner", "green", "green", "blank", "green", "blank", "blank", "dark_blue", "blank", "dark_blue"};
-    public int[] houseRents = {rent * 5, rent * 15, rent * 45}; //the rent of the 4th house is strange, can't figure it out dw u can do it :3
+    public int[] houseRents = {rent * 5, rent * 15, rent * 45, 0, 0}; //the rent of the 4th house is strange, can't figure it out dw u can do it :3
     public boolean mortgaged = false;
-    
-    /**
-     * Act - do whatever the Property wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    public String ownedBy = "NO ONE";
     
     public Property(String name, int spaceNumber, int price, int rent, int x, int y) {
         super(name, spaceNumber, "property");
@@ -38,7 +34,20 @@ public class Property extends Space
         this.houseRents = houseRents;
         this.x = x;
         this.y = y;
-        
+        String[] priceColor = {"dark_blue", "green", "yellow", "red", "orange", "purple", "light_blue", "brown"};
+        for (int i = 0; i < priceColor.length; i++){
+            if (priceColor[i].equals(color)){
+                houseRents[3] = houseRents[2] * (1 + (i + 1) / 10);
+            }
+        }
+        houseRents[4] = houseRents[3] + 200;
+        super.setInfo(name + "\nPrice: $" + price + "\nRent:\nRegular: $" + rent + "\n1 House: $" + houseRents[0] + "\n2 Houses: $" + houseRents[1] + "\n3 Houses: $" + houseRents[2] + "\n4 Houses: $" + houseRents[3] + "\nHotel: $" + houseRents[4] + "\nUpgrades cost: $" + 50 * ((spaceNumber / 10) + 1));
+    }
+    
+    public void act(){
+        if (owner != null){
+            ownedBy = owner.name;
+        }
     }
     
     public Player getOwner(){

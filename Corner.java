@@ -8,16 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public abstract class Corner extends Space
 {
-    
-    public Corner(String name, int spaceNumber, String type){
-        super(name, spaceNumber, type);
+    public Corner(String name, int spaceNumber, String type, String info){
+        super(name, spaceNumber, type, info);
     }
-    /**
-     * Act - do whatever the Corner wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        // Add your action code here.
-    }    
 }
