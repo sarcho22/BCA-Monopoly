@@ -11,7 +11,7 @@ public class Taxes extends Space
     public int amount;
     
     public Taxes(String name, int spaceNumber){
-        super(name, spaceNumber, "tax");
+        super(name, spaceNumber, "tax", "ID Check, you paid $100");
         this.amount = 100;
     }
     /**

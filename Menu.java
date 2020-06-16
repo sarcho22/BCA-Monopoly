@@ -17,13 +17,12 @@ public class Menu extends Actor
         GreenfootImage i = new GreenfootImage("blank_property.png");
         i.scale((int)(i.getWidth() * 1.5), (int)(i.getHeight() * 2));
         i.setFont(i.getFont().deriveFont(15f));
-        i.drawString("Dice: ", i.getWidth()/2-120, 100);
-        i.drawString("Buy Property!", i.getWidth()/2-120, 160);
-        i.drawString("Mortgage Property!", i.getWidth()/2-120, 220);
-        i.drawString("Get out of Jail (isn't that illegal hmMmMmM)!", i.getWidth()/2-120, 280);
-        i.drawString("Buy Houses!", i.getWidth()/2-120, 340);
-        i.drawString("Sell Houses!", i.getWidth()/2-120, 400);
-        i.drawString("Pass Turn!", i.getWidth()/2-120, 460);
+        i.drawString("Dice: ", i.getWidth()/2-175, 100);
+        i.drawString("Mortgage Property!", i.getWidth()/2-175, 160);
+        i.drawString("Sell Houses!", i.getWidth()/2-175, 220);
+        i.drawString("List of Player Properties:", i.getWidth()/2-175, 280);
+        i.drawString("Current Property:", i.getWidth()/2-175, 340);
+        i.drawString("Chance/Chest cards:", i.getWidth()/2-175, 460);
         setImage(i);
         
     }
