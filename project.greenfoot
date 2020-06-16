@@ -188,30 +188,13 @@ dependency8.type=UsesDependency
 dependency9.from=Board
 dependency9.to=Property
 dependency9.type=UsesDependency
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fdf29a5904d80b40bdcead757466f0cb58f31833
 editor.fx.0.height=737
 editor.fx.0.width=814
 editor.fx.0.x=360
 editor.fx.0.y=28
-height=838
-<<<<<<< HEAD
-package.numDependencies=50
-package.numTargets=30
-=======
-editor.fx.0.height=744
-editor.fx.0.width=1382
-editor.fx.0.x=-8
-editor.fx.0.y=-8
-height=744
-package.numDependencies=54
-=======
+height=1448
 package.numDependencies=59
->>>>>>> fdf29a5904d80b40bdcead757466f0cb58f31833
 package.numTargets=35
->>>>>>> 9f2e20f2e5f40f4d3c6b939fbf0a82474d479ed0
 project.charset=UTF-8
 publish.hasSource=false
 publish.locked=true
@@ -472,7 +455,7 @@ target9.width=80
 target9.x=0
 target9.y=0
 version=3.0.0
-width=1550
+width=1361
 world.lastInstantiated=StartingMenu
 xPosition=0
 yPosition=0
