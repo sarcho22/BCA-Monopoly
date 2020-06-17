@@ -433,6 +433,7 @@ public class Board extends World {
                     
                     roll1 = dice.roll();
                     roll2 = dice.roll();
+                    
                     lastRoll = roll1 + roll2;
                     showText(turn.name + " rolled " + roll1 + " and " + roll2, 840, 83);
                    
@@ -463,13 +464,20 @@ public class Board extends World {
                     propInfo = new PropertyInfo();
                     
                     if (curSpace.getType().equals("property")){
+                        propInfo.setImage(new GreenfootImage(((Property)curSpace).color + "_property.png"));
+                        GreenfootImage i = new GreenfootImage(propInfo.getImage());
+                        i.scale((int)(propInfo.getImage().getWidth() / 1.5), (int)(propInfo.getImage().getHeight() / 1.5));
+                        propInfo.setImage(i);
+                        propInfo.listPropInfo((Space)curSpace);
                         propInfo.listOwner(((Property)curSpace).ownedBy);
                     }
                     else if (curSpace.getType().equals("utility")){
                         propInfo.listOwner(((Utility)curSpace).ownedBy);
+                        propInfo.listUtilInfo(curSpace);
                     }
                     else if (curSpace.getType().equals("railroad")){
                         propInfo.listOwner(((Railroad)curSpace).ownedBy);
+                        propInfo.listRailInfo(curSpace);
                     }
                     else if (curSpace.getType().equals("chance")){
                         curSpace.setInfo("Your Chance Card says:\n" + chanceDeck.cards[0].message);
@@ -477,15 +485,21 @@ public class Board extends World {
                         GreenfootImage i = new GreenfootImage(propInfo.getImage());
                         i.scale((int)(i.getWidth() / 3.3), (int)(i.getHeight() / 2.89));
                         propInfo.setImage(i);
+                        propInfo.listInfo(curSpace.info);
                     }
+                    else if (curSpace.getType().equals("tax")) {
+                        propInfo.listInfo(curSpace.info);
+                    }
+   
                     else if (curSpace.getType().equals("chest")){
                         curSpace.setInfo("Your Chest Card says:\n" + chestDeck.cards[0].message);
                         propInfo.setImage(new GreenfootImage("chestCard.jpg"));
                         GreenfootImage i = new GreenfootImage(propInfo.getImage());
                         i.scale((int)(i.getWidth() / 3.3), (int)(i.getHeight() / 2.89));
                         propInfo.setImage(i);
+                        propInfo.listInfo(curSpace.info);
                     }
-                    propInfo.listInfo(curSpace.info);
+                    
                     addObject(propInfo, 938, 430);
                     //depending on space type, they can make their turn
                     if (spaceType.equals("property")){
