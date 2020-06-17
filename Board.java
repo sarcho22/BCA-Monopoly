@@ -29,6 +29,7 @@ public class Board extends World {
     public Menu menu;
     public MortgageButton mortgageButton = new MortgageButton();
     public UnmortgageButton unmortgageButton = new UnmortgageButton();
+    public ListPropertiesButton listPropButton = new ListPropertiesButton();
     public Jail jail;
     public SellHouseButton sellHouse;
     public PropertyInfo propInfo;
@@ -193,6 +194,7 @@ public class Board extends World {
         addObject(unmortgageButton, 892 + mortgageButton.getImage().getWidth(), 155);
         sellHouse = new SellHouseButton();
         addObject(sellHouse, 882, 229);
+        addObject(listPropButton, 740, 350);
         menu.callPlay();
     }
     
@@ -344,14 +346,27 @@ public class Board extends World {
         }
     }
     
-    public void askToRemHouse() {
+    public void listProperties(){
         String listOfProperties = "";
         for(int i = 0; i < turn.playerProperties.size(); i++) {
             if(turn.mortgagedProperties.indexOf(turn.playerProperties.get(i)) == -1) {
                 listOfProperties += turn.playerProperties.get(i) + ": " + boardSpaces[turn.playerProperties.get(i)].name + "\n";
             }
         }
-        String s = Greenfoot.ask("You need to remove a house from a property. This means you will receive reimbursement woohoo but you will lose a house. \nEnter the number of the property you would like to remove houses from. \n\nList of properties you own: \n" + listOfProperties + ".\nIf you don't want to do this, write exit");
+        for(int i = 0; i < turn.mortgagedProperties.size(); i++) {
+            listOfProperties += turn.mortgagedProperties.get(i) + ": " + boardSpaces[Integer.parseInt(turn.mortgagedProperties.get(i))].name + " (mortgaged)\n";
+        }
+        String s = Greenfoot.ask("Here is a list of your properties: \n" + listOfProperties + ".\nPress enter to exit.");
+    }
+    
+    public void askToRemHouse() {
+        String listOfProperties = "";
+        for(int i = 0; i < turn.playerProperties.size(); i++) {
+            if(turn.mortgagedProperties.indexOf(turn.playerProperties.get(i)) == -1 && ((Property)boardSpaces[turn.playerProperties.get(i)]).numHouses > 0) {
+                listOfProperties += turn.playerProperties.get(i) + ": " + boardSpaces[turn.playerProperties.get(i)].name + "\n";
+            }
+        }
+        String s = Greenfoot.ask("You need to remove a house from a property. This means you will receive reimbursement woohoo but you will lose a house. \nEnter the number of the property you would like to remove houses from. \n\nList of properties with houses you own: \n" + listOfProperties + ".\nIf you don't want to do this, write exit");
         if(s.equals("exit")) {
             return;
         }
@@ -391,19 +406,15 @@ public class Board extends World {
     public void runTurn(int p) {
         for (int i = 0; i < players.size(); i++) {
             showText(" ", 850, 600 + i * 20);
-            showText(players.get(i).name + " has $" + players.get(i).getMoney(), 850, 600 + i * 20);
+            showText((i + 1) + ". " + players.get(i).name + " has $" + players.get(i).getMoney(), 850, 590 + i * 20);
         }
         
         if (turnOver) {
-            
             round++;
             turnOver = false;
             turn = players.get(p); //the player whose turn it is
             // the if makes sure that there are still enough people not 
             // bankrupt to play
-            if(turn.playerProperties.size() > 0) {
-                menu.displayZeProperties();
-            }
             if (players.size() == 1) {
                 Win win = new Win(players.get(0).name, round);
                 // Greenfoot.stop(); owo
@@ -435,7 +446,7 @@ public class Board extends World {
                     roll2 = dice.roll();
                     
                     lastRoll = roll1 + roll2;
-                    showText(turn.name + " rolled " + roll1 + " and " + roll2, 840, 83);
+                    showText(turn.name + " rolled " + roll1 + " and " + roll2, 850, 83);
                    
                     //checks if the player rolled enough
                     //evens to get in jail
@@ -453,7 +464,7 @@ public class Board extends World {
                     //checks if you pass go and gives you 200
                     for (int m = 0; m < lastRoll; m++) {
                         turn.moveOneSpace();
-                        waiting(10);
+                        waiting(20);
                         if (turn.getCurrentSpace() == 0) {
                             turn.addMoney(((Go)boardSpaces[0]).getBonus());
                         }
@@ -487,10 +498,6 @@ public class Board extends World {
                         propInfo.setImage(i);
                         propInfo.listInfo(curSpace.info);
                     }
-                    else if (curSpace.getType().equals("tax")) {
-                        propInfo.listInfo(curSpace.info);
-                    }
-   
                     else if (curSpace.getType().equals("chest")){
                         curSpace.setInfo("Your Chest Card says:\n" + chestDeck.cards[0].message);
                         propInfo.setImage(new GreenfootImage("chestCard.jpg"));
@@ -499,8 +506,12 @@ public class Board extends World {
                         propInfo.setImage(i);
                         propInfo.listInfo(curSpace.info);
                     }
+                    else {
+                        propInfo.listInfo(curSpace.info);
+                    }
                     
-                    addObject(propInfo, 938, 430);
+                    addObject(propInfo, 950, 430);
+                    waiting(200);
                     //depending on space type, they can make their turn
                     if (spaceType.equals("property")){
                         if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){

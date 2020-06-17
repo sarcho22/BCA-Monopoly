@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Property extends Space
 {
     public int price;
-    public int mortgagePrice = price / 2;
+    public int mortgagePrice;
     public int spaceNumber;
     public Player owner = null;
     public int rent;
@@ -31,6 +31,7 @@ public class Property extends Space
         this.rent = rent;
         this.spaceNumber = spaceNumber;
         this.color = COLORS[spaceNumber];
+        mortgagePrice = price / 2;
         this.houseRents = new int[5];
         houseRents[0] = rent * 5;
         houseRents[1] = rent * 15;

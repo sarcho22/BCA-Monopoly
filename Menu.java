@@ -21,18 +21,11 @@ public class Menu extends Actor
         i.drawString("Dice: ", i.getWidth()/2-175, 60);
         i.drawString("Mortgage Property!", i.getWidth()/2-175, 130);
         i.drawString("Sell Houses!", i.getWidth()/2-175, 200);
-        i.drawString("List of Player Properties: \n" + listOfProperties, i.getWidth()/2-175, 270);
-        
-        i.drawString("Current Property:", i.getWidth()/2-175, 340);
+        i.drawString("Current Property:", i.getWidth()/2, 270);
+        i.drawString("List of Player Properties: \n", i.getWidth()/2-175, 270);
+        i.drawString("Leaderboard: \n", i.getWidth()/2-175, 540);
         setImage(i);
         
-    }
-    
-    public void displayZeProperties() {
-        GreenfootImage i = getImage();
-        getPlayerProperties();
-        i.drawString("List of Player Properties: \n" + listOfProperties, i.getWidth()/2-175, 270);
-        setImage(i);
     }
     
     public void callPlay() 
@@ -42,7 +35,6 @@ public class Menu extends Actor
     }   
     
     public void getPlayerProperties() {
-        
         listOfProperties = "";
         for(int i = 0; i < ((Board)getWorld()).turn.playerProperties.size(); i++) {
             if(((Board)getWorld()).turn.mortgagedProperties.indexOf(((Board)getWorld()).turn.playerProperties.get(i)) == -1) {
