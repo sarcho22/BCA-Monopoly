@@ -427,11 +427,8 @@ public class Board extends World {
                     //moves player forward one space at a time
                     //checks if you pass go and gives you 200
                     for (int m = 0; m < lastRoll; m++) {
-                        try {
-                            turn.moveOneSpace();
-                        }
-                        catch(Exception e) {
-                        }
+                        turn.moveOneSpace();
+                        waiting(10);
                         if (turn.getCurrentSpace() == 0) {
                             turn.addMoney(((Go)boardSpaces[0]).getBonus());
                         }
@@ -471,6 +468,7 @@ public class Board extends World {
                         if (((Property) curSpace).getOwner() == null && turn.getMoney() >= ((Property)curSpace).price){
                             // the property has no owner
                             // it asks if player wants to buy (allows if enough $)
+                            waiting(150);
                             String response = Greenfoot.ask("Would you like to buy " + ((Property) curSpace).name + " for $" + ((Property) curSpace).price + " (y/n)?");
                             if(response.equals("y")) {
                                 ((Property) curSpace).setOwner(turn);
@@ -513,6 +511,7 @@ public class Board extends World {
                     else if (spaceType.equals("utility")) {
                         if (((Utility)curSpace).getOwner() == null && turn.getMoney() >= ((Utility)curSpace).price){
                             //asks if player wants to buy (allows if enough $)
+                            waiting(150);
                             String response = Greenfoot.ask("Would you like to buy " + ((Utility)curSpace).name + " for $" + ((Utility) curSpace).price + " (y/n)?");
                             if(response.equals("y")) {
                                 ((Utility) curSpace).owner = turn;
@@ -547,6 +546,7 @@ public class Board extends World {
                     else if (spaceType.equals("railroad")){
                         if (((Railroad) curSpace).getOwner() == null && turn.getMoney() >= ((Railroad)curSpace).price) {
                             //asks if player wants to buy (allows if enough $)
+                            waiting(150);
                             String response = Greenfoot.ask("Would you like to buy " + ((Railroad)curSpace).name + " for $" + ((Railroad) curSpace).price + " (y/n)?");
                             if(response.equals("y")) {
                                 ((Railroad) curSpace).owner = turn;
@@ -653,5 +653,10 @@ public class Board extends World {
                 turn.turnsInJail++;
             }
         }
+    }
+    
+    public void waiting(int time) {
+        Greenfoot.delay(time);
+        repaint();
     }
 }

@@ -216,11 +216,19 @@ dependency8.type=UsesDependency
 dependency9.from=Board
 dependency9.to=SellHouseButton
 dependency9.type=UsesDependency
+<<<<<<< HEAD
 editor.fx.0.height=838
 editor.fx.0.width=1550
 editor.fx.0.x=-7
 editor.fx.0.y=-7
 height=27
+=======
+editor.fx.0.height=744
+editor.fx.0.width=1382
+editor.fx.0.x=-8
+editor.fx.0.y=-8
+height=744
+>>>>>>> affa23f4adaef554b6b7652fcc88cf7f208600f6
 package.numDependencies=67
 package.numTargets=42
 project.charset=UTF-8
@@ -532,7 +540,11 @@ target9.width=80
 target9.x=0
 target9.y=0
 version=3.0.0
+<<<<<<< HEAD
 width=159
+=======
+width=1382
+>>>>>>> affa23f4adaef554b6b7652fcc88cf7f208600f6
 world.lastInstantiated=StartingMenu
 xPosition=0
 yPosition=0
