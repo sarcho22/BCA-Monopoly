@@ -13,6 +13,7 @@ public class Menu extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public boolean once = false;
+    public String listOfProperties = "";
     public Menu() {
         GreenfootImage i = new GreenfootImage("blank_property.png");
         i.scale((int)(i.getWidth() * 1.5), (int)(i.getHeight() * 2));
@@ -20,15 +21,33 @@ public class Menu extends Actor
         i.drawString("Dice: ", i.getWidth()/2-175, 60);
         i.drawString("Mortgage Property!", i.getWidth()/2-175, 130);
         i.drawString("Sell Houses!", i.getWidth()/2-175, 200);
-        i.drawString("List of Player Properties:", i.getWidth()/2-175, 270);
+        i.drawString("List of Player Properties: \n" + listOfProperties, i.getWidth()/2-175, 270);
+        
         i.drawString("Current Property:", i.getWidth()/2-175, 340);
-        i.drawString("Chance/Chest cards:", i.getWidth()/2-175, 460);
         setImage(i);
         
     }
+    
+    public void displayZeProperties() {
+        GreenfootImage i = getImage();
+        getPlayerProperties();
+        i.drawString("List of Player Properties: \n" + listOfProperties, i.getWidth()/2-175, 270);
+        setImage(i);
+    }
+    
     public void callPlay() 
     {
         ((Board)getWorld()).play();
         once = true;
-    }    
+    }   
+    
+    public void getPlayerProperties() {
+        
+        listOfProperties = "";
+        for(int i = 0; i < ((Board)getWorld()).turn.playerProperties.size(); i++) {
+            if(((Board)getWorld()).turn.mortgagedProperties.indexOf(((Board)getWorld()).turn.playerProperties.get(i)) == -1) {
+                listOfProperties += ((Board)getWorld()).turn.playerProperties.get(i) + ": " + ((Board)getWorld()).boardSpaces[((Board)getWorld()).turn.playerProperties.get(i)].name + "\n";
+            }
+        }
+    }
 }

@@ -22,14 +22,29 @@ public class StartingMenu extends World
     
     public int count = 0;
     public int bCount = 0;
+    public int animation = 1;
+    public int slowCount = 0;
     public StartingMenu()
     {
         super(1100, 700, 1);
+        setPaintOrder(TokenButton.class, PlayButton.class, OurMascot.class);
         
         // to solve that problem, we can probs just put all of this interaction
         // stuff in the play button, so that once u click it, all of the below
         // shows up. All i did just now was change the Text field thingies to ask
+        GreenfootImage img = new GreenfootImage("Frame 1.png");
+        img.scale(1100, 700);
+        setBackground(img);
         
+        OurMascot m = new OurMascot();
+        addObject(m, 0, 0);
+        if(Greenfoot.mouseMoved(null))
+        {
+                MouseInfo mouse = Greenfoot.getMouseInfo();
+                m.setLocation(mouse.getX(),mouse.getY());
+        }
+        repaint();
+            
     }
     
     public void act() {
@@ -39,11 +54,23 @@ public class StartingMenu extends World
             b1(t);
             count++;
         }
+        
+        slowCount++;
+        if(slowCount >= 13) {
+            GreenfootImage img = new GreenfootImage("Frame " + (animation++) + ".png");
+            img.scale(1100, 700);
+            setBackground(img);
+            slowCount = 0;
+            if(animation > 16) {
+                animation = 1;
+            }
+        }
+        
     }
     
     public void play() {
         PlayButton p = new PlayButton(t.taken, t.wotTaken);
-        addObject(p, 550, 350);
+        addObject(p, 578, 368);
     }
     
     public void b1(TokenButton t) {

@@ -11,9 +11,15 @@ public class PlayButton extends Actor
     public ArrayList<String> players = new ArrayList<>();
     public ArrayList<String> tokens = new ArrayList<>();
     
+    public int slowCount = 0;
+    public int animation = 1;
+    
     public PlayButton(ArrayList<String> p, ArrayList<String> t) {
         this.players = p;
         this.tokens = t;
+        GreenfootImage img = new GreenfootImage("play_button_1.png");
+        img.scale((int)(img.getWidth()*0.89), (int)(img.getHeight()*0.89));
+        setImage(img);
         
     }
     
@@ -26,10 +32,10 @@ public class PlayButton extends Actor
     {
         if(Greenfoot.mousePressed(this)) {
             if(players.size() <= 0) {
-                ((StartingMenu)getWorld()).showText("dats sad (´。＿。｀)", 550, 350);
+                ((StartingMenu)getWorld()).showText("dats sad (´。＿。｀)", 550, 390);
             }
             else if(players.size() < 2) {
-                ((StartingMenu)getWorld()).showText("don't you think it's a little sad to play by yourself???", 550, 200);
+                ((StartingMenu)getWorld()).showText("don't you think it's a little sad to play by yourself???", 550, 390);
             }
             else {
                 Board play = new Board(players, tokens);
@@ -37,6 +43,16 @@ public class PlayButton extends Actor
                 Greenfoot.setWorld(play);
             }
             
+        }
+        slowCount++;
+        if(slowCount >= 10) {
+            GreenfootImage img = new GreenfootImage("play_button_" + (animation++) + ".png");
+            img.scale((int)(img.getWidth()*0.89), (int)(img.getHeight()*0.89));
+            setImage(img);
+            slowCount = 0;
+            if(animation > 4) {
+                animation = 1;
+            }
         }
     }    
 }

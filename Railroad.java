@@ -32,7 +32,7 @@ public class Railroad extends Space
     public void unmortgage() {
         owner.subMoney(mortgagePrice);
         mortgaged = false;
-        owner.mortgagedProperties.remove(spaceNumber);
+        owner.mortgagedProperties.remove(spaceNumber + "");
     }
     
     public void mortgage() {
@@ -41,7 +41,7 @@ public class Railroad extends Space
         // add to the player's mortgaged properties list       
         owner.addMoney(mortgagePrice);
         mortgaged = true;
-        owner.mortgagedProperties.add(spaceNumber);
+        owner.mortgagedProperties.add("" + spaceNumber);
     }
     
     public void collectRent(Player paying, int numRoads){

@@ -102,13 +102,13 @@ public class Property extends Space
         
         owner.addMoney(mortgagePrice);
         mortgaged = true;
-        owner.mortgagedProperties.add(spaceNumber);
+        owner.mortgagedProperties.add(spaceNumber + "");
     }
     
     public void unmortgage() {
         owner.subMoney(mortgagePrice);
         mortgaged = false;
-        owner.mortgagedProperties.remove(spaceNumber);
+        owner.mortgagedProperties.remove(spaceNumber + "");
     }
     
     public void remHouse() {

@@ -24,28 +24,58 @@ public class TokenButton extends Actor
      */
     public void showButtons(String playerName) 
     {
-        ((StartingMenu)getWorld()).addObject(new BCA(), 236, 140);
-        ((StartingMenu)getWorld()).addObject(new Monopoly(), 600, 140);
+        ((StartingMenu)getWorld()).addObject(new BCA(), 236+32, 140);
+        ((StartingMenu)getWorld()).addObject(new Monopoly(), 607+32, 140);
         
         if(!thimble) {
             Thimble c = new Thimble(playerName);
             ((StartingMenu)getWorld()).addObject(c, 241, 368);
+            
+            TokenBackground bg = new TokenBackground();
+            GreenfootImage img = new GreenfootImage("TokenBackground.png");
+            img.scale(c.getImage().getWidth() + 30, c.getImage().getHeight() + 30);
+            bg.setImage(img);
+            ((StartingMenu)getWorld()).addObject(bg, 241, 368);
         }
         if(!dog) {
             Dog c = new Dog(playerName);
             ((StartingMenu)getWorld()).addObject(c, 513, 352);
+            
+            TokenBackground bg = new TokenBackground();
+            GreenfootImage img = new GreenfootImage("TokenBackground.png");
+            img.scale(c.getImage().getWidth() + 30, c.getImage().getHeight() + 30);
+            bg.setImage(img);
+            ((StartingMenu)getWorld()).addObject(bg, 513, 352);
         }
         if(!hat) {
             Hat c = new Hat(playerName);
             ((StartingMenu)getWorld()).addObject(c, 822, 356);
+            
+            TokenBackground bg = new TokenBackground();
+            GreenfootImage img = new GreenfootImage("TokenBackground.png");
+            img.scale(c.getImage().getWidth() + 30, c.getImage().getHeight() + 30);
+            bg.setImage(img);
+            ((StartingMenu)getWorld()).addObject(bg, 822, 356);
         }
         if(!car) {
             Car c = new Car(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 325, 573);
+            ((StartingMenu)getWorld()).addObject(c, 359, 607);
+            
+            TokenBackground bg = new TokenBackground();
+            GreenfootImage img = new GreenfootImage("TokenBackground.png");
+            img.scale(c.getImage().getWidth() + 30, c.getImage().getHeight() + 30);
+            bg.setImage(img);
+            ((StartingMenu)getWorld()).addObject(bg, 359, 607);
         }
         if(!boat) {
             Boat c = new Boat(playerName);
-            ((StartingMenu)getWorld()).addObject(c, 629, 571);
+            ((StartingMenu)getWorld()).addObject(c, 659, 619);
+            
+            TokenBackground bg = new TokenBackground();
+            GreenfootImage img = new GreenfootImage("TokenBackground.png");
+            img.scale(c.getImage().getWidth() + 30, c.getImage().getHeight() + 30);
+            bg.setImage(img);
+            ((StartingMenu)getWorld()).addObject(bg, 659, 619);
         }
     }    
     
@@ -53,6 +83,7 @@ public class TokenButton extends Actor
         taken.add(playerName);
         wotTaken.add(token);
         
+        ((StartingMenu)getWorld()).removeObjects(((StartingMenu)getWorld()).getObjects(TokenBackground.class));
         ((StartingMenu)getWorld()).removeObjects(((StartingMenu)getWorld()).getObjects(Dog.class));
         ((StartingMenu)getWorld()).removeObjects(((StartingMenu)getWorld()).getObjects(Boat.class));
         ((StartingMenu)getWorld()).removeObjects(((StartingMenu)getWorld()).getObjects(Car.class));

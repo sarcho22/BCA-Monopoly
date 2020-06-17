@@ -17,7 +17,7 @@ public class Utility extends Space
     
     public Utility(String name, int spaceNumber){
         super(name, spaceNumber, "utility");
-        super.setInfo(name + "\nPrice: $" + price + "\nRent: 4 times the last roll if 1 Caf owned\n10 times the last roll if 2 Cafs owned");
+        super.setInfo(name + "\nPrice: $" + price + "\n\nRent:\n1 Caf: 4 times last roll\n2 Cafs: 10 times last roll");
     }
     
     public void act(){
@@ -33,7 +33,7 @@ public class Utility extends Space
     public void unmortgage() {
         owner.subMoney(mortgagePrice);
         mortgaged = false;
-        owner.mortgagedProperties.remove(spaceNumber);
+        owner.mortgagedProperties.remove(spaceNumber + "");
     }
     
     public void mortgage() {
@@ -42,7 +42,7 @@ public class Utility extends Space
         // add to the player's mortgaged properties list
         owner.addMoney(mortgagePrice);
         mortgaged = true;
-        owner.mortgagedProperties.add(spaceNumber);
+        owner.mortgagedProperties.add("" + spaceNumber);
     }
     
     public void collectRent(Player paying, int lastRoll){
