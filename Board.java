@@ -642,6 +642,7 @@ public class Board extends World {
                     //else if (spaceType.equals("free")){
                         //((Free)curSpace).collectMoney();
                     //}
+                    repaint();
                 }
                 if (doubles == 3){
                     goToJail();
