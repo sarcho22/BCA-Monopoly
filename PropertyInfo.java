@@ -33,9 +33,11 @@ public class PropertyInfo extends Actor
         // field
         // draw the string
         String name = ((Property)s).name;
-        if (name.equals(""))
+        if (name.equals("Comp Sci\n(room 138)")) {
+            name = "Comp Sci";
+        }
         if (name.indexOf("\n") != -1) {
-            name = name.substring(0, name.indexOf("\n")) + name.substring(name.indexOf("\n") + 1);
+            name = name.substring(0, name.indexOf("\n")) + " " + name.substring(name.indexOf("\n") + 1);
         }
         
         GreenfootImage i = getImage();
@@ -72,7 +74,7 @@ public class PropertyInfo extends Actor
     public void listUtilInfo(Space s) {
         String name = s.name;
         if (name.indexOf("\n") != -1) {
-            name = name.substring(0, name.indexOf("\n")) + name.substring(name.indexOf("\n") + 1);
+            name = name.substring(0, name.indexOf("\n")) + " " + name.substring(name.indexOf("\n") + 1);
         }
         GreenfootImage i = getImage();
         i.setFont(new Font("OptimusPrinceps", false, false, 16));
@@ -87,7 +89,7 @@ public class PropertyInfo extends Actor
     public void listRailInfo(Space s) {
         String name = s.name;
         if (name.indexOf("\n") != -1) {
-            name = name.substring(0, name.indexOf("\n")) + name.substring(name.indexOf("\n") + 1);
+            name = name.substring(0, name.indexOf("\n")) +  " " + name.substring(name.indexOf("\n") + 1);
         }
         GreenfootImage i = getImage();
         i.setFont(new Font("OptimusPrinceps", false, false, 16));

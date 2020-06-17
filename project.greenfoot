@@ -7,7 +7,7 @@ class.EndButton.image=next_button.png
 class.Hat.image=hat_token.png
 class.Hotel.image=hotel.png
 class.House.image=house.png
-class.ListPropertiesButton.image=LISTPROPERTIES.png
+class.ListPropertiesButton.image=listProperties.png
 class.Menu.image=blank_property.png
 class.Monopoly.image=monopoly.png
 class.MortgageButton.image=MORTGAGE.jpg
@@ -214,46 +214,12 @@ dependency68.from=ChanceCard
 dependency68.to=Space
 dependency68.type=UsesDependency
 dependency69.from=ChanceCard
-<<<<<<< HEAD
-dependency69.to=House
-=======
 dependency69.to=Property
->>>>>>> 2e9feff3abcde45d07183a6c932aa24a5ee12a82
 dependency69.type=UsesDependency
 dependency7.from=Board
 dependency7.to=MortgageButton
 dependency7.type=UsesDependency
 dependency70.from=ChanceCard
-<<<<<<< HEAD
-dependency70.to=Hotel
-dependency70.type=UsesDependency
-dependency71.from=ChanceCard
-dependency71.to=Railroad
-dependency71.type=UsesDependency
-dependency72.from=ChestCard
-dependency72.to=Board
-dependency72.type=UsesDependency
-dependency73.from=ChestCard
-dependency73.to=Property
-dependency73.type=UsesDependency
-dependency74.from=ChanceDeck
-dependency74.to=ChanceCard
-dependency74.type=UsesDependency
-dependency75.from=ChanceDeck
-dependency75.to=Board
-dependency75.type=UsesDependency
-dependency76.from=ChanceDeck
-dependency76.to=PropertyInfo
-dependency76.type=UsesDependency
-dependency77.from=Play
-dependency77.to=Board
-dependency77.type=UsesDependency
-dependency78.from=SellHouseButton
-dependency78.to=Board
-dependency78.type=UsesDependency
-dependency79.from=MortgageButton
-dependency79.to=Board
-=======
 dependency70.to=House
 dependency70.type=UsesDependency
 dependency71.from=ChanceCard
@@ -282,25 +248,10 @@ dependency78.to=Board
 dependency78.type=UsesDependency
 dependency79.from=ChanceDeck
 dependency79.to=PropertyInfo
->>>>>>> 2e9feff3abcde45d07183a6c932aa24a5ee12a82
 dependency79.type=UsesDependency
 dependency8.from=Board
 dependency8.to=UnmortgageButton
 dependency8.type=UsesDependency
-<<<<<<< HEAD
-dependency80.from=PropertyInfo
-dependency80.to=Space
-dependency80.type=UsesDependency
-dependency81.from=PropertyInfo
-dependency81.to=Property
-dependency81.type=UsesDependency
-dependency82.from=PropertyInfo
-dependency82.to=Utility
-dependency82.type=UsesDependency
-dependency83.from=PropertyInfo
-dependency83.to=Railroad
-dependency83.type=UsesDependency
-=======
 dependency80.from=Play
 dependency80.to=Board
 dependency80.type=UsesDependency
@@ -322,7 +273,6 @@ dependency85.type=UsesDependency
 dependency86.from=PropertyInfo
 dependency86.to=Railroad
 dependency86.type=UsesDependency
->>>>>>> 2e9feff3abcde45d07183a6c932aa24a5ee12a82
 dependency9.from=Board
 dependency9.to=ListPropertiesButton
 dependency9.type=UsesDependency
@@ -331,11 +281,7 @@ editor.fx.0.width=814
 editor.fx.0.x=360
 editor.fx.0.y=28
 height=838
-<<<<<<< HEAD
-package.numDependencies=83
-=======
 package.numDependencies=86
->>>>>>> 2e9feff3abcde45d07183a6c932aa24a5ee12a82
 package.numTargets=46
 project.charset=UTF-8
 publish.hasSource=false
