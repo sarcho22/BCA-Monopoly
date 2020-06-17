@@ -26,7 +26,7 @@ public class Player extends Actor
     public int money = 1500;
     public int initialX;
     public int initialY;
-    public ArrayList<Integer> mortgagedProperties = new ArrayList<>();
+    public ArrayList<String> mortgagedProperties = new ArrayList<>();
     
     public Player(String t, int space, String name){
         currentSpace = space;

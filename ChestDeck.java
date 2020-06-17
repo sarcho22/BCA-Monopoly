@@ -16,22 +16,22 @@ public class ChestDeck extends Card
      */
     public ChestDeck() {
         // make the deck of chance cards
-        cards[0] = new ChestCard("Get out of detention for free card.", "free", 0);
-        cards[1] = new ChestCard("Go to detention (no, you do not \nget to redo this school year, so no collecting $200!)", "jail", 0);
-        cards[2] = new ChestCard("Your club bake sale went great. \nCollect $100.", "add", 100);
-        cards[3] = new ChestCard("You found $10 on the way to school,\n just take it.", "add", 10);
-        cards[4] = new ChestCard("Pay school fees: $50.", "sub", 50);
-        cards[5] = new ChestCard("It is your birthday. Collect $10 \nfrom each player.", "b-day", 0);
-        cards[6] = new ChestCard("You got to skip a grade! Advance to\n the next start of the school year and collect $200.", "go", 0);
-        cards[7] = new ChestCard("Classroom repairs. Pay the PPO $40 \nfor each house and $115 for each hotel.", "repairs", 0);
-        cards[8] = new ChestCard("Chores done! Collect your \nallowance of $100.", "add", 100);
-        cards[9] = new ChestCard("Secret santa has come. Receive $100.", "add", 100);
-        cards[10] = new ChestCard("Your school club got approved \nand you won a bet. Collect $25.", "add", 25);
-        cards[11] = new ChestCard("All As this tri, collect $200.", "add", 200);
-        cards[12] = new ChestCard("Mrs. Mendelsohn saw you \neating in the hallway. Pay $50.", "sub", 50);
-        cards[13] = new ChestCard("You forgot your ID. Pay $100.", "sub", 100);
-        cards[14] = new ChestCard("Your friend borrowed your ID\n for the day. They give you $20 in thanks.", "add", 20);
-        cards[15] = new ChestCard("Community service hours complete.\n Collect $50.", "add", 50);
+        cards[0] = new ChestCard("\nGet out of detention for \nfree card.", "free", 0);
+        cards[1] = new ChestCard("\nGo to detention (no, you \ndo not get to redo this \nschool year, so no collecting \n$200!)", "jail", 0);
+        cards[2] = new ChestCard("\nYour club bake sale went \ngreat. Collect $100.", "add", 100);
+        cards[3] = new ChestCard("\nYou found $10 on the way \nto school, just take it.", "add", 10);
+        cards[4] = new ChestCard("\nPay school fees: $50.", "sub", 50);
+        cards[5] = new ChestCard("\nIt is your birthday. Collect \n$10 from each player.", "b-day", 0);
+        cards[6] = new ChestCard("\nYou got to skip a grade! \nAdvance to the next start \nof the school year and \ncollect $200.", "go", 0);
+        cards[7] = new ChestCard("\nClassroom repairs. Pay the \nPPO $40 for each house \nand $115 for each hotel.", "repairs", 0);
+        cards[8] = new ChestCard("\nChores done! Collect your \nallowance of $100.", "add", 100);
+        cards[9] = new ChestCard("\nSecret santa has come. \nReceive $100.", "add", 100);
+        cards[10] = new ChestCard("\nYour school club got \napproved and you won a bet. \nCollect $25.", "add", 25);
+        cards[11] = new ChestCard("\nAll 'A's this tri, collect $200.", "add", 200);
+        cards[12] = new ChestCard("\nMrs. Mendelsohn saw you \neating in the hallway. \nPay $50.", "sub", 50);
+        cards[13] = new ChestCard("\nYou forgot your ID. Pay $100.", "sub", 100);
+        cards[14] = new ChestCard("\nYour friend borrowed your ID\n for the day. They give you \n$20 in thanks.", "add", 20);
+        cards[15] = new ChestCard("\nCommunity service hours \ncomplete. Collect $50.", "add", 50);
     }
     
     public void addCards() {
@@ -56,5 +56,19 @@ public class ChestDeck extends Card
             cards[i] = cards[j];
             cards[j] = temp;
         }
+    }
+    
+    public void debugging() {
+        for(int i = 0; i < cards.length; i++) {
+            PropertyInfo p = new PropertyInfo();
+            p.setImage(new GreenfootImage("chestCard.jpg"));
+            GreenfootImage img = new GreenfootImage(p.getImage());
+            img.scale((int)(img.getWidth() / 3.3), (int)(img.getHeight() / 2.89));
+            p.setImage(img);
+            p.listInfo("Your Chest Card says:\n" + cards[i].message);
+            ((Board)getWorld()).addObject(p, 350, 290);
+            ((Board)getWorld()).waiting(150);
+        }
+        
     }
 }

@@ -83,16 +83,16 @@ public class ChanceCard extends Card
                 int houses = 0;
                 int hotels = 0;
                 for (int a = 0; a < ((Board)getWorld()).turn.playerProperties.size(); a++){
-                        int propNum = ((Board)getWorld()).turn.playerProperties.get(a);
-                        if (((Board)getWorld()).boardSpaces[propNum].getType().equals("property")){
-                            int houseNum = ((Property)((Board)getWorld()).boardSpaces[propNum]).numHouses;
-                            if (houseNum == 5){
-                                hotels++;
-                            }
-                            if (houseNum > 0){
-                                houses += houseNum;
-                            }
+                    int propNum = ((Board)getWorld()).turn.playerProperties.get(a);
+                    if (((Board)getWorld()).boardSpaces[propNum].getType().equals("property")){
+                        int houseNum = ((Property)((Board)getWorld()).boardSpaces[propNum]).numHouses;
+                        if (houseNum == 5){
+                            hotels++;
                         }
+                        if (houseNum > 0){
+                            houses += houseNum;
+                        }
+                    }
                 }
                 ((Board)getWorld()).turn.subMoney(25 * houses + 100 * hotels);
                 break;
