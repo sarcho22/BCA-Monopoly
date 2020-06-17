@@ -349,14 +349,17 @@ public class Board extends World {
     public void listProperties(){
         String listOfProperties = "";
         for(int i = 0; i < turn.playerProperties.size(); i++) {
-            if(turn.mortgagedProperties.indexOf(turn.playerProperties.get(i)) == -1) {
+            if(turn.mortgagedProperties.indexOf(boardSpaces[turn.playerProperties.get(i)].name) == -1) {
                 listOfProperties += turn.playerProperties.get(i) + ": " + boardSpaces[turn.playerProperties.get(i)].name + "\n";
             }
+            /*else{
+                listOfProperties += turn.mortgagedProperties.indexOf(boardSpaces[turn.playerProperties.get(i)].name) + ": " + boardSpaces[Integer.parseInt(turn.mortgagedProperties.get(i))].name + " (mortgaged)\n";
+            }*/
         }
-        for(int i = 0; i < turn.mortgagedProperties.size(); i++) {
+        /*for(int i = 0; i < turn.mortgagedProperties.size(); i++) {
             listOfProperties += turn.mortgagedProperties.get(i) + ": " + boardSpaces[Integer.parseInt(turn.mortgagedProperties.get(i))].name + " (mortgaged)\n";
-        }
-        String s = Greenfoot.ask("Here is a list of your properties: \n" + listOfProperties + ".\nPress enter to exit.");
+        }*/
+        String s = Greenfoot.ask("Here is a list of all of your properties: \n" + listOfProperties + ".\nPress enter to exit.");
     }
     
     public void askToRemHouse() {
@@ -619,14 +622,12 @@ public class Board extends World {
                             ((Railroad) curSpace).collectRent(turn, numRoads);
                         }
                     }
-                    
                     else if (spaceType.equals("chance")) {
                         chanceDeck.draw();
                     }
                     else if (spaceType.equals("chest")) {
                         chestDeck.draw();
                     }
-                    
                     else if (spaceType.equals("tax")) {
                         //if they don't have any money left
                         //that they need to mortgage
