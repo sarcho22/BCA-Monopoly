@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class Chance here.
@@ -69,15 +70,125 @@ public class ChanceCard extends Card
                 break;
             case "hathaway":
                 ((Board)getWorld()).turn.moveToSpace(11, true);
+                if (((Property)((Board)getWorld()).boardSpaces[11]).getOwner() == null && ((Board)getWorld()).turn.getMoney() >= ((Property)((Board)getWorld()).boardSpaces[11]).price){
+                            // the property has no owner
+                            // it asks if player wants to buy (allows if enough $)
+                            ((Board)getWorld()).waiting(150);
+                            String response = Greenfoot.ask("Would you like to buy " + ((Property)((Board)getWorld()).boardSpaces[11]).name + " for $" + ((Property)((Board)getWorld()).boardSpaces[11]).price + " (y/n)?");
+                            if(response.equals("y")) {
+                                ((Property)((Board)getWorld()).boardSpaces[11]).setOwner(((Board)getWorld()).turn);
+                                ((Board)getWorld()).turn.subMoney(((Property)((Board)getWorld()).boardSpaces[11]).price);
+                                ((Board)getWorld()).turn.playerProperties.add(((Property)((Board)getWorld()).boardSpaces[11]).spaceNumber);
+                            }
+                            else if(response.equals("n")) {
+                                ((Board)getWorld()).showText("but why ;((((", 330, 430);
+                            }
+                        }
+                        else if (((Property)((Board)getWorld()).boardSpaces[11]).getOwner() != null) {
+                            //otherwise the property collects rent
+                            ((Property)((Board)getWorld()).boardSpaces[11]).collectRent(((Board)getWorld()).turn);
+                        }
+                        
+                        if (((Property)((Board)getWorld()).boardSpaces[11]).getOwner() != null && ((Property)((Board)getWorld()).boardSpaces[11]).getOwner().equals(((Board)getWorld()).turn)){
+                            // checks property color
+                            String color = ((Property)((Board)getWorld()).boardSpaces[11]).COLORS[((Board)getWorld()).turn.getCurrentSpace()];
+                            
+                            if (((Board)getWorld()).turn.hasAMonopoly(color)) {
+                                if (((Property)((Board)getWorld()).boardSpaces[11]).numHouses < 4) {
+                                    //offer to buildHouse
+                                    String s = Greenfoot.ask("Do you want a house? (y/n)");
+                                    if(s.equals("y")) {
+                                        House h = (House)((Property)((Board)getWorld()).boardSpaces[11]).buildHouse();
+                                        ((Board)getWorld()).addObject(h, ((Property)((Board)getWorld()).boardSpaces[11]).x, ((Property)((Board)getWorld()).boardSpaces[11]).y);
+                                    }
+                                }
+                                else if (((Property)((Board)getWorld()).boardSpaces[11]).numHouses == 4) {
+                                    //offer to buildHotel
+                                    String s = Greenfoot.ask("Do you want to build a hotel? (y/n)");
+                                    if(s.equals("y")) {
+                                        Hotel h = (Hotel)((Property)((Board)getWorld()).boardSpaces[11]).buildHouse();
+                                        ((Board)getWorld()).addObject(h, ((Property)((Board)getWorld()).boardSpaces[11]).x, ((Property)((Board)getWorld()).boardSpaces[11]).y);
+                                    }
+                                }
+                            }
+                        }
                 //go to mr. hathaway 
                 break;
             case "penev":
                 ((Board)getWorld()).turn.moveToSpace(21, true);
+                if (((Property)((Board)getWorld()).boardSpaces[21]).getOwner() == null && ((Board)getWorld()).turn.getMoney() >= ((Property)((Board)getWorld()).boardSpaces[21]).price){
+                            // the property has no owner
+                            // it asks if player wants to buy (allows if enough $)
+                            ((Board)getWorld()).waiting(150);
+                            String response = Greenfoot.ask("Would you like to buy " + ((Property)((Board)getWorld()).boardSpaces[21]).name + " for $" + ((Property)((Board)getWorld()).boardSpaces[21]).price + " (y/n)?");
+                            if(response.equals("y")) {
+                                ((Property)((Board)getWorld()).boardSpaces[21]).setOwner(((Board)getWorld()).turn);
+                                ((Board)getWorld()).turn.subMoney(((Property)((Board)getWorld()).boardSpaces[21]).price);
+                                ((Board)getWorld()).turn.playerProperties.add(((Property)((Board)getWorld()).boardSpaces[21]).spaceNumber);
+                            }
+                            else if(response.equals("n")) {
+                                ((Board)getWorld()).showText("but why ;((((", 330, 430);
+                            }
+                        }
+                        else if (((Property)((Board)getWorld()).boardSpaces[21]).getOwner() != null) {
+                            //otherwise the property collects rent
+                            ((Property)((Board)getWorld()).boardSpaces[21]).collectRent(((Board)getWorld()).turn);
+                        }
+                        
+                        if (((Property)((Board)getWorld()).boardSpaces[21]).getOwner() != null && ((Property)((Board)getWorld()).boardSpaces[21]).getOwner().equals(((Board)getWorld()).turn)){
+                            // checks property color
+                            String color = ((Property)((Board)getWorld()).boardSpaces[21]).COLORS[((Board)getWorld()).turn.getCurrentSpace()];
+                            
+                            if (((Board)getWorld()).turn.hasAMonopoly(color)) {
+                                if (((Property)((Board)getWorld()).boardSpaces[21]).numHouses < 4) {
+                                    //offer to buildHouse
+                                    String s = Greenfoot.ask("Do you want a house? (y/n)");
+                                    if(s.equals("y")) {
+                                        House h = (House)((Property)((Board)getWorld()).boardSpaces[21]).buildHouse();
+                                        ((Board)getWorld()).addObject(h, ((Property)((Board)getWorld()).boardSpaces[21]).x, ((Property)((Board)getWorld()).boardSpaces[21]).y);
+                                    }
+                                }
+                                else if (((Property)((Board)getWorld()).boardSpaces[21]).numHouses == 4) {
+                                    //offer to buildHotel
+                                    String s = Greenfoot.ask("Do you want to build a hotel? (y/n)");
+                                    if(s.equals("y")) {
+                                        Hotel h = (Hotel)((Property)((Board)getWorld()).boardSpaces[21]).buildHouse();
+                                        ((Board)getWorld()).addObject(h, ((Property)((Board)getWorld()).boardSpaces[21]).x, ((Property)((Board)getWorld()).boardSpaces[21]).y);
+                                    }
+                                }
+                            }
+                        }
                 //go to dr. penev
                 break;
             case "T":
                 ((Board)getWorld()).turn.moveToSpace(5, true);
                 //go to T hallway
+                if (((Railroad)((Board)getWorld()).boardSpaces[5]).getOwner() == null && ((Board)getWorld()).turn.getMoney() >= ((Railroad)((Board)getWorld()).boardSpaces[5]).price){
+                            // the property has no owner
+                            // it asks if player wants to buy (allows if enough $)
+                            ((Board)getWorld()).waiting(150);
+                            String response = Greenfoot.ask("Would you like to buy " + ((Railroad)((Board)getWorld()).boardSpaces[5]).name + " for $" + ((Railroad)((Board)getWorld()).boardSpaces[5]).price + " (y/n)?");
+                            if(response.equals("y")) {
+                                ((Railroad)((Board)getWorld()).boardSpaces[5]).owner = (((Board)getWorld()).turn);
+                                ((Board)getWorld()).turn.subMoney(((Railroad)((Board)getWorld()).boardSpaces[5]).price);
+                                ((Board)getWorld()).turn.playerProperties.add(((Railroad)((Board)getWorld()).boardSpaces[5]).spaceNumber);
+                            }
+                            else if(response.equals("n")) {
+                                ((Board)getWorld()).showText("but why ;((((", 330, 430);
+                            }
+                        }
+                        else if (((Property)((Board)getWorld()).boardSpaces[5]).getOwner() != null) {
+                            int numRoads = 0;
+                            ArrayList<Integer> propList = ((Railroad)((Board)getWorld()).boardSpaces[5]).getOwner().playerProperties;
+                            for (int i = 0; i < propList.size(); i++){
+                                if (((Board)getWorld()).boardSpaces[propList.get(i)].getType().equals("railroad")){
+                                    numRoads++;
+                                }
+                            }
+                            ((Railroad)((Board)getWorld()).boardSpaces[5]).collectRent(((Board)getWorld()).turn, numRoads);
+                        }
+                        
+                        
                 break;
             case "repairs":
                 int houses = 0;

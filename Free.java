@@ -11,7 +11,7 @@ public class Free extends Corner
     public int jackpot = 0;
     
     public Free(){
-        super("Commons", 20, "free", "Commons (make sure to be quiet)");
+        super("Commons", 20, "free", "Commons (make sure\n to be quiet)");
         //needs to add bonus to those that just landed or crossed it
     }
     

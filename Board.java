@@ -437,10 +437,10 @@ public class Board extends World {
                 // while they haven't rolled three doubles the player can take their turn
                 while (!notDoubles && doubles < 3) {
                     if(doubles > 0) {
-                        showText("Double!!!!", 330, 290);
+                        showText("Double!!!!", 330, 430);
                     }
                     waiting(120);
-                    showText("", 330, 290);
+                    showText("", 330, 430);
                     
                     roll1 = dice.roll();
                     roll2 = dice.roll();
@@ -525,7 +525,7 @@ public class Board extends World {
                                 turn.playerProperties.add(((Property)curSpace).spaceNumber);
                             }
                             else if(response.equals("n")) {
-                                showText("but why ;((((", 330, 290);
+                                showText("but why ;((((", 330, 430);
                             }
                         }
                         else if (((Property)curSpace).getOwner() != null) {
@@ -568,7 +568,7 @@ public class Board extends World {
                                 turn.playerProperties.add(((Utility)curSpace).spaceNumber);
                             }
                             else if(response.equals("n")) {
-                                showText("but why ;((((", 330, 290);
+                                showText("but why ;((((", 330, 430);
                             }
                         }
                         else if (((Utility)curSpace).getOwner() != null) {
@@ -603,7 +603,7 @@ public class Board extends World {
                                 turn.playerProperties.add(((Railroad)curSpace).spaceNumber);
                             }
                             else if(response.equals("n")) {
-                                showText("but why ;((((", 330, 290);
+                                showText("but why ;((((", 330, 430);
                             }
                         }
                         else if (((Railroad) curSpace).getOwner() != null) {

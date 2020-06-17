@@ -33,10 +33,15 @@ public class PropertyInfo extends Actor
         // field
         // draw the string
         String name = ((Property)s).name;
+        if (name.equals(""))
+        if (name.indexOf("\n") != -1) {
+            name = name.substring(0, name.indexOf("\n")) + name.substring(name.indexOf("\n") + 1);
+        }
+        
         GreenfootImage i = getImage();
         int centerX = 10;
         if (s.type.equals("property")) {
-            i.setFont(new Font("OptimusPrinceps", false, false, 18));
+            i.setFont(new Font("OptimusPrinceps", false, false, 16));
             Property p = ((Property)s);
             if (p.name.length() <= 3) {
                 name = "\t\t\t" + name + "\t\t\t";
@@ -47,8 +52,8 @@ public class PropertyInfo extends Actor
             else if (p.name.length() < 12) {
                 name = "\t" + name + "\t";
             }
-            i.drawString(name.toUpperCase(), 50, 29);
-            i.setFont(new Font("OptimusPrinceps", false, false, 15));
+            i.drawString(name.toUpperCase(), 35, 29);
+            i.setFont(new Font("OptimusPrinceps", false, false, 14));
             i.drawString("PRICE $" + p.price + "\n", 10, 58);
             i.setFont(new Font("OptimusPrinceps", false, false, 12));
             i.drawString("RENT $" + p.rent, 65, 86);
@@ -65,9 +70,13 @@ public class PropertyInfo extends Actor
     }
     
     public void listUtilInfo(Space s) {
+        String name = s.name;
+        if (name.indexOf("\n") != -1) {
+            name = name.substring(0, name.indexOf("\n")) + name.substring(name.indexOf("\n") + 1);
+        }
         GreenfootImage i = getImage();
-        i.setFont(new Font("OptimusPrinceps", false, false, 18));
-        i.drawString(s.name.toUpperCase(), 38, 29);
+        i.setFont(new Font("OptimusPrinceps", false, false, 16));
+        i.drawString(name.toUpperCase(), 38, 29);
         i.setFont(new Font("OptimusPrinceps", false, false, 12));
         i.drawString("If one utility is owned,\n rent is 4 times amount\n shown on dice", 33, 59);
         i.drawString("If both utilites are owned,\n rent is 10 times amount\n shown on dice", 33, 115);
@@ -76,10 +85,14 @@ public class PropertyInfo extends Actor
     }
     
     public void listRailInfo(Space s) {
+        String name = s.name;
+        if (name.indexOf("\n") != -1) {
+            name = name.substring(0, name.indexOf("\n")) + name.substring(name.indexOf("\n") + 1);
+        }
         GreenfootImage i = getImage();
-        i.setFont(new Font("OptimusPrinceps", false, false, 18));
-        i.drawString(s.name.toUpperCase(), 38, 29);
-        i.setFont(new Font("OptimusPrinceps", false, false, 15));
+        i.setFont(new Font("OptimusPrinceps", false, false, 16));
+        i.drawString(name.toUpperCase(), 38, 29);
+        i.setFont(new Font("OptimusPrinceps", false, false, 14));
         i.drawString("Price: $" + ((Railroad)s).price, 38, 50);;
         i.setFont(new Font("OptimusPrinceps", false, false, 12));
         i.drawString("Rent: \t\t\t\t\t$25", 10, 70);
